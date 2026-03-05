@@ -1,0 +1,6 @@
+﻿
+> portfolio@0.0.0 build
+> tsc -b && vite build
+
+src/components/about/AboutSection.tsx(1,18): error TS6133: 'useEffect' is declared but its value is never read.
+src/components/about/AboutSection.tsx(5,1): error TS6133: 'gsap' is declared but its value is never read.
