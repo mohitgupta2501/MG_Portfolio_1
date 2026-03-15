@@ -124,36 +124,36 @@ const Research = () => {
             <div className="absolute right-10 top-20 bottom-20 w-[60px] pointer-events-none hidden lg:block overflow-hidden opacity-40 z-0 dna-helix-container" />
 
             {/* Background huge text */}
-            <div className="absolute top-40 left-1/2 -translate-x-1/2 text-[15vw] font-black leading-none pointer-events-none select-none z-0" style={{ color: 'rgba(255,255,255,0.015)' }}>
+            <div className="absolute top-40 left-1/2 -translate-x-1/2 text-[15vw] max-[480px]:text-[12vw] font-black leading-none pointer-events-none select-none z-0 overflow-hidden max-w-full" style={{ color: 'rgba(255,255,255,0.015)' }} aria-hidden>
                 RESEARCH
             </div>
 
-            <div className="max-w-[1280px] mx-auto px-6 relative z-10">
+            <div className="max-w-[1280px] mx-auto px-4 max-[480px]:px-3 min-[481px]:px-6 relative z-10 w-full min-w-0">
 
                 {/* Header */}
                 <motion.div
                     initial={{ y: 40, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
-                    className="flex flex-col items-center text-center mb-10"
+                    className="flex flex-col items-center text-center mb-10 w-full min-w-0"
                 >
-                    <div className="inline-flex items-center justify-center mb-6">
-                        <span className="text-[#ff4d5a] text-[11px] font-medium uppercase tracking-[4px] bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] px-[22px] py-[7px] rounded-[50px] relative">
+                    <div className="w-full flex justify-center mb-6 min-w-0">
+                        <span className="text-[#ff4d5a] text-[11px] max-[480px]:text-[10px] font-medium uppercase tracking-[4px] bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] px-[22px] max-[480px]:px-4 py-[7px] rounded-[50px] relative max-w-full truncate">
                             ● RESEARCH
                             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </span>
                     </div>
 
-                    <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-[1.1] mb-4 relative">
+                    <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-[1.1] mb-4 relative break-words">
                         Research & Publications
                     </h2>
 
-                    <p className="text-[#888] text-[16px] italic max-w-[600px] mx-auto leading-[1.6]">
+                    <p className="text-[#888] text-[16px] max-[480px]:text-[14px] italic max-w-[600px] w-full mx-auto leading-[1.6] min-w-0 break-words px-2">
                         Exploring ideas, validating them with data, and sharing knowledge through research.
                     </p>
                 </motion.div>
 
-                {/* Stats Row */}
+                {/* Stats Row — 3 cards: 2 on top + 1 centered below on tablet/mobile */}
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
@@ -161,7 +161,7 @@ const Research = () => {
                     variants={{
                         visible: { transition: { staggerChildren: 0.1 } }
                     }}
-                    className="grid grid-cols-2 md:grid-cols-3 gap-[16px] max-w-[680px] md:max-w-[510px] mx-auto mb-7 items-stretch"
+                    className="grid grid-cols-2 min-[1025px]:grid-cols-3 gap-[16px] max-w-[680px] min-[1025px]:max-w-[510px] mx-auto mb-7 items-stretch"
                 >
                     {stats.map((stat, i) => (
                         <motion.div
@@ -170,21 +170,23 @@ const Research = () => {
                                 hidden: { y: 30, opacity: 0 },
                                 visible: { y: 0, opacity: 1 }
                             }}
-                            className="h-full w-full"
+                            className={`h-full w-full ${i === 2 ? 'col-span-2 min-[1025px]:col-span-1 flex justify-center min-[1025px]:block' : ''}`}
                         >
-                            <StatCard
-                                icon={stat.icon}
-                                num={stat.value}
-                                label={stat.label}
-                                sub={stat.sub}
-                                color={stat.color}
-                            />
+                            <div className={i === 2 ? 'w-full max-w-[280px] min-[1025px]:max-w-none min-[1025px]:w-full h-full' : ''}>
+                                <StatCard
+                                    icon={stat.icon}
+                                    num={stat.value}
+                                    label={stat.label}
+                                    sub={stat.sub}
+                                    color={stat.color}
+                                />
+                            </div>
                         </motion.div>
                     ))}
                 </motion.div>
 
-                {/* Research Cards */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-[20px] mb-8">
+                {/* Research Cards — 1 col mobile, 2 tablet, 3 desktop */}
+                <div className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 gap-[20px] mb-8">
                     {researchData.map((research, index) => (
                         <motion.div
                             key={research.id}

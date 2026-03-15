@@ -256,26 +256,26 @@ const Leadership = memo(() => {
                 <div className="lead-header-wrap">
                     <h2 className="lead-watermark">LEADERSHIP</h2>
                     <motion.div initial={{ y: 40, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lead-header-content">
-                        <div className="inline-flex items-center justify-center mb-6">
-                            <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px] relative">
+                        <div className="w-full flex justify-center mb-6 min-w-0">
+                            <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] max-[480px]:text-[10px] font-medium uppercase rounded-[50px] px-[22px] max-[480px]:px-4 py-[7px] relative max-w-full truncate">
                                 ● LEADERSHIP & ACTIVITIES
                                 <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                             </span>
                         </div>
-                        <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] mb-4 leading-tight">Leadership & Activities</h2>
+                        <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] mb-4 leading-tight break-words">Leadership & Activities</h2>
                         <p className="lead-subtitle">From organizing events to guiding teams - leadership in action</p>
                     </motion.div>
                 </div>
 
-                {/* STATS ROW */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7">
+                {/* STATS ROW — 4 cards: 2x2 tablet/mobile, single row desktop */}
+                <div className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7">
                     {statsData.map((stat, i) => (
                         <StatCard key={i} stat={stat} i={i} />
                     ))}
                 </div>
 
                 {/* TAB SWITCHER */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4">
+                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 overflow-hidden max-[480px]:px-2">
                     {tabKeys.map((key) => {
                         const tab = tabData[key];
                         const isActive = activeYear === key;
@@ -313,7 +313,7 @@ const Leadership = memo(() => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.4 }}
-                            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                            className="grid grid-cols-1 min-[481px]:grid-cols-2 gap-6"
                         >
                             {currentTab.items.filter((x) => x.type !== 'header').map((item, i) => (
                                 <motion.div
@@ -330,7 +330,7 @@ const Leadership = memo(() => {
                                     >
                                         {(i + 1).toString().padStart(2, '0')}
                                     </div>
-                                    <p className="ach-description text-[#9ca3af] text-[15px] leading-[1.6] transition-all duration-300 pt-1">
+                                    <p className="ach-description text-[#9ca3af] text-[15px] max-[480px]:text-[14px] leading-[1.6] transition-all duration-300 pt-1 break-words min-w-0">
                                         {item.title} {item.org && `— ${item.org}`} · {item.desc}
                                     </p>
                                 </motion.div>
@@ -362,6 +362,9 @@ const Leadership = memo(() => {
                     position: relative;
                     z-index: 10;
                 }
+                @media (max-width: 480px) {
+                    .lead-container { padding: 0 12px; }
+                }
                 /* HEADER */
                 .lead-header-wrap {
                     display: flex;
@@ -370,6 +373,8 @@ const Leadership = memo(() => {
                     justify-content: center;
                     margin-bottom: 40px;
                     position: relative;
+                    width: 100%;
+                    min-width: 0;
                 }
                 .lead-watermark {
                     position: absolute;
@@ -382,6 +387,9 @@ const Leadership = memo(() => {
                     user-select: none;
                     white-space: nowrap;
                     margin: 0;
+                }
+                @media (max-width: 480px) {
+                    .lead-watermark { font-size: 70px; }
                 }
                 .lead-header-content {
                     display: flex;
@@ -398,6 +406,10 @@ const Leadership = memo(() => {
                     margin: 0 auto;
                     line-height: 1.7;
                     text-align: center;
+                    word-break: break-word;
+                }
+                @media (max-width: 480px) {
+                    .lead-subtitle { font-size: 14px; }
                 }
 
 

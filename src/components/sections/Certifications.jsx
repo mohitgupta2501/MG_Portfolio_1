@@ -452,9 +452,9 @@ const CertCardCompact = memo(({ data, issuerLabel, color, rgb, onViewDetails }) 
     const badgeLabel = specialBadge || issuerLabel;
 
     return (
-        <div className="cert-card-wrapper h-full">
+        <div className="cert-card-wrapper h-full min-w-0">
             <div
-                className="cert-card-inner group relative w-full h-full min-h-[300px] border border-[rgba(255,255,255,0.06)] rounded-[14px] p-[14px] pb-[12px] flex flex-col overflow-hidden cursor-default"
+                className="cert-card-inner group relative w-full h-full min-h-[300px] border border-[rgba(255,255,255,0.06)] rounded-[14px] p-[14px] max-[480px]:p-3 pb-[12px] flex flex-col overflow-hidden cursor-default min-w-0"
                 style={{ '--card-color': color, '--cat-rgb': rgb }}
             >
                 {/* Glow Blob */}
@@ -524,7 +524,7 @@ const CertCardCompact = memo(({ data, issuerLabel, color, rgb, onViewDetails }) 
 
                     {/* ROW 6: Action Buttons */}
                     <button
-                        className="view-btn w-full mt-auto py-[10px] px-[16px] rounded-[12px] border flex items-center justify-center gap-[8px] text-[12px] font-[600] tracking-[0.3px] transition-all duration-[0.3s] ease-[cubic-bezier(0.4,0,0.2,1)] group/btn relative z-20"
+                        className="view-btn w-full mt-auto py-[10px] px-[16px] rounded-[12px] border flex items-center justify-center gap-[8px] text-[12px] max-[480px]:text-[11px] font-[600] tracking-[0.3px] transition-all duration-[0.3s] ease-[cubic-bezier(0.4,0,0.2,1)] group/btn relative z-20"
                         onClick={() => onViewDetails({ ...data, issuerLabel, color, rgb })}
                     >
                         View Details
@@ -654,10 +654,10 @@ const CertificationModal = ({ cert, onClose }) => {
                             </div>
                         </div>
 
-                        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <div className="flex gap-4 w-full sm:w-auto">
+                        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col min-[481px]:flex-row items-stretch min-[481px]:items-center justify-between gap-4">
+                            <div className="flex flex-col max-[480px]:w-full min-[481px]:flex-row gap-4 min-[481px]:w-auto">
                                 <button
-                                    className="px-5 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-[14px] font-medium transition-all duration-300 group w-full sm:w-auto"
+                                    className="px-5 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-[14px] font-medium transition-all duration-300 group w-full min-[481px]:w-auto"
                                     style={{ borderColor: `${cert.color}50`, color: cert.color }}
 
                                     onMouseEnter={(e) => {
@@ -694,7 +694,7 @@ const CertificationModal = ({ cert, onClose }) => {
 
                             <button
                                 onClick={onClose}
-                                className="px-5 py-2.5 rounded-xl border border-[#2a2a2a] text-[#888] bg-transparent text-[14px] font-medium flex items-center justify-center transition-all duration-300 hover:border-[#ff4d5a] hover:bg-[#ff4d5a] hover:text-white hover:shadow-[0_4px_14px_rgba(255,77,90,0.4)] w-full sm:w-auto mt-4 sm:mt-0"
+                                className="px-5 py-2.5 rounded-xl border border-[#2a2a2a] text-[#888] bg-transparent text-[14px] font-medium flex items-center justify-center transition-all duration-300 hover:border-[#ff4d5a] hover:bg-[#ff4d5a] hover:text-white hover:shadow-[0_4px_14px_rgba(255,77,90,0.4)] w-full min-[481px]:w-auto mt-4 min-[481px]:mt-0"
                             >
                                 Close
                             </button>
@@ -719,11 +719,11 @@ const Certifications = memo(() => {
         <section id="certifications" className="relative pt-[80px] pb-[80px] bg-[#080808] overflow-hidden">
             <style dangerouslySetInnerHTML={{ __html: INJECTED_STYLES }} />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div className="max-w-7xl mx-auto px-4 max-[480px]:px-3 min-[481px]:px-6 min-[1025px]:px-8 relative z-10 w-full min-w-0">
                 {/* Section Header */}
-                <div className="flex flex-col items-center justify-center mb-10 relative">
+                <div className="flex flex-col items-center justify-center mb-10 relative w-full min-w-0">
                     {/* Background Text */}
-                    <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[80px] sm:text-[120px] md:text-[160px] font-black text-white/[0.015] pointer-events-none select-none uppercase tracking-widest whitespace-nowrap">
+                    <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[80px] max-[480px]:text-[60px] min-[481px]:text-[120px] min-[1025px]:text-[160px] font-black text-white/[0.015] pointer-events-none select-none uppercase tracking-widest whitespace-nowrap overflow-hidden max-w-full" aria-hidden>
                         Certifications
                     </h2>
 
@@ -732,26 +732,28 @@ const Certifications = memo(() => {
                         whileInView={{ y: 0, opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="flex flex-col items-center"
+                        className="flex flex-col items-center min-w-0"
                     >
                         {/* Pill Badge */}
-                        <div className="px-[22px] py-[7px] rounded-[50px] border mb-6 inline-flex items-center justify-center font-medium bg-[rgba(255,77,90,0.1)] border-[rgba(255,77,90,0.3)] text-[#ff4d5a] text-[11px] uppercase tracking-[4px] relative">
-                            ● CERTIFICATIONS
-                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
+                        <div className="w-full flex justify-center mb-6 min-w-0">
+                            <span className="px-[22px] max-[480px]:px-4 py-[7px] rounded-[50px] border font-medium bg-[rgba(255,77,90,0.1)] border-[rgba(255,77,90,0.3)] text-[#ff4d5a] text-[11px] max-[480px]:text-[10px] uppercase tracking-[4px] relative max-w-full truncate">
+                                ● CERTIFICATIONS
+                                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
+                            </span>
                         </div>
 
-                        <h2 className="text-[#ffffff] text-center font-[800]" style={{ fontSize: 'clamp(36px, 5.5vw, 66px)', letterSpacing: '-0.02em' }}>
+                        <h2 className="section-heading text-[#ffffff] text-center font-[800] break-words text-[clamp(24px,5.5vw,66px)] max-[480px]:text-[clamp(22px,5vw,30px)]" style={{ letterSpacing: '-0.02em' }}>
                             Licenses &amp; Certifications
                         </h2>
 
-                        <p className="text-[#888888] text-[15px] sm:text-[16px] italic text-center max-w-2xl font-light mt-3">
+                        <p className="text-[#888888] text-[15px] min-[481px]:text-[16px] max-[480px]:text-[14px] italic text-center max-w-2xl w-full font-light mt-3 min-w-0 break-words px-2">
                            Certifications that validate expertise and reflect a commitment to continuous learning.
                         </p>
                     </motion.div>
                 </div>
 
-                {/* Stats Row */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch">
+                {/* Stats Row — 4 cards: 2x2 tablet/mobile, single row desktop */}
+                <div className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch">
                     {stats.map((stat, i) => (
                         <div key={i} className="h-full">
                             <StatCard icon={stat.icon} value={stat.value} label={stat.label} color={stat.color} />
@@ -760,7 +762,7 @@ const Certifications = memo(() => {
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4">
+                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 overflow-hidden max-[480px]:px-2">
                     {FILTERS.map((filter) => {
                         const { name, count } = filter;
                         const isActive = activeFilter === name;
@@ -842,7 +844,7 @@ const Certifications = memo(() => {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 items-stretch w-full">
+                                <div className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 min-[1280px]:grid-cols-4 gap-4 sm:gap-6 items-stretch w-full">
                                     {group.cards.map((card) => (
                                         <motion.div
                                             key={card.num}

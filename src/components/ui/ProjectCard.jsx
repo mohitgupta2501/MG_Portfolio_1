@@ -30,7 +30,7 @@ const ProjectCard = memo(({ project, index, onClick }) => {
             onClick={() => onClick(project)}
         >
             <div
-                className="group relative w-full h-full bg-[linear-gradient(145deg,#111111,#0c0c0c)] border border-[#1a1a1a] rounded-[20px] p-[18px] sm:p-[24px] flex flex-col overflow-hidden transition-all duration-[0.4s] ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer"
+                className="group relative w-full h-full min-w-0 bg-[linear-gradient(145deg,#111111,#0c0c0c)] border border-[#1a1a1a] rounded-[20px] p-[18px] max-[480px]:p-4 min-[481px]:p-[24px] flex flex-col overflow-hidden transition-all duration-[0.4s] ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer"
                 style={{
                     '--card-color': project.color,
                     '--cat-rgb': cardColorRgb
@@ -125,11 +125,11 @@ const ProjectCard = memo(({ project, index, onClick }) => {
                 </div>
 
                 {/* Title & Subtitle */}
-                <div className="mb-3 relative z-10 flex flex-col gap-1">
-                    <h3 className="role-title font-bold text-white text-[17px] sm:text-[19px] leading-[22px] transition-colors duration-300 pr-[50px] h-[44px]" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                <div className="mb-3 relative z-10 flex flex-col gap-1 min-w-0">
+                    <h3 className="role-title font-bold text-white text-[17px] max-[480px]:text-[15px] min-[481px]:text-[19px] leading-[22px] transition-colors duration-300 pr-[50px] h-[44px] break-words" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                         {project.title}
                     </h3>
-                    <p className="text-[#aaaaaa] text-[13px] truncate h-[20px] leading-[20px]">{project.subtitle}</p>
+                    <p className="text-[#aaaaaa] text-[13px] max-[480px]:text-[12px] truncate h-[20px] leading-[20px] min-w-0">{project.subtitle}</p>
                 </div>
 
                 {/* Company & Duration */}
@@ -153,8 +153,8 @@ const ProjectCard = memo(({ project, index, onClick }) => {
                 <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent)] my-[12px] relative z-10 opacity-40" />
 
                 {/* Description */}
-                <div className="relative z-10 mb-2 mt-1 min-h-[64px]">
-                    <p className="text-[#888888] text-[13px] leading-[1.6] line-clamp-3" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                <div className="relative z-10 mb-2 mt-1 min-h-[64px] min-w-0">
+                    <p className="text-[#888888] text-[13px] max-[480px]:text-[12px] leading-[1.6] line-clamp-3 break-words" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                         {project.description}
                     </p>
                 </div>
@@ -181,7 +181,7 @@ const ProjectCard = memo(({ project, index, onClick }) => {
                     {/* Action Buttons */}
                     <div className="flex items-center gap-3 relative z-10">
                         <button
-                            className="view-btn w-full mt-auto py-[11px] px-[20px] rounded-[12px] border flex items-center justify-center gap-[8px] text-[13px] font-[600] tracking-[0.3px] transition-all duration-[0.3s] ease-[cubic-bezier(0.4,0,0.2,1)] group/btn relative z-20"
+                            className="view-btn w-full mt-auto py-[11px] px-[20px] rounded-[12px] border flex items-center justify-center gap-[8px] text-[13px] max-[480px]:text-[12px] font-[600] tracking-[0.3px] transition-all duration-[0.3s] ease-[cubic-bezier(0.4,0,0.2,1)] group/btn relative z-20"
                             onClick={(e) => { e.stopPropagation(); onClick(project); }}
                         >
                             View Details

@@ -58,24 +58,24 @@ const About = React.memo(function About() {
                 <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#ef4444]/5 blur-[120px] rounded-full" />
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="max-w-7xl mx-auto px-4 max-[480px]:px-3 min-[481px]:px-6 relative z-10 w-full min-w-0">
                 <motion.div
-                    className="flex flex-col items-center justify-center text-center mb-10"
+                    className="flex flex-col items-center justify-center text-center mb-10 w-full min-w-0"
                     initial={{ y: 40, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, ease: "easeOut" }}
                 >
-                    <div className="inline-flex items-center justify-center mb-6">
-                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px] relative">
+                    <div className="w-full flex justify-center mb-6 min-w-0">
+                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] max-[480px]:text-[10px] font-medium uppercase rounded-[50px] px-[22px] max-[480px]:px-4 py-[7px] relative max-w-full truncate">
                             ● ABOUT ME
                             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </span>
                     </div>
-                    <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-tight mb-4 font-display">
+                    <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight mb-4 font-display break-words">
                         About Me
                     </h2>
-                    <p className="max-w-[580px] text-[#888888] text-[16px] italic">
+                    <p className="max-w-[580px] w-full text-[#888888] text-[16px] max-[480px]:text-[14px] italic min-w-0 break-words px-2">
                         Turning ideas into intelligent systems and problems into powerful digital solutions.
                     </p>
                 </motion.div>
@@ -97,11 +97,11 @@ const About = React.memo(function About() {
                         {/* Photo Wrapper */}
                         <div className="relative group inline-flex flex-col">
                             <div className="relative z-10 w-full max-w-[420px]">
-                                <div className="w-full max-h-[480px] overflow-hidden border-2 border-[#ef4444]/30 shadow-[0_0_60px_rgba(239,68,68,0.15)] transition-shadow duration-500 group-hover:shadow-[0_0_80px_rgba(239,68,68,0.25)] bg-[#0a0a0a] rounded-[12px]">
+                                <div className="w-full max-h-[480px] overflow-hidden border-2 border-[#ef4444]/30 shadow-[0_0_60px_rgba(239,68,68,0.15)] transition-shadow duration-500 group-hover:shadow-[0_0_80px_rgba(239,68,68,0.25)] bg-[#0a0a0a] rounded-[12px] max-w-full">
                                     <img
                                         src={mohitImage}
                                         alt="Mohit Gupta"
-                                        className="w-full max-h-[480px] object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
+                                        className="w-full max-w-full h-auto max-h-[480px] object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
                                         onError={(e) => {
                                             e.target.onerror = null;
                                             e.target.src = mohitImage;
@@ -111,18 +111,18 @@ const About = React.memo(function About() {
                             </div>
                         </div>
 
-                        <motion.div variants={itemVariants} className="flex flex-wrap gap-4 justify-center mt-8 w-full">
+                        <motion.div variants={itemVariants} className="flex flex-wrap gap-4 justify-center mt-8 w-full max-[480px]:flex-col max-[480px]:items-stretch">
                             <a
                                 href="/CV/Mohit_Gupta_CV.pdf"
                                 download="Mohit_Gupta_CV.pdf"
-                                className="px-6 py-2.5 rounded-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white text-[14px] font-medium transition-colors duration-300 shadow-lg shadow-[var(--accent)]/20 inline-flex items-center gap-2"
+                                className="px-6 py-2.5 rounded-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white text-[14px] font-medium transition-colors duration-300 shadow-lg shadow-[var(--accent)]/20 inline-flex items-center justify-center gap-2 max-[480px]:w-full"
                             >
-                                <Download className="w-4 h-4" />
+                                <Download className="w-4 h-4 shrink-0" />
                                 Download CV
                             </a>
                             <a
                                 href="#contact"
-                                className="px-6 py-2.5 bg-transparent border border-[#ef4444] text-[#ef4444] rounded-full font-bold hover:bg-[#ef4444] hover:text-white hover:-translate-y-1 transition-all duration-300 active:scale-95"
+                                className="px-6 py-2.5 bg-transparent border border-[#ef4444] text-[#ef4444] rounded-full font-bold hover:bg-[#ef4444] hover:text-white hover:-translate-y-1 transition-all duration-300 active:scale-95 text-center max-[480px]:w-full"
                             >
                                 Let's Connect
                             </a>
@@ -139,20 +139,20 @@ const About = React.memo(function About() {
                         className="flex flex-col items-start text-left order-2 lg:order-2"
                     >
                         <motion.div variants={containerVariants} className="flex flex-col items-start w-full">
-                            <motion.p variants={itemVariants} className="max-w-[580px] text-[#9ca3af] text-base md:text-lg leading-[1.8] mb-4">
+                            <motion.p variants={itemVariants} className="max-w-[580px] w-full text-[#9ca3af] text-base min-[481px]:text-lg leading-[1.8] mb-4 min-w-0 break-words">
                                 Crafting Intelligence, <span className="text-white">Building </span>
                                 <span className="text-[#ef4444]">Impact.</span>
                             </motion.p>
 
                             {/* Paragraph */}
-                            <motion.div variants={itemVariants} className="group mb-4">
-                                <p className="text-[#9ca3af] text-base md:text-lg leading-[1.8] max-w-xl group-hover:text-[#e2e8f0] transition-colors duration-300">
+                            <motion.div variants={itemVariants} className="group mb-4 min-w-0 w-full">
+                                <p className="text-[#9ca3af] text-base min-[481px]:text-lg leading-[1.8] max-w-xl group-hover:text-[#e2e8f0] transition-colors duration-300 break-words">
                                     Data Science & AI Engineering student with a 9.6/10 CGPA, passionate about
                                     transforming complex problems into intelligent, real-world solutions. From
                                     AI-driven healthcare research to building an AutoML platform at Hitachi India —
                                     I build things that matter.
                                 </p>
-                                <p className="text-[#9ca3af] text-base md:text-lg leading-[1.8] max-w-xl group-hover:text-[#e2e8f0] transition-colors duration-300 mt-[14px]">
+                                <p className="text-[#9ca3af] text-base min-[481px]:text-lg leading-[1.8] max-w-xl group-hover:text-[#e2e8f0] transition-colors duration-300 mt-[14px] break-words">
                                     Founder & CEO of Eagle Wears, four-time Gold Medalist in Shot Put & Discus
                                     Throw, and Nagpur University state-level representative — I bring the same
                                     discipline and competitive spirit from athletics into engineering.

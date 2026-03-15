@@ -16,7 +16,7 @@ const ResearchCard = ({ research, index, onClick }) => {
 
     return (
         <div
-            className={`group relative w-full h-full bg-[linear-gradient(145deg,#111111,#0c0c0c)] border border-[#1a1a1a] rounded-[20px] p-[18px] sm:p-[24px] flex flex-col overflow-hidden transition-all duration-[0.4s] ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer`}
+            className={`group relative w-full h-full min-w-0 bg-[linear-gradient(145deg,#111111,#0c0c0c)] border border-[#1a1a1a] rounded-[20px] p-[18px] max-[480px]:p-4 min-[481px]:p-[24px] flex flex-col overflow-hidden transition-all duration-[0.4s] ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer`}
             style={{
                 '--card-color': color,
                 '--cat-rgb': colorRgb
@@ -118,12 +118,12 @@ const ResearchCard = ({ research, index, onClick }) => {
             </div>
 
             {/* ROW 3: Title */}
-            <h3 className="role-title font-[700] text-white text-[19px] leading-[1.3] mb-[6px] transition-colors duration-300 relative z-10 line-clamp-2 h-[50px] overflow-hidden">
+            <h3 className="role-title font-[700] text-white text-[19px] max-[480px]:text-[16px] leading-[1.3] mb-[6px] transition-colors duration-300 relative z-10 line-clamp-2 h-[50px] overflow-hidden break-words min-w-0">
                 {title}
             </h3>
 
             {/* ROW 4: Subtitle */}
-            <p className="text-[#888] text-[12px] italic mb-[12px] relative z-10 truncate h-[18px] leading-none">
+            <p className="text-[#888] text-[12px] max-[480px]:text-[11px] italic mb-[12px] relative z-10 truncate h-[18px] leading-none min-w-0">
                 {subtitle}
             </p>
 
@@ -178,8 +178,8 @@ const ResearchCard = ({ research, index, onClick }) => {
             </div>
 
             {/* ROW 7: Description */}
-            <div className="mb-[18px] relative z-10 w-full h-[60px] overflow-hidden">
-                <p className="text-[#777] text-[13px] leading-[1.5] line-clamp-3">
+            <div className="mb-[18px] relative z-10 w-full min-w-0 h-[60px] overflow-hidden">
+                <p className="text-[#777] text-[13px] max-[480px]:text-[12px] leading-[1.5] line-clamp-3 break-words">
                     {desc}
                 </p>
             </div>
@@ -209,7 +209,7 @@ const ResearchCard = ({ research, index, onClick }) => {
             {/* ROW 8: Buttons */}
             <div className="flex items-center gap-[10px] mt-auto relative z-10 w-full">
                 <button
-                    className="view-btn w-full py-[11px] px-[20px] rounded-[12px] border flex items-center justify-center gap-[8px] text-[13px] font-[600] transition-all duration-300 group/btn"
+                    className="view-btn w-full py-[11px] px-[20px] rounded-[12px] border flex items-center justify-center gap-[8px] text-[13px] max-[480px]:text-[12px] font-[600] transition-all duration-300 group/btn"
                     onClick={(e) => { e.stopPropagation(); onClick(research); }}
                 >
                     View Details

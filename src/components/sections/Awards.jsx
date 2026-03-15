@@ -182,11 +182,11 @@ const Awards = memo(() => {
                 <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div className="max-w-7xl mx-auto px-4 max-[480px]:px-3 min-[481px]:px-6 min-[1025px]:px-8 relative z-10 w-full min-w-0">
 
                 {/* Section Header */}
-                <div className="flex flex-col items-center justify-center mb-10 relative">
-                    <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[80px] sm:text-[120px] md:text-[160px] font-black text-white/[0.015] pointer-events-none select-none uppercase tracking-widest whitespace-nowrap">
+                <div className="flex flex-col items-center justify-center mb-10 relative w-full min-w-0">
+                    <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[80px] max-[480px]:text-[60px] min-[481px]:text-[120px] min-[1025px]:text-[160px] font-black text-white/[0.015] pointer-events-none select-none uppercase tracking-widest whitespace-nowrap overflow-hidden max-w-full" aria-hidden>
                         Honors
                     </h2>
 
@@ -195,40 +195,47 @@ const Awards = memo(() => {
                         whileInView={{ y: 0, opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="flex flex-col items-center"
+                        className="flex flex-col items-center min-w-0"
                     >
                         {/* RED BADGE (Matching other sections) */}
-                        <div className="px-[22px] py-[7px] rounded-[50px] border mb-6 inline-flex items-center justify-center font-medium bg-[rgba(255,77,90,0.1)] border-[rgba(255,77,90,0.3)] text-[#ff4d5a] text-[11px] uppercase tracking-[4px] relative">
-                            ● AWARDS & HONORS
-                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
+                        <div className="w-full flex justify-center mb-6 min-w-0">
+                            <span className="px-[22px] max-[480px]:px-4 py-[7px] rounded-[50px] border font-medium bg-[rgba(255,77,90,0.1)] border-[rgba(255,77,90,0.3)] text-[#ff4d5a] text-[11px] max-[480px]:text-[10px] uppercase tracking-[4px] relative max-w-full truncate">
+                                ● AWARDS & HONORS
+                                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
+                            </span>
                         </div>
 
-                        <h2 className="text-[#ffffff] text-center font-[800]" style={{ fontSize: 'clamp(36px, 5.5vw, 66px)', letterSpacing: '-0.02em' }}>
+                        <h2 className="section-heading text-[#ffffff] text-center font-[800] break-words text-[clamp(24px,5.5vw,66px)] max-[480px]:text-[clamp(22px,5vw,30px)]" style={{ letterSpacing: '-0.02em' }}>
                             Awards & Honors
                         </h2>
 
-                        <p className="text-[#888888] text-[15px] sm:text-[16px] italic text-center max-w-2xl font-light mt-3">
+                        <p className="text-[#888888] text-[15px] min-[481px]:text-[16px] max-[480px]:text-[14px] italic text-center max-w-2xl w-full font-light mt-3 min-w-0 break-words px-2">
                             Celebrating milestones achieved through passion, hard work, and determination.
                         </p>
                     </motion.div>
                 </div>
 
-                {/* Fixed Width Centered Stats Grid */}
-                <div className="flex flex-wrap justify-center gap-[16px] max-w-[1100px] mx-auto mb-7 items-stretch">
+                {/* Stats Grid — 4→2x2, 3→2+1 centered, 6→3x2 tablet / 2x3 mobile */}
+                <div className={`grid gap-[16px] max-w-[1100px] mx-auto mb-7 items-stretch
+                    grid-cols-2
+                    ${stats.length === 3 ? 'min-[1025px]:grid-cols-3' : stats.length === 4 ? 'min-[1025px]:grid-cols-4' : 'min-[481px]:grid-cols-3 min-[1025px]:grid-cols-6'}
+                `}>
                     {stats.map((stat, i) => (
-                        <div key={`${activeTab}-${i}`} className="w-[150px] sm:w-[160px] lg:w-[165px] h-full flex-none">
-                            <StatCard
-                                icon={stat.icon}
-                                num={stat.value}
-                                label={stat.label}
-                                color={stat.color}
-                            />
+                        <div key={`${activeTab}-${i}`} className={`h-full min-w-0 ${stats.length === 3 && i === 2 ? 'col-span-2 min-[1025px]:col-span-1 flex justify-center min-[1025px]:block' : ''}`}>
+                            <div className={stats.length === 3 && i === 2 ? 'w-full max-w-[280px] min-[1025px]:max-w-none min-[1025px]:w-full h-full' : 'h-full w-full'}>
+                                <StatCard
+                                    icon={stat.icon}
+                                    num={stat.value}
+                                    label={stat.label}
+                                    color={stat.color}
+                                />
+                            </div>
                         </div>
                     ))}
                 </div>
 
-                {/* Pill Style Tabs (Matching Projects.jsx exactly) */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4">
+                {/* Pill Style Tabs */}
+                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 overflow-hidden max-[480px]:px-2">
                     {Object.entries(tabData).map(([key, data]) => {
                         const isActive = activeTab === key;
                         return (
@@ -264,7 +271,7 @@ const Awards = memo(() => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.4 }}
-                            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                            className="grid grid-cols-1 min-[481px]:grid-cols-2 gap-6"
                         >
                             {items.map((item, i) => (
                                 <motion.div
@@ -279,7 +286,7 @@ const Awards = memo(() => {
                                         style={{ backgroundColor: '#ff4d5a' }}>
                                         {(i + 1).toString().padStart(2, '0')}
                                     </div>
-                                    <p className="ach-description text-[#9ca3af] text-[15px] leading-[1.6] transition-all duration-300 pt-1">
+                                    <p className="ach-description text-[#9ca3af] text-[15px] max-[480px]:text-[14px] leading-[1.6] transition-all duration-300 pt-1 break-words min-w-0">
                                         {item.text}
                                     </p>
                                 </motion.div>
@@ -326,9 +333,6 @@ const Awards = memo(() => {
 
                 .ach-list-card {
                     transition: all 0.25s ease !important;
-                }
-                    0%, 100% { transform: scale(1); opacity: 0.3; }
-                    50% { transform: scale(1.1); opacity: 0.5; }
                 }
                 `
             }} />

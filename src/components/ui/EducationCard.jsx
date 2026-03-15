@@ -46,7 +46,7 @@ const EducationCard = memo(({ edu, onViewDetails, index }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="group relative flex flex-col h-full bg-[#111] border border-[#1a1a1a] rounded-2xl overflow-hidden transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[8px] hover:scale-[1.015]"
+            className="group relative flex flex-col h-full min-w-0 bg-[#111] border border-[#1a1a1a] rounded-2xl overflow-hidden transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[8px] hover:scale-[1.015]"
             style={{
                 '--cat-color': color,
                 '--cat-rgb': rgb
@@ -87,7 +87,7 @@ const EducationCard = memo(({ edu, onViewDetails, index }) => {
             <div className={`absolute top-[20%] bottom-[20%] left-0 w-[3px] rounded-r-md transition-all duration-300 left-accent-${edu.id}`}
                 style={{ backgroundColor: `rgba(${rgb}, 0.3)` }} />
 
-            <div className="p-6 md:p-8 flex flex-col flex-grow relative z-20 cursor-pointer">
+                <div className="p-6 max-[480px]:p-4 min-[481px]:p-8 flex flex-col flex-grow relative z-20 cursor-pointer min-w-0">
 
                 {/* TOP SECTION: Badges */}
                 <div className="flex items-center justify-between gap-2 mb-4 w-full">
@@ -154,7 +154,7 @@ const EducationCard = memo(({ edu, onViewDetails, index }) => {
                 </div>
 
                 {/* CONTENT */}
-                <h3 className="text-white font-[700] text-[17px] sm:text-[18px] leading-[1.3] mb-1 transition-colors duration-300 group-hover:!text-[var(--cat-color)]">
+                <h3 className="text-white font-[700] text-[17px] max-[480px]:text-[15px] min-[481px]:text-[18px] leading-[1.3] mb-1 transition-colors duration-300 group-hover:!text-[var(--cat-color)] break-words">
                     {edu.institution}
                 </h3>
 
@@ -208,9 +208,9 @@ const EducationCard = memo(({ edu, onViewDetails, index }) => {
                 {/* ACHIEVEMENT PILLS REMOVED FOR B.TECH AS PER REQUEST */}
 
                 {/* TOP 3 HIGHLIGHTS */}
-                <ul className="flex flex-col gap-2.5 mb-8 flex-grow">
+                <ul className="flex flex-col gap-2.5 mb-8 flex-grow min-w-0">
                     {highlights.slice(0, 3).map((hl, i) => (
-                        <li key={i} className="flex gap-3 items-start text-[13px] text-[#aaa] leading-[1.5]">
+                        <li key={i} className="flex gap-3 items-start text-[13px] max-[480px]:text-[12px] text-[#aaa] leading-[1.5] break-words">
                             <div className="w-1.5 h-1.5 rounded-full mt-[6px] shrink-0"
                                 style={{ backgroundColor: color, boxShadow: `0 0 8px ${color}` }} />
                             <span>{hl}</span>

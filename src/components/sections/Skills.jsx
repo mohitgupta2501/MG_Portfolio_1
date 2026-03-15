@@ -134,7 +134,7 @@ const SkillsSection = () => {
                     .bento-col { display: contents; }
                     .bento-box-10 { grid-column: span 2; }
                 }
-                @media (max-width: 640px) {
+                @media (max-width: 480px) {
                     .bento-grid { grid-template-columns: 1fr; }
                     .bento-box-10 { grid-column: span 1; }
                 }
@@ -192,7 +192,8 @@ const SkillsSection = () => {
                     transition: all 0.2s ease;
                     display: inline-flex;
                     align-items: center;
-                    white-space: nowrap;
+                    max-width: 100%;
+                    word-break: break-word;
                     gap: 6px;
                 }
                 .skill-pill:hover {
@@ -213,39 +214,39 @@ const SkillsSection = () => {
                 <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px]" />
             </div>
 
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 max-[480px]:px-3 min-[481px]:px-6 min-[1025px]:px-8 w-full min-w-0">
                 {/* Section Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.6 }}
-                    className="flex flex-col items-center text-center mb-10 relative"
+                    className="flex flex-col items-center text-center mb-10 relative w-full min-w-0"
                 >
-                    <span className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[15vw] md:text-[140px] font-bold text-white/[0.015] pointer-events-none select-none tracking-widest uppercase">
+                    <span className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[15vw] max-[480px]:text-[80px] min-[481px]:text-[140px] font-bold text-white/[0.015] pointer-events-none select-none tracking-widest uppercase overflow-hidden max-w-full" aria-hidden>
                         SKILLS
                     </span>
-                    <div className="inline-flex items-center justify-center mb-6">
-                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px] relative">
+                    <div className="w-full flex justify-center mb-6 min-w-0">
+                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] max-[480px]:text-[10px] font-medium uppercase rounded-[50px] px-[22px] max-[480px]:px-4 py-[7px] relative max-w-full truncate">
                             ● SKILLS
                             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </span>
                     </div>
-                    <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-tight tracking-tight">
+                    <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight tracking-tight break-words">
                         Technical Skills
                     </h2>
-                    <p className="text-[#888] text-[16px] italic max-w-2xl mx-auto mt-3">
+                    <p className="text-[#888] text-[16px] max-[480px]:text-[14px] italic max-w-2xl w-full mx-auto mt-3 min-w-0 break-words px-2">
                        A powerful toolkit of technologies built through hands-on projects and continuous learning.
                     </p>
                 </motion.div>
 
-                {/* Stats Row */}
+                {/* Stats Row — 4 cards: 2x2 tablet/mobile, single row desktop */}
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7"
+                    className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7"
                 >
                     {stats.map((stat, i) => {
                         const Icon = stat.icon;

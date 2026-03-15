@@ -12,7 +12,7 @@ const hexToRgb = (hex) => {
 
 const FilterTabs = ({ categories, activeCategory, setActiveCategory, categoryCounts }) => {
     return (
-        <div className="w-full flex flex-wrap justify-center gap-[10px]">
+        <div className="w-full flex flex-wrap justify-center gap-[10px] min-w-0 overflow-hidden px-2 max-[480px]:px-1">
             {categories.map((cat, idx) => {
                 const isActive = activeCategory === cat;
                 return (
@@ -382,7 +382,7 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
                 <div className="accent-bar" />
 
                 {/* INNER CONTENT */}
-                <div className="relative z-10 flex flex-col h-full">
+                <div className="relative z-10 flex flex-col h-full min-w-0">
                     {/* TOP SECTION */}
                     {/* Row 1 */}
                     <div className="flex flex-row justify-between items-center gap-2 pr-[80px] h-[28px] shrink-0">
@@ -423,7 +423,7 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
 
                     {/* Row 2 */}
                     <div className="mt-3 flex flex-col gap-1 shrink-0">
-                        <h3 className="role-title text-white font-[700] text-[17px] sm:text-[19px] leading-[22px] transition-colors duration-300 pr-[60px] h-[44px]" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                        <h3 className="role-title text-white font-[700] text-[17px] max-[480px]:text-[15px] min-[481px]:text-[19px] leading-[22px] transition-colors duration-300 pr-[60px] h-[44px] break-words min-w-0" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                             {item.role}
                         </h3>
                         {/* Company & Type Row */}
@@ -450,8 +450,8 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
                     <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent)] my-[12px] relative z-10 opacity-40 shrink-0" />
 
                     {/* BRIEF SUMMARY */}
-                    <div className="relative z-10 mb-2 mt-1 min-h-[64px] shrink-0">
-                        <p className="text-[#888888] text-[13px] leading-[1.6] line-clamp-3" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                    <div className="relative z-10 mb-2 mt-1 min-h-[64px] shrink-0 min-w-0">
+                        <p className="text-[#888888] text-[13px] max-[480px]:text-[12px] leading-[1.6] line-clamp-3 break-words" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                             {getBriefSummary(item.company, item.role)}
                         </p>
                     </div>
@@ -588,31 +588,31 @@ const Experience = React.memo(function Experience() {
                 `}} />
             </div>
 
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 max-[480px]:px-3 min-[481px]:px-6 min-[1025px]:px-8 w-full min-w-0">
 
                 {/* SECTION HEADER */}
                 <motion.div
-                    className="flex flex-col items-center justify-center text-center mb-10"
+                    className="flex flex-col items-center justify-center text-center mb-10 w-full min-w-0"
                     initial={{ y: 40, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, ease: "easeOut" }}
                 >
-                    <div className="inline-flex items-center justify-center mb-6">
-                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px] relative">
+                    <div className="w-full flex justify-center mb-6 min-w-0">
+                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] max-[480px]:text-[10px] font-medium uppercase rounded-[50px] px-[22px] max-[480px]:px-4 py-[7px] relative max-w-full truncate">
                             ● EXPERIENCE
                             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </span>
                     </div>
-                    <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-tight mb-4 font-display">
+                    <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight mb-4 font-display break-words">
                         Work Experience
                     </h2>
-                    <p className="max-w-[580px] text-[#888888] text-[16px] italic">
+                    <p className="max-w-[580px] w-full text-[#888888] text-[16px] max-[480px]:text-[14px] italic min-w-0 break-words px-2">
                         Where industry experience, entrepreneurship, and social impact come together to build meaningful technology.
                     </p>
                 </motion.div>
 
-                {/* STATS ROW */}
+                {/* STATS ROW — 4 cards: 2x2 tablet/mobile, single row desktop */}
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
@@ -620,7 +620,7 @@ const Experience = React.memo(function Experience() {
                     variants={{
                         visible: { transition: { staggerChildren: 0.1 } }
                     }}
-                    className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch"
+                    className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch"
                 >
                     <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
                         <StatCard icon={Briefcase} num="2" label="INDUSTRY INTERNSHIPS" color="#ff4d5a" />
@@ -660,8 +660,8 @@ const Experience = React.memo(function Experience() {
                     <div className="absolute left-0 top-1/2 text-[rgba(255,255,255,0.05)] text-[10px] font-bold tracking-widest -rotate-90 origin-left pointer-events-none hidden lg:block">2025</div>
                     <div className="absolute left-0 bottom-20 text-[rgba(255,255,255,0.05)] text-[10px] font-bold tracking-widest -rotate-90 origin-left pointer-events-none hidden lg:block">2024</div>
 
-                    {/* EXPERIENCE CARDS GRID */}
-                    <div className="relative z-10 w-full grid grid-cols-1 md:grid-cols-2 gap-[20px] items-stretch lg:px-6">
+                    {/* EXPERIENCE CARDS GRID — 1 col mobile, 2 cols tablet+ */}
+                    <div className="relative z-10 w-full grid grid-cols-1 min-[481px]:grid-cols-2 gap-[20px] items-stretch min-[1025px]:px-6">
                         <AnimatePresence mode="popLayout">
                             {filteredData.map((exp, idx) => (
                                 <ExperienceCard

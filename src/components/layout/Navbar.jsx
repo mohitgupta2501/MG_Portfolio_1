@@ -217,14 +217,15 @@ export default function Navbar() {
                                 );
                             })}
                             <motion.a
-                                href="#contact"
+                                href="/CV/Mohit_Gupta_CV.pdf"
+                        download="Mohit_Gupta_CV.pdf"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: navLinks.length * 0.05 + 0.1, duration: 0.3 }}
                                 className="mt-8 px-8 py-3.5 text-center rounded-full bg-[var(--accent)] text-white text-[16px] font-medium w-full max-w-[200px]"
                                 onClick={() => setMobileMenuOpen(false)}
                             >
-                                Get Started
+                                Download CV
                             </motion.a>
                         </nav>
                     </motion.div>

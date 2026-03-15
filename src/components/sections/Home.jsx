@@ -141,7 +141,7 @@ const Home = React.memo(function Home() {
             </div>
 
             {/* MAIN CONTENT BLOCK */}
-            <div className="relative z-10 w-full max-w-[760px] mx-auto flex flex-col items-center gap-7 sm:gap-8 pt-0 pb-10">
+            <div className="relative z-10 w-full max-w-[760px] mx-auto flex flex-col items-center gap-7 sm:gap-8 pt-0 pb-10 min-w-0 px-2 max-[480px]:px-3">
 
                 {/* 1. TOP BADGE */}
                 <motion.div
@@ -165,7 +165,7 @@ const Home = React.memo(function Home() {
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
-                    className="text-[#ffffff] font-[800] text-[clamp(30px,8vw,44px)] sm:text-[clamp(36px,5.5vw,64px)] leading-[1.1] tracking-[-1px] max-sm:tracking-[-0.5px] drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)] z-10"
+                    className="section-heading text-[#ffffff] font-[800] text-[clamp(24px,5.5vw,64px)] leading-[1.1] tracking-[-1px] max-[480px]:tracking-[-0.5px] drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)] z-10 break-words"
                 >
                     Hi, I'm Mohit Gupta
                 </motion.h1>
@@ -176,7 +176,7 @@ const Home = React.memo(function Home() {
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-                    className="flex items-baseline justify-center text-[clamp(18px,2.5vw,24px)]"
+                    className="flex flex-wrap items-baseline justify-center text-[clamp(16px,2.5vw,24px)] max-[480px]:text-[clamp(14px,4vw,18px)] gap-x-1 min-w-0 w-full px-1"
                 >
                     <span className="text-[#aaaaaa] font-[300]">I'm a&nbsp;</span>
                     <span className="text-[var(--accent)] font-[600] border-b-[2px] border-[var(--accent)] pb-[2px] leading-none inline-block">
@@ -236,23 +236,21 @@ const Home = React.memo(function Home() {
                     ))}
                 </motion.div>
 
-                {/* 6. STATS ROW */}
+                {/* 6. STATS ROW — 5 cards: 2x2+1 centered mobile/tablet, single row desktop */}
                 <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, delay: 0.9, ease: "easeOut" }}
-                    className="flex items-center justify-center w-full max-w-[640px] mx-auto px-3 py-4 sm:px-6 sm:py-6 bg-[rgba(255,255,255,0.03)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.07)] rounded-[16px]"
+                    className="grid grid-cols-2 min-[481px]:grid-cols-3 min-[1025px]:grid-cols-5 min-[1025px]:divide-x min-[1025px]:divide-[rgba(255,255,255,0.1)] gap-4 min-[1025px]:gap-0 w-full max-w-[640px] mx-auto px-3 py-4 max-[480px]:px-3 min-[481px]:px-6 sm:py-6 bg-[rgba(255,255,255,0.03)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.07)] rounded-[16px]"
                 >
                     <StatItem end={9} suffix=".60" label="CGPA" />
-                    <div className="hidden sm:block w-[1px] h-[40px] bg-[rgba(255,255,255,0.1)] shrink-0" />
                     <StatItem end={9} suffix="+" label="PROJECTS" />
-                    <div className="hidden sm:block w-[1px] h-[40px] bg-[rgba(255,255,255,0.1)] shrink-0" />
                     <StatItem end={3} suffix="" label="PUBLICATIONS" />
-                    <div className="hidden sm:block w-[1px] h-[40px] bg-[rgba(255,255,255,0.1)] shrink-0" />
                     <StatItem end={21} suffix="+" label="CERTIFICATIONS" />
-                    <div className="hidden sm:block w-[1px] h-[40px] bg-[rgba(255,255,255,0.1)] shrink-0" />
-                    <StatItem end={75} suffix="+" label="AWARDS" />
+                    <div className="col-span-2 min-[481px]:col-span-1 flex justify-center items-center min-[1025px]:col-span-1">
+                        <StatItem end={75} suffix="+" label="AWARDS" />
+                    </div>
                 </motion.div>
 
             </div>

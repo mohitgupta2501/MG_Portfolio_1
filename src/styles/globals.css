@@ -41,6 +41,12 @@
     overflow-x: hidden;
   }
 
+  /* Responsive: prevent text overflow on all screens */
+  .section-heading {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
   h1,
   h2,
   h3,

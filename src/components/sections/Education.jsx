@@ -125,7 +125,7 @@ const EducationStats = memo(() => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch"
+            className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch"
         >
             {stats.map((stat, idx) => (
                 <motion.div
@@ -183,32 +183,32 @@ export default function Education() {
                 <div className="absolute inset-0 bg-[radial-gradient(#ffffff05_1px,transparent_1px)]" style={{ backgroundSize: '32px 32px' }} />
             </div>
 
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div className="max-w-[1400px] mx-auto px-4 max-[480px]:px-3 min-[481px]:px-6 min-[1025px]:px-8 relative z-10 w-full min-w-0">
                 {/* Header (Unchanged as per rules) */}
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="flex flex-col items-center text-center relative mb-10"
+                    className="flex flex-col items-center text-center relative mb-10 w-full min-w-0"
                 >
-                    <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[clamp(100px,18vw,260px)] font-[900] leading-none text-white/[0.015] pointer-events-none tracking-tighter w-full select-none z-0">
+                    <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[clamp(80px,18vw,260px)] max-[480px]:text-[60px] font-[900] leading-none text-white/[0.015] pointer-events-none tracking-tighter w-full select-none z-0 overflow-hidden max-w-full" aria-hidden>
                         EDUCATION
                     </span>
 
-                    <div className="relative z-10 flex flex-col items-center">
-                        <div className="inline-flex items-center justify-center mb-6">
-                            <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px] relative">
+                    <div className="relative z-10 flex flex-col items-center min-w-0">
+                        <div className="w-full flex justify-center mb-6 min-w-0">
+                            <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] max-[480px]:text-[10px] font-medium uppercase rounded-[50px] px-[22px] max-[480px]:px-4 py-[7px] relative max-w-full truncate">
                                 ● EDUCATION
                                 <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                             </span>
                         </div>
 
-                        <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-[1.1] tracking-tight">
+                        <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-[1.1] tracking-tight break-words">
                             Academic Journey
                         </h2>
 
-                        <p className="text-[#888] text-[16px] italic max-w-[580px] leading-relaxed mx-auto mt-3">
+                        <p className="text-[#888] text-[16px] max-[480px]:text-[14px] italic max-w-[580px] w-full leading-relaxed mx-auto mt-3 min-w-0 break-words px-2">
                             Where theory meets technology to shape the future of intelligent systems.
                         </p>
                     </div>
@@ -217,8 +217,8 @@ export default function Education() {
                 {/* Stats */}
                 <EducationStats />
 
-                {/* NEW 3-COLUMN LAYOUT */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-5 w-full mx-auto items-stretch">
+                {/* Cards — 1 col mobile, 2 tablet, 3 desktop */}
+                <div className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 gap-6 min-[1025px]:gap-5 w-full mx-auto items-stretch">
                     <EducationCard edu={btech} index={0} onViewDetails={() => { }} />
                     <EducationCard edu={hsc} index={1} onViewDetails={() => { }} />
                     <EducationCard edu={ssc} index={2} onViewDetails={() => { }} />
