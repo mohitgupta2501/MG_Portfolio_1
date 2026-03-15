@@ -225,16 +225,16 @@ const SkillsSection = () => {
                     <span className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[15vw] md:text-[140px] font-bold text-white/[0.015] pointer-events-none select-none tracking-widest uppercase">
                         SKILLS
                     </span>
-                    <div className="inline-flex items-center justify-center mb-0">
-                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px]">
+                    <div className="inline-flex items-center justify-center mb-6">
+                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px] relative">
                             ● SKILLS
+                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </span>
                     </div>
-                    <div className="w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px] mx-auto mb-6 mt-[8px]" />
-                    <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-tight mb-4 tracking-tight">
+                    <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-tight tracking-tight">
                         Technical Skills
                     </h2>
-                    <p className="text-[#888] text-[16px] italic max-w-2xl mx-auto">
+                    <p className="text-[#888] text-[16px] italic max-w-2xl mx-auto mt-3">
                        A powerful toolkit of technologies built through hands-on projects and continuous learning.
                     </p>
                 </motion.div>
@@ -245,7 +245,7 @@ const SkillsSection = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-[32px]"
+                    className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7"
                 >
                     {stats.map((stat, i) => {
                         const Icon = stat.icon;

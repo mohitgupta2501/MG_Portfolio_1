@@ -256,26 +256,26 @@ const Leadership = memo(() => {
                 <div className="lead-header-wrap">
                     <h2 className="lead-watermark">LEADERSHIP</h2>
                     <motion.div initial={{ y: 40, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lead-header-content">
-                        <div className="inline-flex items-center justify-center mb-0">
-                            <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px]">
+                        <div className="inline-flex items-center justify-center mb-6">
+                            <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px] relative">
                                 ● LEADERSHIP & ACTIVITIES
+                                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                             </span>
                         </div>
-                        <div className="w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px] mx-auto mb-6 mt-[8px]" />
                         <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] mb-4 leading-tight">Leadership & Activities</h2>
                         <p className="lead-subtitle">From organizing events to guiding teams - leadership in action</p>
                     </motion.div>
                 </div>
 
                 {/* STATS ROW */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-[48px]">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7">
                     {statsData.map((stat, i) => (
                         <StatCard key={i} stat={stat} i={i} />
                     ))}
                 </div>
 
                 {/* TAB SWITCHER */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-[40px] px-4">
+                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4">
                     {tabKeys.map((key) => {
                         const tab = tabData[key];
                         const isActive = activeYear === key;
@@ -302,7 +302,7 @@ const Leadership = memo(() => {
                 </div>
 
                 {/* HORIZONTAL DIVIDER */}
-                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(var(--tab-rgb),0.4),transparent)] mb-[40px]" />
+                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(var(--tab-rgb),0.4),transparent)] mb-7" />
 
                 {/* ROLE GRID */}
                 <div className="w-full">

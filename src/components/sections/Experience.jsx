@@ -592,18 +592,18 @@ const Experience = React.memo(function Experience() {
 
                 {/* SECTION HEADER */}
                 <motion.div
-                    className="flex flex-col items-center justify-center text-center mb-[40px]"
+                    className="flex flex-col items-center justify-center text-center mb-10"
                     initial={{ y: 40, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, ease: "easeOut" }}
                 >
-                    <div className="inline-flex items-center justify-center mb-0">
-                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px]">
+                    <div className="inline-flex items-center justify-center mb-6">
+                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px] relative">
                             ● EXPERIENCE
+                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </span>
                     </div>
-                    <div className="w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px] mx-auto mb-6 mt-[8px]" />
                     <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-tight mb-4 font-display">
                         Work Experience
                     </h2>
@@ -620,7 +620,7 @@ const Experience = React.memo(function Experience() {
                     variants={{
                         visible: { transition: { staggerChildren: 0.1 } }
                     }}
-                    className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-[32px] items-stretch"
+                    className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch"
                 >
                     <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
                         <StatCard icon={Briefcase} num="2" label="INDUSTRY INTERNSHIPS" color="#ff4d5a" />
@@ -637,7 +637,7 @@ const Experience = React.memo(function Experience() {
                 </motion.div>
 
                 {/* FILTER TABS */}
-                <div className="mb-[40px]">
+                <div className="mb-5">
                     <FilterTabs
                         categories={categories}
                         activeCategory={activeCategory}
@@ -647,7 +647,7 @@ const Experience = React.memo(function Experience() {
                 </div>
 
                 {/* HORIZONTAL DIVIDER - NEW */}
-                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-[40px]" />
+                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-7" />
 
                 {/* VERTICAL TIMELINE AND CARDS ROW */}
                 <div className="relative w-full">

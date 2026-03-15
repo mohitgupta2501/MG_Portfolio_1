@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, memo } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Star, Trophy, Award, FileText } from 'lucide-react';
 import EducationCard from '../ui/EducationCard';
-import EducationModal from '../ui/EducationModal';
 import { educationData } from '@/data/education';
 
 // --- STYLES INJECTED AS CONSTANT (AVOIDING EXTERNAL CSS DEPENDENCY) ---
@@ -126,7 +125,7 @@ const EducationStats = memo(() => {
             whileInView="visible"
             viewport={{ once: true }}
             variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-[32px] items-stretch"
+            className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch"
         >
             {stats.map((stat, idx) => (
                 <motion.div
@@ -167,8 +166,6 @@ const EducationTimeline = memo(() => {
 });
 
 export default function Education() {
-    const [selectedEducation, setSelectedEducation] = useState(null);
-
     // Reorder: B.Tech (primary), HSC (secondary), SSC (secondary)
     const btech = educationData.find(e => e.id === 'btech');
     const hsc = educationData.find(e => e.id === 'hsc');
@@ -193,25 +190,25 @@ export default function Education() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="flex flex-col items-center text-center relative mb-8"
+                    className="flex flex-col items-center text-center relative mb-10"
                 >
                     <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[clamp(100px,18vw,260px)] font-[900] leading-none text-white/[0.015] pointer-events-none tracking-tighter w-full select-none z-0">
                         EDUCATION
                     </span>
 
                     <div className="relative z-10 flex flex-col items-center">
-                        <div className="inline-flex items-center justify-center mb-0">
-                            <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px]">
+                        <div className="inline-flex items-center justify-center mb-6">
+                            <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px] relative">
                                 ● EDUCATION
+                                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                             </span>
                         </div>
-                        <div className="w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px] mx-auto mb-6 mt-[8px]" />
 
-                        <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-[1.1] mb-5 tracking-tight">
+                        <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-[1.1] tracking-tight">
                             Academic Journey
                         </h2>
 
-                        <p className="text-[#888] text-[16px] italic max-w-[580px] leading-relaxed mx-auto">
+                        <p className="text-[#888] text-[16px] italic max-w-[580px] leading-relaxed mx-auto mt-3">
                             Where theory meets technology to shape the future of intelligent systems.
                         </p>
                     </div>
@@ -222,19 +219,14 @@ export default function Education() {
 
                 {/* NEW 3-COLUMN LAYOUT */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-5 w-full mx-auto items-stretch">
-                    <EducationCard edu={btech} index={0} onViewDetails={setSelectedEducation} />
-                    <EducationCard edu={hsc} index={1} onViewDetails={setSelectedEducation} />
-                    <EducationCard edu={ssc} index={2} onViewDetails={setSelectedEducation} />
+                    <EducationCard edu={btech} index={0} onViewDetails={() => { }} />
+                    <EducationCard edu={hsc} index={1} onViewDetails={() => { }} />
+                    <EducationCard edu={ssc} index={2} onViewDetails={() => { }} />
                 </div>
 
                 {/* Timeline */}
                 <EducationTimeline />
             </div>
-
-            <EducationModal
-                edu={selectedEducation}
-                onClose={() => setSelectedEducation(null)}
-            />
 
         </section>
     );

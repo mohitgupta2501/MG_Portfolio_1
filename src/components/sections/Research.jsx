@@ -135,16 +135,16 @@ const Research = () => {
                     initial={{ y: 40, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
-                    className="flex flex-col items-center text-center mb-16"
+                    className="flex flex-col items-center text-center mb-10"
                 >
-                    <div className="inline-flex items-center justify-center px-[22px] py-[7px] rounded-[50px] border border-[rgba(255,77,90,0.3)] bg-[rgba(255,77,90,0.1)] mb-0">
-                        <span className="text-[#ff4d5a] text-[11px] font-medium uppercase tracking-[4px]">
+                    <div className="inline-flex items-center justify-center mb-6">
+                        <span className="text-[#ff4d5a] text-[11px] font-medium uppercase tracking-[4px] bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] px-[22px] py-[7px] rounded-[50px] relative">
                             ● RESEARCH
+                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </span>
                     </div>
-                    <div className="w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px] mx-auto mb-6 mt-[8px]" />
 
-                    <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-[1.1] mb-6 relative">
+                    <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-[1.1] mb-4 relative">
                         Research & Publications
                     </h2>
 
@@ -161,7 +161,7 @@ const Research = () => {
                     variants={{
                         visible: { transition: { staggerChildren: 0.1 } }
                     }}
-                    className="grid grid-cols-2 md:grid-cols-3 gap-[16px] max-w-[680px] md:max-w-[510px] mx-auto mb-[32px] items-stretch"
+                    className="grid grid-cols-2 md:grid-cols-3 gap-[16px] max-w-[680px] md:max-w-[510px] mx-auto mb-7 items-stretch"
                 >
                     {stats.map((stat, i) => (
                         <motion.div

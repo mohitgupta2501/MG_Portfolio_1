@@ -51,7 +51,7 @@ const About = React.memo(function About() {
     };
 
     return (
-        <section id="about" className="py-16 relative overflow-hidden bg-transparent">
+        <section id="about" className="pt-[80px] pb-[80px] relative overflow-hidden bg-transparent">
             {/* Background Decorations */}
             <div className="absolute inset-0 pointer-events-none opacity-20">
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#ef4444]/10 blur-[120px] rounded-full" />
@@ -60,18 +60,18 @@ const About = React.memo(function About() {
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 <motion.div
-                    className="flex flex-col items-center justify-center text-center mb-[40px]"
+                    className="flex flex-col items-center justify-center text-center mb-10"
                     initial={{ y: 40, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, ease: "easeOut" }}
                 >
-                    <div className="inline-flex items-center justify-center mb-0">
-                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px]">
+                    <div className="inline-flex items-center justify-center mb-6">
+                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px] relative">
                             ● ABOUT ME
+                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </span>
                     </div>
-                    <div className="w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px] mx-auto mb-6 mt-[8px]" />
                     <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-tight mb-4 font-display">
                         About Me
                     </h2>

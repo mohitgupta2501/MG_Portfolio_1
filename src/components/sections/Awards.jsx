@@ -185,7 +185,7 @@ const Awards = memo(() => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
 
                 {/* Section Header */}
-                <div className="flex flex-col items-center justify-center mb-[40px] relative">
+                <div className="flex flex-col items-center justify-center mb-10 relative">
                     <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[80px] sm:text-[120px] md:text-[160px] font-black text-white/[0.015] pointer-events-none select-none uppercase tracking-widest whitespace-nowrap">
                         Honors
                     </h2>
@@ -198,23 +198,23 @@ const Awards = memo(() => {
                         className="flex flex-col items-center"
                     >
                         {/* RED BADGE (Matching other sections) */}
-                        <div className="px-[22px] py-[7px] rounded-[50px] border mb-0 inline-flex items-center justify-center font-medium bg-[rgba(255,77,90,0.1)] border-[rgba(255,77,90,0.3)] text-[#ff4d5a] text-[11px] uppercase tracking-[4px]">
+                        <div className="px-[22px] py-[7px] rounded-[50px] border mb-6 inline-flex items-center justify-center font-medium bg-[rgba(255,77,90,0.1)] border-[rgba(255,77,90,0.3)] text-[#ff4d5a] text-[11px] uppercase tracking-[4px] relative">
                             ● AWARDS & HONORS
+                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </div>
-                        <div className="w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px] mx-auto mb-6 mt-[8px]" />
 
-                        <h2 className="text-[#ffffff] text-center font-[800] mb-6" style={{ fontSize: 'clamp(36px, 5.5vw, 66px)', letterSpacing: '-0.02em' }}>
+                        <h2 className="text-[#ffffff] text-center font-[800]" style={{ fontSize: 'clamp(36px, 5.5vw, 66px)', letterSpacing: '-0.02em' }}>
                             Awards & Honors
                         </h2>
 
-                        <p className="text-[#888888] text-[15px] sm:text-[16px] italic text-center max-w-2xl font-light">
+                        <p className="text-[#888888] text-[15px] sm:text-[16px] italic text-center max-w-2xl font-light mt-3">
                             Celebrating milestones achieved through passion, hard work, and determination.
                         </p>
                     </motion.div>
                 </div>
 
                 {/* Fixed Width Centered Stats Grid */}
-                <div className="flex flex-wrap justify-center gap-[16px] max-w-[1100px] mx-auto mb-[40px] items-stretch">
+                <div className="flex flex-wrap justify-center gap-[16px] max-w-[1100px] mx-auto mb-7 items-stretch">
                     {stats.map((stat, i) => (
                         <div key={`${activeTab}-${i}`} className="w-[150px] sm:w-[160px] lg:w-[165px] h-full flex-none">
                             <StatCard
@@ -228,7 +228,7 @@ const Awards = memo(() => {
                 </div>
 
                 {/* Pill Style Tabs (Matching Projects.jsx exactly) */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-[40px] px-4">
+                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4">
                     {Object.entries(tabData).map(([key, data]) => {
                         const isActive = activeTab === key;
                         return (
@@ -253,7 +253,7 @@ const Awards = memo(() => {
                 </div>
 
                 {/* HORIZONTAL DIVIDER */}
-                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(var(--tab-rgb),0.4),transparent)] mb-[40px]" />
+                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(var(--tab-rgb),0.4),transparent)] mb-7" />
 
                 {/* TAB CONTENT PANEL */}
                 <div className="w-full">

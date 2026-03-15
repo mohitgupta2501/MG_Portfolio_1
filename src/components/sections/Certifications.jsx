@@ -721,7 +721,7 @@ const Certifications = memo(() => {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
                 {/* Section Header */}
-                <div className="flex flex-col items-center justify-center mb-[40px] relative">
+                <div className="flex flex-col items-center justify-center mb-10 relative">
                     {/* Background Text */}
                     <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[80px] sm:text-[120px] md:text-[160px] font-black text-white/[0.015] pointer-events-none select-none uppercase tracking-widest whitespace-nowrap">
                         Certifications
@@ -735,23 +735,23 @@ const Certifications = memo(() => {
                         className="flex flex-col items-center"
                     >
                         {/* Pill Badge */}
-                        <div className="px-[22px] py-[7px] rounded-[50px] border mb-0 inline-flex items-center justify-center font-medium bg-[rgba(255,77,90,0.1)] border-[rgba(255,77,90,0.3)] text-[#ff4d5a] text-[11px] uppercase tracking-[4px]">
+                        <div className="px-[22px] py-[7px] rounded-[50px] border mb-6 inline-flex items-center justify-center font-medium bg-[rgba(255,77,90,0.1)] border-[rgba(255,77,90,0.3)] text-[#ff4d5a] text-[11px] uppercase tracking-[4px] relative">
                             ● CERTIFICATIONS
+                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </div>
-                        <div className="w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px] mx-auto mb-6 mt-[8px]" />
 
-                        <h2 className="text-[#ffffff] text-center font-[800] mb-0" style={{ fontSize: 'clamp(36px, 5.5vw, 66px)', letterSpacing: '-0.02em' }}>
+                        <h2 className="text-[#ffffff] text-center font-[800]" style={{ fontSize: 'clamp(36px, 5.5vw, 66px)', letterSpacing: '-0.02em' }}>
                             Licenses &amp; Certifications
                         </h2>
 
-                        <p className="text-[#888888] text-[15px] sm:text-[16px] italic text-center max-w-2xl font-light mt-6">
+                        <p className="text-[#888888] text-[15px] sm:text-[16px] italic text-center max-w-2xl font-light mt-3">
                            Certifications that validate expertise and reflect a commitment to continuous learning.
                         </p>
                     </motion.div>
                 </div>
 
                 {/* Stats Row */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-[32px] items-stretch">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch">
                     {stats.map((stat, i) => (
                         <div key={i} className="h-full">
                             <StatCard icon={stat.icon} value={stat.value} label={stat.label} color={stat.color} />
@@ -760,7 +760,7 @@ const Certifications = memo(() => {
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-[40px] px-4">
+                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4">
                     {FILTERS.map((filter) => {
                         const { name, count } = filter;
                         const isActive = activeFilter === name;
@@ -784,7 +784,7 @@ const Certifications = memo(() => {
                     })}
                 </div>
 
-                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-[40px]" />
+                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-7" />
 
                 {/* Certifications Grid */}
                 <div className="w-full flex flex-col gap-6 sm:gap-8">
