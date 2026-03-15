@@ -1,13 +1,13 @@
 export const personalInfo = {
-    name: "Mohit Gupta",
-    role: "Software Engineer & Data Scientist Intern @ Hitachi India Pvt. Ltd. | AI, ML & Data Science Researcher | Data Scientist | Data Analyst | Full-Stack Web Developer | Founder & CEO, Eagle Wears",
+    name: "Mohit",
+    role: "Software Engineer &  Intern @ Hitachi India Pvt. Ltd. | AI, ML & Data Science Researcher |  | Data Analyst | Full-Stack Web Developer | Founder & CEO, Eagle Wears",
     shortDesc: "Transforming Ideas into Digital Reality",
     longDescParagraphs: [
         "B.Tech Computer Science (Data Science) student with a CGPA of 9.6/10 and recognized as Student of the Year (2022–2026).",
 
         "Passionate about Artificial Intelligence, Machine Learning, Data Science, and Generative AI, focused on building intelligent systems that solve real-world problems.",
 
-        "Software Engineer & Data Scientist Intern at Hitachi Automation India Pvt. Ltd., working on industrial AI solutions, AutoML systems, and data-driven analytics platforms.",
+        "Software Engineer &  Intern at Hitachi Automation India Pvt. Ltd., working on industrial AI solutions, AutoML systems, and data-driven analytics platforms.",
 
         "Developed impactful AI solutions including an AutoML platform, Energy Monitoring System, and AI-based logistics and healthcare prediction models.",
 
@@ -34,9 +34,10 @@ export const personalInfo = {
         { label: "AVAILABILITY", value: "Available 24/7", icon: "Clock" }
     ],
     socials: [
-        { name: "LinkedIn", url: "https://linkedin.com", icon: "Linkedin" },
-        { name: "GitHub", url: "https://github.com", icon: "Github" },
-        { name: "Twitter", url: "https://twitter.com", icon: "Twitter" },
-        { name: "Instagram", url: "https://instagram.com", icon: "Instagram" }
+        { name: "LinkedIn", url: "https://www.linkedin.com/in/mohit-gupta-25-/", icon: "Linkedin" },
+        { name: "GitHub", url: "https://github.com/mohitgupta2501", icon: "Github" },
+        { name: "Twitter", url: "https://x.com/Mohit_Gupta_25", icon: "Twitter" },
+        { name: "Instagram", url: "https://www.instagram.com/mohitgupta_25/", icon: "Instagram" },
+        { name: "Facebook", url: "https://www.instagram.com/mohitgupta_25/", icon: "Facebook" }
     ]
 };

@@ -4,132 +4,186 @@ export const projects = [
         subtitle: "Industrial Performance & Cost Intelligence Platform",
         company: "Hitachi Automation India Pvt. Ltd.",
         duration: "Feb 2026 – Present",
-        category: "Industrial AI",
+        category: "Industrial",
         color: "#ff4d5a",
-        badge: "🏭 Industry Project",
-        status: "Live / Active",
-        description: "Comprehensive Roll Analytics System for real-time monitoring, analysis, and optimization of rolling mill operations through data-driven insights.",
+        badge: "Enterprise Project",
+        status: "Live System",
+        description: "Enterprise-grade Roll Analytics System enabling real-time monitoring, lifecycle analysis, and cost intelligence for rolling mill operations through data-driven industrial analytics.",
+        doc: "/public/Projects/Roll Analytics System.pdf",
         keyFeatures: [
-            "Real-time Monitoring",
-            "Cost Analytics",
+            "Real-time Roll Monitoring",
+            "Roll Lifecycle Tracking",
+            "Cost & Performance Analytics",
             "KPI Dashboards",
-            "Alarm Management",
             "Supplier Benchmarking",
-            "Report Generation"
+            "Alarm & Alert Management",
+            "Automated Reporting",
+            "Advanced Data Filtering"
         ],
+
         keyHighlights: [
-            "Full-stack solution: Angular (Frontend) + Django (Backend) + SQL-based relational database",
-            "Interactive dashboards visualizing roll performance, lifecycle trends, and operational KPIs",
-            "Cost analytics module computing cost/km, cost/ton, campaign-level cost performance",
-            "Automated report generation (CSV/Excel) for management-level decision-making"
+            "Architected a scalable full-stack platform using Angular (Frontend), Django (Backend), and Microsoft SQL Server",
+            "Developed enterprise dashboards visualizing roll performance, lifecycle trends, and operational KPIs",
+            "Implemented roll lifecycle analytics including diameter consumption tracking, wear monitoring, and cycle history management",
+            "Built cost intelligence modules computing cost/km, cost/ton, campaign-level performance, and lifecycle cost trends",
+            "Engineered secure REST APIs enabling seamless communication between frontend, backend, and industrial data sources",
+            "Designed supplier benchmarking framework analyzing utilization, productivity, breakdown frequency, and cost efficiency",
+            "Integrated alarm management system with severity classification and parameter-based triggers",
+            "Developed multi-parameter filtering across Mill, Stand, Roll, Supplier, Grade, and Date Range for deep analytics",
+            "Enabled automated CSV/Excel reporting for operational reviews and management decision support",
+            "Optimized SQL queries for efficient aggregation and reporting of high-volume industrial datasets",
+            "Structured the system with modular architecture to support scalable industrial deployments"
         ],
+
         tech: [
             "Angular",
             "Django",
             "Python",
             "Microsoft SQL Server",
             "REST APIs",
-            "JWT Auth",
+            "JWT Authentication",
             "Data Visualization",
+            "Industrial Analytics",
             "Full-Stack Development"
         ]
     },
     {
         title: "Unified Gateway System",
-        subtitle: "Industrial Data Integration & Flow Management",
+        subtitle: "Industrial Data Integration & Flow Orchestration Platform",
         company: "Hitachi Automation India Pvt. Ltd.",
         duration: "Dec 2025 – Feb 2026",
-        category: "IoT", // changed from "Industrial IoT" to match filter tabs "IoT"
+        category: "Industrial",
         color: "#8b5cf6",
-        badge: "🔗 Industry Project",
+        badge: "Enterprise Project",
         status: "Completed",
-        description: "Industrial-grade Unified Gateway platform enabling real-time communication between heterogeneous industrial systems and enterprise applications.",
+        description: "Industrial-grade middleware gateway enabling real-time integration and orchestration of heterogeneous industrial systems, PLCs, and enterprise applications through multi-protocol communication and secure data pipelines.",
+        doc: "public/Projects/Unified Gateway Industrial Data Integration System.pdf",
+
         keyFeatures: [
-            "Multi-Protocol Support",
-            "Real-time Data Flow",
-            "Alarm Management",
+            "Multi-Protocol Integration",
+            "Real-time Data Pipelines",
+            "Flow Management System",
+            "Alarm & Failure Monitoring",
             "RBAC Security",
-            "JWT Auth",
-            "Flow Visualization"
+            "JWT Authentication",
+            "Flow Visualization",
+            "Structured System Logging"
         ],
+
         keyHighlights: [
-            "Inbound/outbound modules using Modbus TCP/IP, OPC UA, OPC DA, PROFINET, and DBLINK protocols",
-            "Flow Management System mapping real-time data pipelines with Start/Stop/Monitor controls",
-            "User management with Role-Based Access Control (User/Admin/SuperAdmin)",
-            "React.js interactive frontend for dynamic flow visualization and real-time monitoring"
+            "Developed industrial middleware platform enabling seamless communication between PLCs, sensors, and enterprise systems",
+            "Implemented inbound and outbound data modules supporting Modbus TCP/IP, OPC UA, OPC DA, PROFINET, and DBLINK protocols",
+            "Engineered Flow Management System for creating and controlling real-time data pipelines with Start/Stop/Monitor execution controls",
+            "Designed centralized dashboards to monitor inbound connections, outbound flows, and system execution statistics in real time",
+            "Implemented structured logging modules including operation logs and telegram logs for industrial communication traceability",
+            "Integrated alarm management system with severity classification and real-time failure detection",
+            "Developed secure user management system with Role-Based Access Control (User/Admin/SuperAdmin)",
+            "Implemented JWT-based authentication with encrypted token validation and secure API authorization",
+            "Built scalable REST APIs using Django for protocol integration, authentication, and system orchestration",
+            "Developed interactive React.js frontend for dynamic flow visualization and real-time monitoring of industrial data pipelines"
         ],
+
         tech: [
             "Django",
             "React.js",
+            "OPC UA",
             "Industrial Protocols",
             "Modbus TCP/IP",
-            "OPC UA",
             "PROFINET",
-            "JWT Auth",
-            "RBAC",
             "Microsoft SQL Server",
-            "Distributed Systems"
+            "REST APIs",
+            "JWT Authentication",
+            "RBAC",
+            "Distributed Systems",
+            "Industrial IoT"
         ]
     },
     {
         title: "Coil Sampling & Tracking System",
-        subtitle: "Steel Manufacturing Digitization Platform",
+        subtitle: "Steel Manufacturing Process Digitization Platform",
         company: "Hitachi Automation India Pvt. Ltd.",
         duration: "Oct 2025 – Dec 2025",
-        category: "Industrial AI",
+        category: "Industrial",
         color: "#f59e0b",
-        badge: "🏭 Industry Project",
+        badge: "Enterprise Project",
         status: "Completed",
-        description: "Secure industrial web application to digitize and monitor the complete coil sampling lifecycle in a steel manufacturing environment.",
+        description: "Industrial web platform designed to digitize, monitor, and manage the complete coil sampling lifecycle in steel manufacturing operations with real-time tracking, KPI analytics, and enterprise-grade security.",
+        doc: "public/Projects/Coil Sampling Tracking Management System Report.pdf",
+
+
         keyFeatures: [
-            "Real-time Tracking",
-            "KPI Dashboards",
-            "PDI/PDO Modules",
-            "OTP Verification",
+            "Real-time Coil Tracking",
+            "Production KPI Dashboards",
+            "PDI/PDO Data Modules",
+            "OTP-based Verification",
             "Alarm Management",
-            "Reports Module"
+            "Reports & Analytics",
+            "RBAC Security",
+            "System Logging"
         ],
+
         keyHighlights: [
-            "Real-time coil tracking across Entry, Band Cutter, Sampling, Weighing, and Delivery stations",
-            "KPI dashboards monitoring Sample Rate, Scrap Weight, Yield Percentage, and Average Cycle Time",
-            "JWT-based Authentication with RBAC, password hashing (PBKDF2/BCrypt), and OTP-based secondary verification",
-            "Custom Reports Module with SQL-based filtering and downloadable report generation"
+            "Developed industrial web system to digitize coil sampling workflows across steel manufacturing operations",
+            "Implemented real-time coil tracking across Entry, Band Cutter, Sampling, Weighing, and Delivery production stations",
+            "Designed KPI-driven dashboards monitoring Sample Rate, Scrap Weight, Yield Percentage, and Average Cycle Time",
+            "Built PDI (Primary Data Input) module storing coil specifications, dimensions, weights, and quality codes",
+            "Developed PDO (Primary Data Output) module managing processed sampling records and operational reports",
+            "Implemented real-time tracking dashboard with station-wise status monitoring and workflow visualization",
+            "Designed structured logging system including Telegram Logs (TCP/IP communication) and Activity Logs (login, OTP verification, IP tracking)",
+            "Integrated alarm management module with severity classification and timestamped event history",
+            "Developed custom reports engine with SQL-based filtering, parameter selection, and downloadable reports",
+            "Implemented enterprise security architecture using JWT authentication, RBAC authorization, password hashing (PBKDF2 / BCrypt), and secure API middleware",
+            "Integrated OTP-based secondary verification and device/IP logging for enhanced access security",
+            "Improved manufacturing traceability, reduced manual intervention, and enhanced operational decision-making"
         ],
+
         tech: [
             "Angular",
-            "ASP.NET Core",
-            "Microsoft SQL Server",
-            "JWT Auth",
             "RBAC",
             "REST APIs",
+            "Microsoft SQL Server",
+            "JWT Authentication",
+            "ASP.NET Core",
             "TCP/IP",
-            "System Logging"
+            "System Logging",
+            "Industrial IoT",
+            "Secure API Architecture"
         ]
     },
     {
         title: "Barrett's Oesophagus Risk Prediction",
-        subtitle: "Optimized Hybrid Ensemble ML Models",
+        subtitle: "Hybrid Ensemble Machine Learning Framework",
         company: "St. Vincent Pallotti College of Engineering & Technology",
         duration: "Aug 2025 – Dec 2025",
-        category: "Healthcare AI",
+        category: "Healthcare",
         color: "#ec4899",
-        badge: "🔬 Research Project",
+        badge: "Research Project",
         status: "Published",
-        description: "AI-driven clinical decision support system to improve risk stratification for Barrett's Oesophagus using quantitative Cytosponge-TFF3 biomarker data.",
+        description: "AI-driven clinical decision support system designed to improve risk stratification for Barrett's Oesophagus using quantitative Cytosponge-TFF3 biomarker data and optimized hybrid ensemble machine learning models.",
+        doc: "public/Projects/Barretts Oesophagus.pdf",
+
         keyFeatures: [
-            "Hybrid Ensemble",
-            "8 ML Models",
-            "SMOTE",
-            "Clinical Deployment",
-            "Risk Classification",
-            "Threshold Optimization"
+            "Hybrid Ensemble Learning",
+            "8 Machine Learning Models",
+            "SMOTE Class Balancing",
+            "Clinical Risk Classification",
+            "Threshold Optimization",
+            "Model Validation"
         ],
+
         keyHighlights: [
-            "Implemented 8 ML models: XGBoost, LightGBM, CatBoost, Random Forest, SVM, Neural Networks, Logistic Regression",
-            "Novel hybrid ensemble: XGBoost + LightGBM + CatBoost + Logistic Regression with optimized weighted averaging",
-            "Achieved 82.36% accuracy, 0.833 precision, 0.822 recall, 0.831 F1-score",
-            "Enabled ~40% reduction in unnecessary gastroscopies while maintaining high clinical sensitivity"
+            "Developed AI-based clinical risk prediction system using Cytosponge-TFF3 biomarker dataset for early Barrett's Oesophagus detection",
+            "Implemented and evaluated 8 ML models including XGBoost, LightGBM, CatBoost, Random Forest, SVM, Neural Networks, and Logistic Regression",
+            "Designed novel hybrid ensemble combining XGBoost, LightGBM, CatBoost, and Logistic Regression using optimized weighted averaging",
+            "Applied SMOTE to address class imbalance and improve minority class detection",
+            "Used stratified cross-validation for reliable model evaluation and improved generalization",
+            "Achieved performance metrics of 82.36% accuracy, 0.833 precision, 0.822 recall, and 0.831 F1-score",
+            "Outperformed individual baseline models demonstrating strong ensemble robustness",
+            "Implemented threshold optimization to enable flexible clinical deployment",
+            "Enabled up to 40% reduction in unnecessary gastroscopy procedures while maintaining high sensitivity",
+            "Demonstrated real-world application of ensemble learning for scalable clinical decision support"
         ],
+
         tech: [
             "Python",
             "XGBoost",
@@ -138,105 +192,140 @@ export const projects = [
             "Scikit-learn",
             "SMOTE",
             "Feature Engineering",
+            "Ensemble Learning",
             "Clinical Data Analysis",
-            "Ensemble Learning"
+            "Biomedical AI"
         ]
     },
     {
         title: "Energy Monitoring System (EMS)",
-        subtitle: "Full-Stack Industrial Energy Dashboard",
+        subtitle: "Industrial Energy Analytics & Monitoring Platform",
         company: "Hitachi Automation India Pvt. Ltd.",
         duration: "Sep 2025 – Nov 2025",
-        category: "Full-Stack",
+        category: "Industrial",
         color: "#22c55e",
-        badge: "⚡ Industry Project",
+        badge: "Enterprise Project",
         status: "Completed",
-        description: "Complete Full-Stack Energy Monitoring System for real-time energy consumption monitoring, interactive dashboards, and industrial data visualization.",
+        description: "Full-stack industrial energy monitoring platform designed to visualize real-time energy consumption, analyze operational trends, and provide interactive dashboards for data-driven energy management.",
+        doc: "public/Projects/Energy Monitoring System.pdf",
+
         keyFeatures: [
-            "Real-time Dashboards",
-            "Energy Tracking",
+            "Real-time Energy Dashboards",
+            "Energy Consumption Tracking",
             "Billing Simulation",
-            "REST APIs",
+            "KPI Monitoring",
+            "REST API Integration",
             "Responsive UI",
-            "SQL Storage"
+            "SQL Data Storage",
+            "Data Visualization"
         ],
+
         keyHighlights: [
-            "React.js frontend with interactive dashboards displaying energy trends, KPIs, and billing simulations",
-            "Django backend with SQL-based database for structured energy data storage",
-            "RESTful APIs for real-time data fetching and dynamic frontend updates",
-            "Optimized database queries and frontend rendering for performance and efficient data visualization"
+            "Developed full-stack energy monitoring platform using React.js frontend and Django backend architecture",
+            "Designed interactive dashboards visualizing energy consumption trends, operational KPIs, and billing simulations",
+            "Built RESTful APIs enabling real-time data retrieval and dynamic dashboard updates",
+            "Designed relational database schema using Microsoft SQL Server for structured storage of energy consumption data",
+            "Implemented responsive UI components for cross-device compatibility and intuitive energy data visualization",
+            "Optimized database queries and frontend rendering for efficient processing of large energy datasets",
+            "Developed scalable system architecture supporting future expansion and higher data volumes",
+            "Focused on usability and clear visual representation to support industrial energy monitoring and analysis"
         ],
+
         tech: [
             "React.js",
             "Django",
             "Python",
             "Microsoft SQL Server",
             "REST APIs",
-            "JWT Auth",
+            "JWT Authentication",
             "Data Visualization",
-            "Full-Stack Development"
+            "Full-Stack Development",
+            "Industrial Analytics"
         ]
     },
     {
         title: "AutoML Platform",
-        subtitle: "End-to-End Machine Learning System",
+        subtitle: "End-to-End Machine Learning Automation System",
         company: "Hitachi Automation India Pvt. Ltd.",
         duration: "Aug 2025 – Oct 2025",
         category: "Machine Learning",
         color: "#3b82f6",
-        badge: "🤖 Industry Project",
+        badge: "Enterprise Project",
         status: "Completed",
-        description: "Comprehensive AutoML platform automating the complete ML pipeline from data ingestion to model evaluation and optimization.",
+        description: "Full-stack AutoML platform designed to automate the complete machine learning lifecycle including data ingestion, preprocessing, feature engineering, model training, and evaluation through scalable automated workflows.",
+        doc: "public/Projects/AutoML Platform.pdf",
+
         keyFeatures: [
-            "Auto Data Ingestion",
+            "Automated ML Pipelines",
+            "Dataset Ingestion",
             "Feature Engineering",
-            "Model Training",
-            "Evaluation",
+            "Model Benchmarking",
             "Deep Learning Support",
-            "AutoML Workflows"
+            "Dimensionality Reduction",
+            "Workflow Automation",
+            "Model Evaluation"
         ],
+
         keyHighlights: [
-            "Complete ML lifecycle automation: dataset upload, preprocessing, feature engineering, feature selection, dimensionality reduction, model training",
-            "Multiple ML and deep learning models for benchmarking and performance comparison",
-            "Strong focus on scalability, usability, and real-world applicability",
-            "Enables actionable insights through streamlined automated workflows"
+            "Developed end-to-end AutoML system automating dataset upload, preprocessing, feature engineering, feature selection, and model training",
+            "Implemented automated ML workflows supporting minimal manual intervention across the entire ML lifecycle",
+            "Integrated multiple machine learning and deep learning models for benchmarking and comparative performance evaluation",
+            "Applied feature engineering, dimensionality reduction, and exploratory data analysis to improve model performance",
+            "Built scalable backend architecture using Django with REST APIs for ML workflow orchestration",
+            "Developed React.js interface enabling intuitive dataset management, model execution, and result visualization",
+            "Designed system architecture focused on scalability, usability, and real-world ML deployment scenarios",
+            "Enabled generation of optimized predictive models and actionable insights through automated pipelines"
         ],
+
         tech: [
             "Python",
             "Django",
+            "React.js",
             "Machine Learning",
             "Deep Learning",
             "Feature Engineering",
             "MongoDB",
-            "React.js",
             "REST APIs",
-            "Data Visualization"
+            "Data Visualization",
+            "AutoML Systems"
         ]
     },
     {
         title: "Epileptic Seizure Detection",
-        subtitle: "EEG Signals Using Motif-Based Deep Learning",
+        subtitle: "Motif-Based Deep Learning for EEG Analysis",
         company: "St. Vincent Pallotti College of Engineering & Technology",
         duration: "Mar 2025 – Jul 2025",
-        category: "Healthcare AI",
+        category: "Healthcare",
         color: "#ec4899",
-        badge: "🧠 Research Project",
+        badge: "Research Project",
         status: "Published",
-        description: "Intelligent automated epileptic seizure detection system using EEG signals with motif discovery, signal processing, and deep learning techniques.",
+        description: "AI-driven seizure detection system leveraging EEG signal processing, motif discovery, and deep learning architectures to accurately classify seizure and non-seizure brain activity.",
+        doc: "public/Projects/Epileptic Seizure Detection.pdf",
+
         keyFeatures: [
-            "EEG Processing",
+            "EEG Signal Processing",
             "Motif Discovery",
-            "Deep Learning",
-            "97% Accuracy",
-            "Clinical Deployment Ready",
-            "Wearable Compatible"
+            "Deep Learning Models",
+            "Time-Series Classification",
+            "97% Detection Accuracy",
+            "Clinical Decision Support",
+            "Wearable Device Compatibility",
+            "Real-time Monitoring"
         ],
+
         keyHighlights: [
-            "Models implemented: CNN, CNN-LSTM, Transformer, XGBoost, LightGBM, CatBoost, TabNet, Graph Neural Networks",
-            "Best performance using motif-based Transformer and CNN architectures",
-            "Achieved ~97% accuracy, precision, recall, and F1-score",
-            "Potential applications: wearable EEG devices, remote patient monitoring, clinical decision support"
+            "Developed automated seizure detection system using EEG signals and motif-based pattern recognition",
+            "Preprocessed raw EEG data using filtering, normalization, and signal segmentation techniques",
+            "Applied motif discovery to extract recurring signal patterns associated with seizure onset",
+            "Utilized motif-based features for advanced time-series classification models",
+            "Implemented and evaluated multiple architectures including CNN, CNN-LSTM, Transformer, XGBoost, LightGBM, CatBoost, TabNet, and Graph Neural Networks",
+            "Achieved best performance using motif-based Transformer and CNN architectures",
+            "Attained approximately 97% accuracy, precision, recall, and F1-score across evaluation metrics",
+            "Significantly outperformed traditional machine learning approaches for seizure detection",
+            "Designed system architecture suitable for real-time monitoring and scalable healthcare deployment",
+            "Demonstrated potential applications in wearable EEG devices, remote patient monitoring, and clinical decision-support systems"
         ],
+
         tech: [
             "Python",
             "Deep Learning",
@@ -246,33 +335,42 @@ export const projects = [
             "XGBoost",
             "Signal Processing",
             "Feature Engineering",
-            "Biomedical Data Analysis"
+            "Time-Series Analysis",
+            "Biomedical AI"
         ]
     },
     {
         title: "SmartGoodsMatch",
-        subtitle: "AI System to Avoid Empty Vehicle Returns",
+        subtitle: "Intelligent Logistics Load Matching Platform",
         company: "Netfotech Solutions",
         duration: "Jun 2025 – Jul 2025",
-        category: "Full-Stack",
+        category: "Logistics",
         color: "#22c55e",
-        badge: "🚛 AI Logistics",
+        badge: "Industry Project",
         status: "Completed",
-        description: "AI-powered logistics web application designed to reduce empty truck returns and optimize transport efficiency through intelligent load-matching.",
+        description: "Logistics optimization platform designed to reduce empty truck returns by intelligently matching available vehicles with return loads based on location, route, and timing constraints.",
+        doc: "public/Projects/SmartGoodsMatch.pdf",
+
         keyFeatures: [
-            "AI Load Matching",
-            "Route Optimization",
-            "Truck Management",
+            "Load-Vehicle Matching",
+            "Route-Based Matching",
+            "Truck & Load Management",
             "Booking System",
-            "REST APIs",
-            "Responsive UI"
+            "REST API Integration",
+            "Responsive Web Interface",
+            "Logistics Data Management"
         ],
+
         keyHighlights: [
-            "Intelligent load-matching connecting empty vehicles with return goods based on location, route, and timing",
-            "Flask + SQLite backend with structured database models for trucks, loads, bookings, and users",
-            "RESTful APIs for seamless frontend-backend integration",
-            "Designed for future ML integration for demand prediction and route optimization"
+            "Developed logistics optimization platform addressing empty vehicle return problem in goods transportation",
+            "Implemented intelligent load-matching algorithm connecting available trucks with return shipments based on location, route, and timing constraints",
+            "Designed backend architecture using Flask and SQLite with structured database models for trucks, loads, bookings, and users",
+            "Built RESTful APIs enabling seamless communication between frontend interface and backend services",
+            "Developed responsive frontend using HTML, CSS, and JavaScript for efficient booking and vehicle management workflows",
+            "Designed modular system architecture supporting future integration of machine learning models for demand prediction and route optimization",
+            "Applied clean code architecture and modular backend services for scalable logistics system development"
         ],
+
         tech: [
             "Python",
             "Flask",
@@ -281,43 +379,53 @@ export const projects = [
             "CSS",
             "JavaScript",
             "REST APIs",
-            "Full-Stack Development"
+            "Full-Stack Development",
+            "Logistics Optimization"
         ]
     },
     {
         title: "Text-to-Image Diffusion Model Benchmarking",
-        subtitle: "Domain-Aware Evaluation Framework",
+        subtitle: "Domain-Aware Generative AI Evaluation Framework",
         company: "St. Vincent Pallotti College of Engineering & Technology",
         duration: "Jul 2024 – Dec 2024",
         category: "Generative AI",
         color: "#a855f7",
-        badge: "📊 Research Project",
+        badge: "Research Project",
         status: "Published",
-        description: "Domain-aware benchmarking of state-of-the-art Text-to-Image diffusion models with structured and reproducible evaluation methodology.",
+        description: "Research framework for domain-aware benchmarking of text-to-image diffusion models using structured multi-metric evaluation and reproducible experimental pipelines.",
+        doc: "public/Projects/Text to Image.pdf",
+
         keyFeatures: [
-            "4 Diffusion Models",
-            "Multi-metric Evaluation",
-            "CLIPScore",
-            "SSIM",
-            "LPIPS",
-            "GPU Accelerated",
-            "Reproducible Pipeline"
+            "Diffusion Model Benchmarking",
+            "Domain-Aware Evaluation",
+            "Multi-Metric Scoring",
+            "CLIPScore / SSIM / LPIPS",
+            "GPU Accelerated Experiments",
+            "Reproducible Evaluation Pipeline",
+            "PartiPrompts Dataset"
         ],
+
         keyHighlights: [
-            "Evaluated RealisticVision, OpenJourney, Stable Diffusion v1.5, DreamShaper",
-            "Multi-metric framework: CLIPScore, SSIM, LPIPS, Aesthetic scoring",
-            "Composite scoring formula: 0.4×CLIP + 0.2×SSIM − 0.1×LPIPS + 0.3×Aesthetic",
-            "GPU-accelerated using PyTorch, HuggingFace Diffusers, and OpenAI CLIP"
+            "Evaluated four diffusion models: RealisticVision, OpenJourney, Stable Diffusion v1.5, and DreamShaper",
+            "Generated standardized image outputs using prompts derived from Google's PartiPrompts dataset",
+            "Designed domain-aware evaluation comparing human-centric and non-human semantic prompt categories",
+            "Developed multi-metric benchmarking framework using CLIPScore, SSIM, LPIPS, and Aesthetic scoring",
+            "Proposed weighted composite evaluation formula (0.4×CLIP + 0.2×SSIM − 0.1×LPIPS + 0.3×Aesthetic)",
+            "Built fully reproducible GPU-accelerated evaluation pipeline using PyTorch, HuggingFace Diffusers, and OpenAI CLIP",
+            "Identified domain-specific strengths and performance variations across diffusion model architectures",
+            "Developed scalable benchmarking framework adaptable for future generative AI and multimodal evaluation research"
         ],
+
         tech: [
             "Python",
             "PyTorch",
-            "HuggingFace Diffusers",
             "OpenAI CLIP",
-            "Deep Learning",
-            "Computer Vision",
+            "HuggingFace Diffusers",
             "Generative AI",
-            "Model Evaluation"
+            "Computer Vision",
+            "Diffusion Models",
+            "Model Evaluation",
+            "GPU Computing"
         ]
     }
 ];

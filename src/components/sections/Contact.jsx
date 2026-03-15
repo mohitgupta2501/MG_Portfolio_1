@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Phone, Mail, Send, Loader2 } from 'lucide-react';
-import SocialIcon from '@/components/ui/SocialIcon';
+import { MapPin, Phone, Mail, Send, Loader2, Linkedin, Github, Twitter, Instagram, Facebook } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import { personalInfo } from '@/data/personalInfo';
 
 // Custom Success Checkmark with Draw-in Animation
@@ -64,9 +64,9 @@ const FloatingInput = ({
                     disabled={disabled}
                     required={required}
                     maxLength={maxLength}
-                    className={`w-full bg-[#111111] border border-[#1e1e1e] rounded-[12px] px-[18px] pt-[24px] pb-[10px] text-white text-[14px] outline-none transition-all duration-300 ease-in-out resize-y min-h-[140px] placeholder-[#444] ${isFocused
-                        ? 'border-[var(--accent)] bg-[#141414] shadow-[0_0_0_3px_rgba(255,77,90,0.12),0_0_20px_rgba(255,77,90,0.05)]'
-                        : 'hover:border-[#2a2a2a] hover:bg-[#131313]'
+                    className={`w-full bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] rounded-[10px] px-[16px] pt-[24px] pb-[10px] text-white text-[14px] outline-none transition-[border-color,box-shadow] duration-250 ease-[ease] resize-y min-h-[140px] placeholder-[#555] hover:border-[#ef4444] ${isFocused
+                        ? 'border-[#ef4444] shadow-[0_0_0_3px_rgba(239,68,68,0.15)]'
+                        : ''
                         }`}
                 />
             ) : (
@@ -80,9 +80,9 @@ const FloatingInput = ({
                     onBlur={() => setIsFocused(false)}
                     disabled={disabled}
                     required={required}
-                    className={`w-full bg-[#111111] border border-[#1e1e1e] rounded-[12px] px-[18px] pt-[22px] pb-[6px] text-white text-[14px] outline-none transition-all duration-300 ease-in-out placeholder-[#444] ${isFocused
-                        ? 'border-[var(--accent)] bg-[#141414] shadow-[0_0_0_3px_rgba(255,77,90,0.12),0_0_20px_rgba(255,77,90,0.05)]'
-                        : 'hover:border-[#2a2a2a] hover:bg-[#131313]'
+                    className={`w-full bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] rounded-[10px] px-[16px] pt-[22px] pb-[6px] text-white text-[14px] outline-none transition-[border-color,box-shadow] duration-250 ease-[ease] placeholder-[#555] hover:border-[#ef4444] ${isFocused
+                        ? 'border-[#ef4444] shadow-[0_0_0_3px_rgba(239,68,68,0.15)]'
+                        : ''
                         }`}
                 />
             )}
@@ -92,23 +92,44 @@ const FloatingInput = ({
 
 const Contact = React.memo(function Contact() {
     const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-    const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success'
+    const [status, setStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setStatus('loading');
-        // Simulate API call
-        setTimeout(() => {
-            console.log("Form submitted:", formData);
+        if (status === 'sending') return;
+
+        setStatus('sending');
+        try {
+            await emailjs.send(
+                'service_ty1gvii',
+                'template_lpdakz3',
+                {
+                    from_name: formData.name,
+                    from_email: formData.email,
+                    message: formData.message,
+                },
+                '7mLAeUe05I5Wa0Unj'
+            );
+
             setStatus('success');
-            // Reset form after 5 seconds optionally
-            // setTimeout(() => { setStatus('idle'); setFormData({ name: '', email: '', subject: '', message: '' }); }, 5000);
-        }, 1500);
+            setFormData({ name: '', email: '', subject: '', message: '' });
+
+            setTimeout(() => {
+                setStatus('idle');
+            }, 3000);
+        } catch (err) {
+            console.error('EmailJS send failed:', err);
+            setStatus('error');
+
+            setTimeout(() => {
+                setStatus('idle');
+            }, 3000);
+        }
     };
 
     // Animation Variants
@@ -143,7 +164,9 @@ const Contact = React.memo(function Contact() {
     };
 
     return (
-        <section id="contact" className="relative py-24 lg:py-32 bg-[#080808] overflow-hidden" style={{ contain: 'layout style' }}>
+        <section id="contact" className="relative pt-[52px] sm:pt-[72px] pb-[80px] bg-[#080808] overflow-hidden" style={{ contain: 'layout style' }}>
+            {/* SECTION DIVIDER */}
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.06)_20%,rgba(255,255,255,0.06)_80%,transparent_100%)] z-10" />
             {/* BACKGROUND ELEMENTS */}
             <div className="absolute top-[-10%] right-[-10%] w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,rgba(255,77,90,0.04)_0%,transparent_70%)] animate-[blob-breathe_15s_ease_infinite] pointer-events-none z-0" />
             <div className="absolute bottom-[-10%] left-[-10%] w-[350px] h-[350px] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.04)_0%,transparent_70%)] animate-[blob-breathe_20s_ease_infinite_reverse] pointer-events-none z-0" />
@@ -166,7 +189,7 @@ const Contact = React.memo(function Contact() {
                 >
                     <div className="inline-flex items-center justify-center mb-6">
                         <span className="bg-[linear-gradient(135deg,#1e0a0d,#2a1215)] border border-[rgba(255,77,90,0.3)] text-[var(--accent)] tracking-[4px] text-[11px] uppercase rounded-full px-[22px] py-[7px] font-medium relative">
-                            CONTACT
+                            ● CONTACT
                             {/* Animated underline */}
                             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] bg-[var(--accent)] animate-[line-expand_0.8s_ease-out_forwards]" />
                         </span>
@@ -192,43 +215,43 @@ const Contact = React.memo(function Contact() {
                         viewport={{ once: true, amount: 0.1 }}
                     >
                         {/* Personal Message Card */}
-                        <div className="bg-[linear-gradient(145deg,#111111,#0d0d0d)] border border-[rgba(255,77,90,0.2)] rounded-[20px] p-[28px] mb-6 sm:mb-8 transition-all duration-300 hover:border-[rgba(255,77,90,0.4)] hover:-translate-y-[3px]">
-                            <span className="inline-block text-[var(--accent)] text-[10px] tracking-[2px] mb-3 uppercase font-semibold text-opacity-90">REACH OUT</span>
-                            <h3 className="text-white font-bold text-[20px] mb-3">Let's Connect</h3>
+                        <div className="bg-[#111111] border border-[rgba(255,255,255,0.06)] rounded-[16px] p-[28px] mb-6 sm:mb-8 transition-all duration-300">
+                            <span className="inline-block text-[#ff4d5a] text-[10px] tracking-[3px] mb-3 uppercase font-semibold text-opacity-90">REACH OUT</span>
+                            <h3 className="text-white font-bold text-[22px] mb-3">Let's Connect</h3>
                             <p className="text-[#888] text-[14px] leading-[1.7] mb-6">
                                 Whether it's a project, collaboration, internship opportunity, or just a hello — my inbox is always open.
                             </p>
-                            <div className="flex items-center gap-3 pt-4 border-t border-[#1a1a1a]">
-                                <div className="relative flex items-center justify-center w-3 h-3">
-                                    <div className="absolute w-[8px] h-[8px] bg-[#22c55e] rounded-full" />
-                                    <div className="absolute w-[8px] h-[8px] bg-[#22c55e] rounded-full animate-ping-online opacity-75" />
+                            <div className="inline-flex items-center gap-2 bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.25)] rounded-[50px] px-[16px] py-[6px]">
+                                <div className="relative flex items-center justify-center w-2 h-2">
+                                    <div className="absolute w-2 h-2 bg-[#22c55e] rounded-full animate-ping-online opacity-75" style={{ animation: 'pulse 2s infinite' }} />
+                                    <div className="absolute w-2 h-2 bg-[#22c55e] rounded-full" />
                                 </div>
-                                <span className="text-[#22c55e] text-[13px] font-medium tracking-wide">Currently Available for Work</span>
+                                <span className="text-[#22c55e] text-[12px] font-semibold tracking-wide">Currently Available for Work</span>
                             </div>
                         </div>
 
                         {/* Contact Info Cards */}
                         <div className="flex flex-col gap-4 mb-8">
                             {[
-                                { icon: MapPin, label: "LOCATION", value: personalInfo.infoCards.find(c => c.label === "LOCATION")?.value || "Nagpur, Maharashtra, India" },
-                                { icon: Phone, label: "CALL ME", value: personalInfo.infoCards.find(c => c.label === "PHONE")?.value || "+91 9112250104", isLink: true, type: "tel" },
-                                { icon: Mail, label: "EMAIL ME", value: personalInfo.infoCards.find(c => c.label === "EMAIL")?.value || "mohitgupta25012004@gmail.com", isLink: true, type: "mailto" }
+                                { icon: MapPin, label: "LOCATION", value: personalInfo.infoCards?.find(c => c.label === "LOCATION")?.value || "Nagpur, Maharashtra, India" },
+                                { icon: Phone, label: "CALL ME", value: personalInfo.infoCards?.find(c => c.label === "PHONE")?.value || "+91 9112250104", isLink: true, type: "tel" },
+                                { icon: Mail, label: "EMAIL ME", value: personalInfo.infoCards?.find(c => c.label === "EMAIL")?.value || "mohitgupta25012004@gmail.com", isLink: true, type: "mailto" }
                             ].map((info, idx) => (
                                 <div
                                     key={idx}
-                                    className="group bg-[linear-gradient(145deg,#111111,#0d0d0d)] border border-[#1a1a1a] border-l-[3px] border-l-transparent rounded-[16px] p-[20px] sm:px-[22px] grid grid-cols-[52px_1fr] items-center gap-4 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:border-[rgba(255,77,90,0.45)] hover:border-l-[var(--accent)] hover:translate-x-[6px] max-sm:hover:translate-x-0 max-sm:hover:-translate-y-[4px] hover:shadow-[-4px_0_20px_rgba(255,77,90,0.1)]"
+                                    className="group bg-[#111] border border-[rgba(255,255,255,0.07)] border-l-[3px] border-l-[#ef4444] rounded-xl p-5 flex items-start gap-5 transition-all duration-250 ease-[ease] hover:-translate-y-[2px] hover:bg-[rgba(239,68,68,0.06)] hover:border-[#ef4444] hover:shadow-[0_8px_25px_rgba(0,0,0,0.4)]"
                                 >
-                                    <div className="w-[48px] h-[48px] rounded-[14px] bg-[rgba(255,77,90,0.08)] border border-[rgba(255,77,90,0.15)] flex items-center justify-center transition-all duration-300 group-hover:rotate-[12deg] group-hover:scale-[1.15] group-hover:bg-[rgba(255,77,90,0.18)]">
-                                        <info.icon className="w-[20px] h-[20px] text-[var(--accent)]" />
+                                    <div className="w-[40px] h-[40px] rounded-[10px] bg-[rgba(239,68,68,0.12)] text-[#ef4444] flex items-center justify-center flex-shrink-0 transition-all duration-250 group-hover:shadow-[0_0_8px_rgba(239,68,68,0.4)]">
+                                        <info.icon size={18} />
                                     </div>
                                     <div className="flex flex-col justify-center">
-                                        <span className="text-[#555] text-[10px] uppercase tracking-[2px] mb-1 font-medium">{info.label}</span>
+                                        <span className="text-[#9ca3af] group-hover:text-[#e2e8f0] text-[10px] uppercase tracking-[2px] mb-1 font-medium transition-colors duration-250">{info.label}</span>
                                         {info.isLink ? (
-                                            <a href={`${info.type}:${info.value}`} className="text-white text-[15px] font-semibold transition-colors duration-200 hover:text-[var(--accent)] truncate">
+                                            <a href={`${info.type}:${info.value}`} className="text-[#9ca3af] group-hover:text-[#e2e8f0] text-[15px] leading-[1.6] transition-colors duration-250 pt-1">
                                                 {info.value}
                                             </a>
                                         ) : (
-                                            <span className="text-white text-[15px] font-semibold">{info.value}</span>
+                                            <span className="text-[#9ca3af] group-hover:text-[#e2e8f0] text-[15px] leading-[1.6] transition-colors duration-250 pt-1">{info.value}</span>
                                         )}
                                     </div>
                                 </div>
@@ -237,15 +260,25 @@ const Contact = React.memo(function Contact() {
 
                         {/* Social Row */}
                         <div>
-                            <span className="block text-[#555] text-[10px] uppercase tracking-[2px] mb-4 font-medium">FIND ME ON</span>
-                            <div className="flex items-center gap-3">
-                                {personalInfo.socials.map((social) => (
-                                    <SocialIcon
-                                        key={social.name}
-                                        network={social.name}
-                                        url={social.url}
-                                        className="!w-[46px] !h-[46px] !bg-[#0d0d0d] !border-[#1a1a1a]"
-                                    />
+                            <span className="block text-[#666] text-[10px] uppercase tracking-[3px] mb-4 font-medium">FIND ME ON</span>
+                            <div className="flex items-center justify-start gap-4">
+                                {[
+                                    { icon: Linkedin, link: personalInfo.socials.find(s => s.name === "LinkedIn")?.url || "#" },
+                                    { icon: Github, link: personalInfo.socials.find(s => s.name === "GitHub")?.url || "#" },
+                                    { icon: Twitter, link: personalInfo.socials.find(s => s.name === "Twitter")?.url || "#" },
+                                    { icon: Mail, link: `mailto:${personalInfo.infoCards?.find(c => c.label === "EMAIL")?.value || "mohitgupta25012004@gmail.com"}` },
+                                    { icon: Instagram, link: personalInfo.socials.find(s => s.name === "Instagram")?.url || "#" },
+                                    { icon: Facebook, link: personalInfo.socials.find(s => s.name === "Facebook")?.url || "#" }
+                                ].map((social, i) => (
+                                    <a
+                                        key={i}
+                                        href={social.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-[44px] h-[44px] rounded-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] flex items-center justify-center text-[#888] transition-all duration-300 cursor-pointer hover:bg-[rgba(255,77,90,0.12)] hover:border-[#ef4444] hover:text-[#ff4d5a] hover:-translate-y-[3px] hover:shadow-[0_8px_20px_rgba(255,77,90,0.2)]"
+                                    >
+                                        <social.icon size={20} />
+                                    </a>
                                 ))}
                             </div>
                         </div>
@@ -259,13 +292,11 @@ const Contact = React.memo(function Contact() {
                         whileInView="show"
                         viewport={{ once: true, amount: 0.1 }}
                     >
-                        <div className="bg-[linear-gradient(145deg,#0f0f0f,#0c0c0c)] border border-[#1a1a1a] rounded-[24px] p-[24px] sm:p-[32px] md:p-[40px] relative overflow-hidden h-full">
-                            {/* Subtle corner glow */}
-                            <div className="absolute top-[-60px] right-[-60px] w-[200px] h-[200px] bg-[radial-gradient(circle,rgba(255,77,90,0.06),transparent_70%)] pointer-events-none" />
+                        <div className="bg-[#111111] border border-[rgba(255,255,255,0.06)] rounded-[16px] p-[24px] sm:p-[32px] overflow-hidden h-full">
 
-                            <div className="mb-8">
-                                <span className="text-[var(--accent)] text-[11px] uppercase tracking-[3px] font-semibold block mb-2">SEND A MESSAGE</span>
-                                <div className="h-[1px] w-[30px] bg-[var(--accent)]" />
+                            <div className="mb-6">
+                                <span className="text-[#ff4d5a] text-[11px] uppercase tracking-[3px] font-semibold block mb-2">SEND A MESSAGE</span>
+                                <div className="h-[2px] w-[40px] bg-[#ff4d5a]" />
                             </div>
 
                             <div className="relative min-h-[400px]">
@@ -277,13 +308,10 @@ const Contact = React.memo(function Contact() {
                                             animate={{ opacity: 1, scale: 1 }}
                                             exit={{ opacity: 0, scale: 0.8 }}
                                             transition={{ duration: 0.6, ease: "easeOut" }}
-                                            className="absolute inset-0 flex flex-col items-center justify-center text-center"
+                                            className="absolute inset-0 flex flex-col items-center justify-center text-center bg-[#111111] z-20"
                                         >
                                             <AnimatedCheck />
-                                            <h3 className="text-white text-[24px] font-bold mb-3">Message Sent! 🎉</h3>
-                                            <p className="text-[#ff4d5a] text-[15px] max-w-[80%] mx-auto leading-relaxed">
-                                                Thanks for reaching out. I'll get back to you within 24 hours.
-                                            </p>
+                                            <h3 className="text-white text-[24px] font-bold mb-3">Message sent successfully!</h3>
                                         </motion.div>
                                     ) : (
                                         <motion.form
@@ -302,7 +330,7 @@ const Contact = React.memo(function Contact() {
                                                         label="Your Name"
                                                         value={formData.name}
                                                         onChange={handleInputChange}
-                                                        disabled={status === 'loading'}
+                                                        disabled={status === 'sending'}
                                                     />
                                                 </motion.div>
                                                 <motion.div variants={fieldReveal}>
@@ -312,7 +340,7 @@ const Contact = React.memo(function Contact() {
                                                         type="email"
                                                         value={formData.email}
                                                         onChange={handleInputChange}
-                                                        disabled={status === 'loading'}
+                                                        disabled={status === 'sending'}
                                                     />
                                                 </motion.div>
                                             </div>
@@ -323,7 +351,7 @@ const Contact = React.memo(function Contact() {
                                                     label="Subject"
                                                     value={formData.subject}
                                                     onChange={handleInputChange}
-                                                    disabled={status === 'loading'}
+                                                    disabled={status === 'sending'}
                                                 />
                                             </motion.div>
 
@@ -335,7 +363,7 @@ const Contact = React.memo(function Contact() {
                                                     maxLength={500}
                                                     value={formData.message}
                                                     onChange={handleInputChange}
-                                                    disabled={status === 'loading'}
+                                                    disabled={status === 'sending'}
                                                 />
                                                 <div className="text-right mt-2 text-[#555] text-[12px] font-medium tracking-wide">
                                                     {formData.message.length} / 500
@@ -343,23 +371,30 @@ const Contact = React.memo(function Contact() {
                                             </motion.div>
 
                                             <motion.div variants={fieldReveal} className="mt-2">
+                                                <div className={`min-h-[20px] mb-3 text-[13px] font-medium transition-all duration-250 ease-[ease] ${status === 'error'
+                                                    ? 'text-[#ef4444]'
+                                                    : 'text-transparent'
+                                                    }`}
+                                                >
+                                                    Failed to send. Please try again.
+                                                </div>
                                                 <button
                                                     type="submit"
-                                                    disabled={status === 'loading'}
-                                                    className={`w-full py-[16px] px-6 rounded-[14px] font-bold text-[16px] text-white tracking-[0.5px] flex items-center justify-center gap-[8px] transition-all duration-300 ${status === 'loading'
-                                                        ? 'opacity-80 cursor-not-allowed bg-[linear-gradient(135deg,#ff4d5a_0%,#ff7043_100%)]'
-                                                        : 'bg-[linear-gradient(135deg,#ff4d5a_0%,#ff7043_100%)] hover:bg-[linear-gradient(135deg,#ff3344,#ff5722)] hover:-translate-y-[2px] hover:shadow-[0_12px_36px_rgba(255,77,90,0.4)] active:scale-[0.98]'
+                                                    disabled={status === 'sending'}
+                                                    className={`w-full h-[52px] rounded-[12px] font-bold text-[15px] text-white tracking-[1px] flex items-center justify-center gap-[8px] transition-all duration-250 ease-[ease] ${status === 'sending'
+                                                        ? 'opacity-80 cursor-not-allowed bg-[linear-gradient(135deg,#ff4d5a_0%,#ff6b6b_100%)]'
+                                                        : 'bg-[linear-gradient(135deg,#ff4d5a_0%,#ff6b6b_100%)] hover:-translate-y-[2px] hover:shadow-[0_12px_32px_rgba(255,77,90,0.4)] hover:bg-[linear-gradient(135deg,#ff3a47_0%,#ff5555_100%)] border-none cursor-pointer'
                                                         }`}
                                                 >
-                                                    {status === 'loading' ? (
+                                                    {status === 'sending' ? (
                                                         <>
-                                                            <Loader2 className="w-[20px] h-[20px] animate-spin" />
+                                                            <Loader2 className="w-[18px] h-[18px] animate-spin" />
                                                             Sending...
                                                         </>
                                                     ) : (
                                                         <>
                                                             Send Message
-                                                            <Send className="w-[18px] h-[18px] ml-1" />
+                                                            <Send className="w-[18px] h-[18px]" />
                                                         </>
                                                     )}
                                                 </button>
@@ -375,19 +410,30 @@ const Contact = React.memo(function Contact() {
 
                 {/* BOTTOM STRIP */}
                 <motion.div
-                    className="mt-20 w-full flex flex-col items-center justify-center"
+                    className="mt-8 w-full flex flex-col items-center justify-center"
                     variants={bottomUp}
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true, amount: 0.1 }}
                 >
-                    <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.6),transparent)] opacity-60" />
-                    <div className="mt-[-14px] bg-[rgba(255,77,90,0.08)] border border-[rgba(255,77,90,0.2)] rounded-full px-4 py-2 flex items-center gap-2 backdrop-blur-sm">
-                        <span className="text-[#ff7070] text-[12px] font-medium tracking-wide">
+                    <div className="mt-[32px] bg-[rgba(255,77,90,0.08)] border border-[rgba(255,77,90,0.2)] rounded-[50px] px-[20px] py-[8px] flex items-center gap-2">
+                        <span className="text-[#ff4d5a] text-[13px] font-medium tracking-wide text-center">
                             ⚡ Average response time: Under 24 hours
                         </span>
                     </div>
                 </motion.div>
+
+                {/* COPYRIGHT BAR */}
+                <div className="w-full mt-[48px]">
+                    <div className="w-full h-[1px] bg-[linear-gradient(to_right,transparent,rgba(255,77,90,0.3),transparent)]" />
+                    <div className="py-[20px] flex flex-wrap justify-between items-center gap-[8px]">
+                        <span className="text-[#444] text-[12px]">© 2026 Mohit Gupta. All rights reserved.</span>
+                        <span className="text-[#444] text-[12px]">
+                            Designed & Built with <span className="text-[#ff4d5a]">❤️</span> by Mohit Gupta
+                        </span>
+                        <span className="text-[#444] text-[12px]">Last updated: March 2026</span>
+                    </div>
+                </div>
             </div>
         </section>
     );

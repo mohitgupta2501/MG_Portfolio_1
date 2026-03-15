@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, useInView, animate } from 'framer-motion';
 import { personalInfo } from '@/data/personalInfo';
-import { ChevronDown, Linkedin, Github, Twitter, Instagram } from 'lucide-react';
+import { ChevronDown, Linkedin, Github, Twitter, Mail, Instagram, Facebook } from 'lucide-react';
 import { useTypewriter } from '@/hooks/useTypewriter';
 
 const StatItem = ({ end, suffix, label }) => {
@@ -23,35 +23,41 @@ const StatItem = ({ end, suffix, label }) => {
     }, [inView, end]);
 
     return (
-        <div className="flex-1 text-center px-6 max-sm:px-4">
+        <div className="flex-1 text-center px-2 sm:px-4">
             <div
                 ref={ref}
-                className="text-[var(--accent)] font-bold text-[clamp(24px,3.5vw,36px)] leading-none"
+                className="text-[var(--accent)] font-bold text-[clamp(20px,2.5vw,32px)] leading-none"
             >
                 {count}{suffix}
             </div>
-            <div className="text-[#666] text-[10px] uppercase tracking-[2px] mt-1 font-medium">
+            <div className="text-[#666] text-[9px] sm:text-[10px] uppercase tracking-[1px] sm:tracking-[2px] mt-1.5 font-medium">
                 {label}
             </div>
         </div>
     );
 };
 
-const SocialIconItem = ({ Icon, url, brandClass }) => {
+const SocialIconItem = ({ Icon, url }) => {
     return (
         <a
             href={url}
             target="_blank"
             rel="noreferrer"
-            className={`w-[46px] h-[46px] sm:w-[52px] sm:h-[52px] rounded-full flex items-center justify-center bg-[rgba(255,255,255,0.07)] border border-[rgba(255,255,255,0.1)] backdrop-blur-[10px] text-white transition-all duration-300 ease-in-out ${brandClass}`}
+            className="w-[44px] h-[44px] rounded-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] flex items-center justify-center text-[#888] transition-all duration-300 cursor-pointer hover:bg-[rgba(255,77,90,0.12)] hover:border-[rgba(255,77,90,0.4)] hover:text-[#ff4d5a] hover:-translate-y-[3px] hover:shadow-[0_8px_20px_rgba(255,77,90,0.2)]"
         >
-            <Icon className="w-[18px] h-[18px] sm:w-[19px] sm:h-[19px] transition-colors duration-300" />
+            <Icon size={20} />
         </a>
     );
 };
 
 const Home = React.memo(function Home() {
-    const roles = useMemo(() => ["Data Scientist", "AI Engineer", "ML Engineer", "Deep Learning Expert"], []);
+    const roles = useMemo(() => [
+        "Data Scientist",
+        "Data Analyst",
+        "AI/ML/DL Researcher",
+        "Full-Stack Web Developer",
+        "Founder & CEO"
+    ], []);
     const typedText = useTypewriter(roles, 80, 40, 2000);
 
     // Intersection Observer for Scroll Indicator
@@ -70,16 +76,18 @@ const Home = React.memo(function Home() {
     }, []);
 
     const socialLinks = useMemo(() => ({
-        LinkedIn: { url: personalInfo.socials.find(s => s.name === "LinkedIn")?.url || "#", Icon: Linkedin, brandClass: "hover:bg-[#0077b5] hover:border-[#0077b5] hover:scale-[1.15]" },
-        GitHub: { url: personalInfo.socials.find(s => s.name === "GitHub")?.url || "#", Icon: Github, brandClass: "hover:bg-white hover:text-black hover:border-white hover:scale-[1.15]" },
-        Twitter: { url: personalInfo.socials.find(s => s.name === "Twitter")?.url || "#", Icon: Twitter, brandClass: "hover:bg-[#1da1f2] hover:border-[#1da1f2] hover:scale-[1.15]" },
-        Instagram: { url: personalInfo.socials.find(s => s.name === "Instagram")?.url || "#", Icon: Instagram, brandClass: "hover:bg-[linear-gradient(45deg,#f09433,#e6683c,#dc2743,#bc1888)] hover:border-transparent hover:scale-[1.15]" }
+        LinkedIn: { url: personalInfo.socials.find(s => s.name === "LinkedIn")?.url || "#", Icon: Linkedin },
+        GitHub: { url: personalInfo.socials.find(s => s.name === "GitHub")?.url || "#", Icon: Github },
+        Twitter: { url: personalInfo.socials.find(s => s.name === "Twitter")?.url || "#", Icon: Twitter },
+        Email: { url: "mailto:mohitgupta25012004@gmail.com", Icon: Mail },
+        // Instagram: { url: personalInfo.socials.find(s => s.name === "Instagram")?.url || "#", Icon: Instagram },
+        // Facebook: { url: personalInfo.socials.find(s => s.name === "Facebook")?.url || "#", Icon: Facebook }
     }), []);
 
     return (
         <section
             id="home"
-            className="relative min-h-[100vh] overflow-hidden flex flex-col items-center justify-center text-center px-5 py-20"
+            className="relative min-h-[100vh] overflow-hidden flex flex-col items-center justify-start text-center px-5 pt-[80px] sm:pt-[80px] pb-[80px]"
             style={{ contain: 'layout style' }}
         >
             {/* Top 100px zone for IntersectionObserver */}
@@ -133,7 +141,7 @@ const Home = React.memo(function Home() {
             </div>
 
             {/* MAIN CONTENT BLOCK */}
-            <div className="relative z-10 w-full max-w-[760px] mx-auto flex flex-col items-center justify-center min-h-[100vh]">
+            <div className="relative z-10 w-full max-w-[760px] mx-auto flex flex-col items-center gap-7 sm:gap-8 pt-0 pb-10">
 
                 {/* 1. TOP BADGE */}
                 <motion.div
@@ -141,11 +149,14 @@ const Home = React.memo(function Home() {
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, ease: "easeOut" }}
-                    className="hidden sm:inline-flex items-center justify-center bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] rounded-full px-[18px] py-[6px] transition-colors duration-300 hover:bg-[rgba(255,77,90,0.2)]"
+                    className="flex flex-col items-center"
                 >
-                    <span className="text-[#ff7070] text-[12px] font-medium tracking-[2px] uppercase">
-                        ✦ Data Scientist & AI Engineer
-                    </span>
+                    <div className="hidden sm:inline-flex items-center justify-center mb-0">
+                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px]">
+                            ✦ Noise In. Clarity Out.
+                        </span>
+                    </div>
+                    {/* <div className="hidden sm:block w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px] mx-auto mt-[8px] mb-6" /> */}
                 </motion.div>
 
                 {/* 2. NAME */}
@@ -154,7 +165,7 @@ const Home = React.memo(function Home() {
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
-                    className="text-white font-[800] text-[clamp(30px,8vw,44px)] sm:text-[clamp(36px,5.5vw,64px)] leading-[1.1] tracking-[-1px] max-sm:tracking-[-0.5px] drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)] mt-5 z-10"
+                    className="text-[#ffffff] font-[800] text-[clamp(30px,8vw,44px)] sm:text-[clamp(36px,5.5vw,64px)] leading-[1.1] tracking-[-1px] max-sm:tracking-[-0.5px] drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)] z-10"
                 >
                     Hi, I'm Mohit Gupta
                 </motion.h1>
@@ -165,7 +176,7 @@ const Home = React.memo(function Home() {
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-                    className="mt-3 flex items-baseline justify-center text-[clamp(18px,2.5vw,24px)]"
+                    className="flex items-baseline justify-center text-[clamp(18px,2.5vw,24px)]"
                 >
                     <span className="text-[#aaaaaa] font-[300]">I'm a&nbsp;</span>
                     <span className="text-[var(--accent)] font-[600] border-b-[2px] border-[var(--accent)] pb-[2px] leading-none inline-block">
@@ -180,7 +191,7 @@ const Home = React.memo(function Home() {
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
-                    className="relative max-w-full sm:max-w-[480px] w-full mx-auto mt-7 flex flex-col items-center"
+                    className="relative max-w-full sm:max-w-[480px] w-full mx-auto flex flex-col items-center"
                 >
                     {/* Decorative open-quote */}
                     <span className="absolute top-[-10px] left-[-15px] sm:left-[-20px] text-[60px] sm:text-[72px] leading-[0.8] text-[rgba(255,77,90,0.18)] font-serif pointer-events-none select-none">
@@ -188,15 +199,15 @@ const Home = React.memo(function Home() {
                     </span>
 
                     {/* Top Accent Line */}
-                    <div className="w-[50px] h-[1px] bg-[linear-gradient(90deg,transparent,#ff4d5a,transparent)] mb-[14px]" />
+                    <div className="w-[50px] h-[1px] bg-[linear-gradient(90deg,transparent,#ff4d5a,transparent)] mb-[10px]" />
 
                     {/* Quote Text */}
-                    <p className="text-[clamp(17px,2vw,21px)] italic font-[300] tracking-[0.3px] leading-[1.6] text-transparent bg-clip-text z-10 px-2" style={{ backgroundImage: "linear-gradient(135deg, #ffffff 30%, #cccccc 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                        Just believe in yourself.
+                    <p className="text-[clamp(15px,1.8vw,18px)] italic font-[300] tracking-[0.3px] leading-[1.6] text-transparent bg-clip-text z-10 px-2" style={{ backgroundImage: "linear-gradient(135deg, #ffffff 30%, #cccccc 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                        I don't wait for opportunities — I engineer them.
                     </p>
 
                     {/* Attribution Line */}
-                    <div className="flex items-center justify-center gap-[10px] mt-[12px] w-full">
+                    <div className="flex items-center justify-center gap-[10px] mt-[10px] w-full">
                         <div className="w-[24px] h-[1px] bg-[var(--accent)] shrink-0" />
                         <span className="text-[var(--accent)] text-[11px] font-[600] tracking-[3px] uppercase">
                             MOHIT GUPTA
@@ -205,14 +216,14 @@ const Home = React.memo(function Home() {
                     </div>
 
                     {/* Bottom Accent Line */}
-                    <div className="w-[50px] h-[1px] bg-[linear-gradient(90deg,transparent,#ff4d5a,transparent)] mt-[14px]" />
+                    <div className="w-[50px] h-[1px] bg-[linear-gradient(90deg,transparent,#ff4d5a,transparent)] mt-[10px]" />
                 </motion.div>
 
                 {/* 5. SOCIAL ICONS */}
                 <motion.div
-                    className="flex justify-center gap-3 sm:gap-4 mt-[36px]"
+                    className="flex justify-center gap-3 sm:gap-4"
                 >
-                    {Object.entries(socialLinks).map(([name, { url, Icon, brandClass }], idx) => (
+                    {Object.entries(socialLinks).map(([name, { url, Icon }], idx) => (
                         <motion.div
                             key={name}
                             initial={{ y: 20, opacity: 0 }}
@@ -220,7 +231,7 @@ const Home = React.memo(function Home() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.7 + (idx * 0.1), ease: "easeOut" }}
                         >
-                            <SocialIconItem Icon={Icon} url={url} brandClass={brandClass} />
+                            <SocialIconItem Icon={Icon} url={url} />
                         </motion.div>
                     ))}
                 </motion.div>
@@ -231,13 +242,17 @@ const Home = React.memo(function Home() {
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, delay: 0.9, ease: "easeOut" }}
-                    className="flex items-center justify-center w-full max-w-[440px] mx-auto mt-[52px] px-5 py-4 sm:px-10 sm:py-6 bg-[rgba(255,255,255,0.03)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.07)] rounded-[16px]"
+                    className="flex items-center justify-center w-full max-w-[640px] mx-auto px-3 py-4 sm:px-6 sm:py-6 bg-[rgba(255,255,255,0.03)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.07)] rounded-[16px]"
                 >
-                    <StatItem end={10} suffix="+" label="PROJECTS" />
-                    <div className="w-[1px] h-[40px] bg-[rgba(255,255,255,0.1)] self-center" />
-                    <StatItem end={2} suffix="+" label="YEARS" />
-                    <div className="w-[1px] h-[40px] bg-[rgba(255,255,255,0.1)] self-center" />
-                    <StatItem end={3} suffix="" label="PAPERS" />
+                    <StatItem end={9} suffix=".60" label="CGPA" />
+                    <div className="hidden sm:block w-[1px] h-[40px] bg-[rgba(255,255,255,0.1)] shrink-0" />
+                    <StatItem end={9} suffix="+" label="PROJECTS" />
+                    <div className="hidden sm:block w-[1px] h-[40px] bg-[rgba(255,255,255,0.1)] shrink-0" />
+                    <StatItem end={3} suffix="" label="PUBLICATIONS" />
+                    <div className="hidden sm:block w-[1px] h-[40px] bg-[rgba(255,255,255,0.1)] shrink-0" />
+                    <StatItem end={21} suffix="+" label="CERTIFICATIONS" />
+                    <div className="hidden sm:block w-[1px] h-[40px] bg-[rgba(255,255,255,0.1)] shrink-0" />
+                    <StatItem end={75} suffix="+" label="AWARDS" />
                 </motion.div>
 
             </div>

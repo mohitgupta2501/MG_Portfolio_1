@@ -6,26 +6,26 @@ export const navLinks = [
         name: 'Portfolio',
         href: '#portfolio',
         dropdown: [
-            { name: 'Projects', href: '#projects' },
-            { name: 'Research', href: '#research' },
-            { name: 'Publications', href: '#publications' },
+            { name: 'Projects', href: '#projects', icon: 'FolderOpen' },
+            { name: 'Research & Publications', href: '#research', icon: 'FlaskConical' },
+            { name: 'Education', href: '#education', icon: 'GraduationCap' },
         ]
     },
     {
         name: 'Skills',
         href: '#skills',
         dropdown: [
-            { name: 'Technical Skills', href: '#technical-skills' },
-            { name: 'Certifications', href: '#certifications' },
+            { name: 'Technical Skills', href: '#skills', icon: 'Code2' },
+            { name: 'Certifications', href: '#certifications', icon: 'Award' },
         ]
     },
     {
         name: 'Achievements',
         href: '#achievements',
         dropdown: [
-            { name: 'Awards', href: '#awards' },
-            { name: 'Leadership', href: '#leadership' },
-            { name: 'Sports', href: '#sports' },
+            { name: 'Awards & Honors', href: '#awards', icon: 'Trophy' },
+            { name: 'Leadership & Activities', href: '#leadership', icon: 'Users' },
+            { name: 'Gallery', href: '#gallery', icon: 'Images' },
         ]
     },
     { name: 'Contact', href: '#contact' }

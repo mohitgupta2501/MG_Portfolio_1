@@ -1,7 +1,7 @@
 import React, { useEffect, Suspense } from 'react';
 import Lenis from '@studio-freight/lenis';
 import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
+// import Footer from '@/components/layout/Footer';
 import BackToTop from '@/components/layout/BackToTop';
 
 // Lazy loaded route blocks for massive performance gains. Home is statically loaded.
@@ -9,12 +9,77 @@ import Home from '@/components/sections/Home';
 const About = React.lazy(() => import('@/components/sections/About'));
 const Experience = React.lazy(() => import('@/components/sections/Experience'));
 const Projects = React.lazy(() => import('@/components/sections/Projects'));
+const Research = React.lazy(() => import('@/components/sections/Research'));
+const Education = React.lazy(() => import('@/components/sections/Education'));
+const Skills = React.lazy(() => import('@/components/sections/Skills'));
+const Certifications = React.lazy(() => import('@/components/sections/Certifications'));
+const Awards = React.lazy(() => import('@/components/sections/Awards'));
+const Leadership = React.lazy(() => import('@/components/sections/Leadership'));
 const Contact = React.lazy(() => import('@/components/sections/Contact'));
+
+const SectionDivider = () => (
+  <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent)]" />
+);
 
 function App() {
   useEffect(() => {
-    // We remove the Lenis smooth scroll entirely per the "Remove any scroll event listeners" logic
-    // and instead use html { scroll-behavior: smooth } to handle it natively avoiding RAF loops.
+    const sectionTitles = {
+      home: 'Mohit',
+      about: 'About | Mohit',
+      experience: 'Experience | Mohit',
+      projects: 'Projects | Mohit',
+      research: 'Research & Publications | Mohit',
+      education: 'Education | Mohit',
+      skills: 'Technical Skills | Mohit',
+      certifications: 'Certifications | Mohit',
+      awards: 'Awards & Honors | Mohit',
+      leadership: 'Leadership & Activities | Mohit',
+      gallery: 'Gallery | Mohit',
+      contact: 'Contact | Mohit',
+    };
+
+    document.title = 'Mohit';
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            document.title = sectionTitles[entry.target.id] || 'Mohit';
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '-10% 0px -10% 0px' }
+    );
+
+    const observedIds = new Set();
+    let retryTimerId;
+
+    const observeSections = () => {
+      let allFound = true;
+
+      Object.keys(sectionTitles).forEach((id) => {
+        if (observedIds.has(id)) return;
+
+        const el = document.getElementById(id);
+        if (el) {
+          observer.observe(el);
+          observedIds.add(id);
+        } else {
+          allFound = false;
+        }
+      });
+
+      if (!allFound) {
+        retryTimerId = window.setTimeout(observeSections, 300);
+      }
+    };
+
+    observeSections();
+
+    return () => {
+      if (retryTimerId) window.clearTimeout(retryTimerId);
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -37,14 +102,30 @@ function App() {
         <Navbar />
         <main>
           <Home />
+          <SectionDivider />
           <Suspense fallback={<div className="h-screen w-full" />}>
             <About />
+            <SectionDivider />
             <Experience />
+            <SectionDivider />
             <Projects />
+            <SectionDivider />
+            <Research />
+            <SectionDivider />
+            <Education />
+            <SectionDivider />
+            <Skills />
+            <SectionDivider />
+            <Certifications />
+            <SectionDivider />
+            <Awards />
+            <SectionDivider />
+            <Leadership />
+            <SectionDivider />
             <Contact />
           </Suspense>
         </main>
-        <Footer />
+        {/* <Footer /> */}
         <BackToTop />
       </div>
     </div>

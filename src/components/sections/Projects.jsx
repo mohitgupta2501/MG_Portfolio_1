@@ -1,6 +1,6 @@
 import { useState, useMemo, memo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FolderGit2, Building2, GraduationCap, Layers } from 'lucide-react';
+import { FolderGit2, Factory, FlaskConical, AppWindow } from 'lucide-react';
 import { projects } from '@/data/projects';
 import ProjectCard from '@/components/ui/ProjectCard';
 import ProjectModal from '@/components/ui/ProjectModal';
@@ -8,20 +8,19 @@ import ProjectModal from '@/components/ui/ProjectModal';
 // Filter Categories
 const FILTERS = [
     'All',
-    'Industrial AI',
-    'Healthcare AI',
-    'Full-Stack',
+    'Industrial',
     'Machine Learning',
+    'Healthcare',
     'Generative AI',
-    'IoT'
+    'Logistics'
 ];
 
 // Stats Data
 const stats = [
     { label: 'Total Projects', value: 9, icon: FolderGit2, color: '#ff4d5a' },
-    { label: 'Industry Projects', value: 4, icon: Building2, color: '#f59e0b' },
-    { label: 'Research Papers', value: 3, icon: GraduationCap, color: '#ec4899' },
-    { label: 'Tech Domains', value: 5, icon: Layers, color: '#3b82f6', suffix: '+' }
+    { label: 'Industry Projects', value: 6, icon: Factory, color: '#3b82f6' },
+    { label: 'Research Projects', value: 3, icon: FlaskConical, color: '#ec4899' },
+    { label: 'Tech Domains', value: 5, icon: AppWindow, color: '#a855f7' }
 ];
 
 // Stat Counter Hook (simple version)
@@ -64,23 +63,57 @@ function useCountUp(end, duration = 2000) {
     return { count, ref };
 }
 
+// Helper to get RGB from Hex for CSS custom properties
+const hexToRgb = (hex) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : null;
+};
+
 // Stat Card Component
-const StatCard = memo(({ stat }) => {
-    const { count, ref } = useCountUp(stat.value);
+const StatCard = memo(({ icon: Icon, num, label, color }) => {
+    const numericValue = parseInt(num.replace(/\+/g, ''));
+    const isPlus = num.includes('+');
+    const { count, ref } = useCountUp(numericValue, 1500);
+    const colorRgb = hexToRgb(color) || '255,255,255';
 
     return (
         <div
             ref={ref}
-            className="flex flex-col items-center justify-center p-5 sm:p-6 bg-[#111111] border border-[#1a1a1a] rounded-2xl transition-transform duration-300 hover:-translate-y-1.5 hover:border-[var(--hover-color)]"
-            style={{ '--hover-color': stat.color }}
+            className="proj-stat-card bg-[#111] border border-[#1a1a1a] rounded-2xl p-5 flex flex-col items-center justify-center text-center group cursor-default h-full w-full min-h-[140px]"
+            style={{
+                '--cat-color': color,
+                '--cat-rgb': colorRgb
+            }}
         >
-            <stat.icon className="w-6 h-6 mb-3" style={{ color: stat.color }} />
-            <div className="text-3xl sm:text-4xl font-bold mb-1" style={{ color: stat.color }}>
-                {count}{stat.suffix}
-            </div>
-            <div className="text-gray-400 text-xs sm:text-sm uppercase tracking-wider font-medium text-center">
-                {stat.label}
-            </div>
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                .proj-stat-card {
+                    transition: all 0.3s ease;
+                }
+                .proj-stat-card:hover {
+                    transform: translateY(-6px);
+                    background-color: rgba(var(--cat-rgb), 0.08);
+                    border-color: rgba(var(--cat-rgb), 0.3);
+                    box-shadow: 0 8px 24px rgba(var(--cat-rgb), 0.2);
+                }
+                .proj-stat-card:hover .stat-icon {
+                    filter: drop-shadow(0 0 8px var(--cat-color));
+                }
+                .proj-stat-card:hover .stat-value {
+                    text-shadow: 0 0 12px var(--cat-color);
+                }
+                `
+            }} />
+            <Icon className="stat-icon w-6 h-6 mb-3 transition-all duration-300" style={{ color: color }} />
+            <span
+                className="stat-value font-bold text-[clamp(24px,3vw,32px)] leading-none mb-1.5 transition-all duration-300"
+                style={{ color: color }}
+            >
+                {count}{isPlus && '+'}
+            </span>
+            <span className="text-[#555] text-[10px] uppercase tracking-[1.5px] font-bold">
+                {label}
+            </span>
         </div>
     );
 });
@@ -97,17 +130,13 @@ const Projects = memo(() => {
         return projects.filter(p => p.category === activeFilter);
     }, [activeFilter]);
 
-    // Separate Hero and Standard projects logically based on exact required IDs for top 2 (RAS and Unified Gateway)
-    // Usually, we can just take the first 2 of the filtered list, but design requests RAS and Unified Gateway
-    // are top 2. So we can say: first 2 of 'All' are hero, rest are standard. If filtered, just grid them all or keep logic if they are top.
-    // We'll treat the first 2 of the filtered list as Hero if we are in 'All' view to maintain layout,
-    // or apply Hero styling to top 2 regardless of filter.
+    // No distinction between Hero and Standard required; all cards same size and layout
     const isAllView = activeFilter === 'All';
-    const heroProjects = isAllView ? filteredProjects.slice(0, 2) : [];
-    const standardProjects = isAllView ? filteredProjects.slice(2) : filteredProjects;
 
     return (
-        <section id="portfolio" className="relative py-24 sm:py-32 bg-[#080808] overflow-hidden min-h-screen">
+        <section id="projects" className="relative pt-[80px] pb-[80px] bg-[#080808] overflow-hidden min-h-screen">
+
+            <div id="portfolio" />
 
             {/* Background Effects */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -133,7 +162,7 @@ const Projects = memo(() => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
 
                 {/* Section Header */}
-                <div className="flex flex-col items-center justify-center mb-16 relative">
+                <div className="flex flex-col items-center justify-center mb-[40px] relative">
                     {/* Background Text */}
                     <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[80px] sm:text-[120px] md:text-[160px] font-black text-white/[0.015] pointer-events-none select-none uppercase tracking-widest whitespace-nowrap">
                         Projects
@@ -147,47 +176,32 @@ const Projects = memo(() => {
                         className="flex flex-col items-center"
                     >
                         {/* Pill Badge */}
-                        <div className="px-[22px] py-[7px] rounded-full border mb-6 inline-flex"
-                            style={{
-                                background: 'linear-gradient(135deg, #1e0a0d, #2a1215)',
-                                borderColor: 'rgba(255,77,90,0.3)',
-                                color: '#ff4d5a',
-                                letterSpacing: '4px',
-                                textTransform: 'uppercase',
-                                fontSize: '12px',
-                                fontWeight: 600
-                            }}>
-                            Projects
+                        <div className="px-[22px] py-[7px] rounded-[50px] border mb-0 inline-flex items-center justify-center font-medium bg-[rgba(255,77,90,0.1)] border-[rgba(255,77,90,0.3)] text-[#ff4d5a] text-[11px] uppercase tracking-[4px]">
+                            ● PROJECTS
                         </div>
+                        <div className="w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px] mx-auto mb-6 mt-[8px]" />
 
-                        <h2 className="text-white text-center font-extralight mb-6" style={{ fontSize: 'clamp(36px, 5.5vw, 66px)', letterSpacing: '-0.02em' }}>
+                        <h2 className="text-[#ffffff] text-center font-[800] mb-6" style={{ fontSize: 'clamp(36px, 5.5vw, 66px)', letterSpacing: '-0.02em' }}>
                             Featured Projects
                         </h2>
 
-                        {/* Animated Underline */}
-                        <motion.div
-                            className="h-[2px] bg-[#ff4d5a] mb-8"
-                            initial={{ width: 0 }}
-                            whileInView={{ width: '40px' }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                        />
-
                         <p className="text-[#888888] text-[15px] sm:text-[16px] italic text-center max-w-2xl font-light">
-                            "Real-world systems, research publications, and AI solutions — built with passion and precision"
+                            Exploring the intersection of artificial intelligence, industrial systems, and scalable software engineering to solve complex real-world problems.
                         </p>
                     </motion.div>
                 </div>
 
                 {/* Stats Row */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-[800px] mx-auto mb-20">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-[32px] items-stretch">
                     {stats.map((stat, i) => (
-                        <StatCard key={i} stat={stat} />
+                        <div key={i} className="h-full">
+                            <StatCard icon={stat.icon} num={stat.value.toString() + (stat.suffix || '')} label={stat.label} color={stat.color} />
+                        </div>
                     ))}
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-16 overflow-x-auto pb-4 scrollbar-hide w-full max-w-5xl mx-auto">
+                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-[40px] px-4">
                     {FILTERS.map(filter => {
                         const isActive = activeFilter === filter;
                         const count = filter === 'All' ? projects.length : projects.filter(p => p.category === filter).length;
@@ -196,19 +210,14 @@ const Projects = memo(() => {
                             <button
                                 key={filter}
                                 onClick={() => setActiveFilter(filter)}
-                                className={`
-                        relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 shrink-0
-                        ${isActive
-                                        ? 'text-white shadow-[0_0_20px_rgba(255,77,90,0.3)] bg-gradient-to-r from-[#ff4d5a] to-[#d93846]'
-                                        : 'text-gray-400 bg-[#111111] hover:bg-[#1a1a1a] hover:text-gray-200 border border-white/5 hover:border-white/10'
-                                    }
-                     `}
+                                className={`group relative flex items-center px-[18px] py-[8px] rounded-[50px] text-[13px] transition-all ease-in-out duration-300 ${isActive
+                                    ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] -translate-y-[2px] border border-transparent'
+                                    : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
+                                    }`}
                             >
                                 {filter}
-                                <span className={`
-                        px-2 py-0.5 rounded-full text-[11px] font-bold
-                        ${isActive ? 'bg-white/20 text-white' : 'bg-white/10 text-gray-400'}
-                     `}>
+                                <span className={`inline-flex items-center justify-center rounded-[50px] px-[7px] py-[1px] ml-[6px] text-[10px] transition-colors duration-300 ${isActive ? 'bg-[rgba(255,255,255,0.25)] text-white font-[700]' : 'bg-[rgba(255,255,255,0.07)] text-[#555] group-hover:bg-[rgba(255,77,90,0.15)] group-hover:text-[#ff9090]'
+                                    }`}>
                                     {count}
                                 </span>
                             </button>
@@ -216,48 +225,26 @@ const Projects = memo(() => {
                     })}
                 </div>
 
+                {/* HORIZONTAL DIVIDER - NEW */}
+                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-[40px]" />
+
                 {/* Projects Grid Container */}
                 <div className="w-full flex flex-col gap-6 sm:gap-8">
                     <AnimatePresence mode="popLayout">
-                        {/* Hero Row (only show in 'All' view to match exact design requirements) */}
-                        {heroProjects.length > 0 && (
+                        {filteredProjects.length > 0 && (
                             <motion.div
-                                key="hero-grid"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                                transition={{ duration: 0.4 }}
-                                className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 min-h-[420px]"
-                            >
-                                {heroProjects.map((project, idx) => (
-                                    <ProjectCard
-                                        key={project.title}
-                                        project={project}
-                                        index={idx}
-                                        isHero={true}
-                                        onClick={setSelectedProject}
-                                    />
-                                ))}
-                            </motion.div>
-                        )}
-
-                        {/* Standard Grid */}
-                        {standardProjects.length > 0 && (
-                            <motion.div
-                                key={`std-grid-${activeFilter}`}
+                                key={`grid-${activeFilter}`}
                                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
                                 transition={{ duration: 0.4 }}
-                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-6 lg:mt-0"
+                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch w-full"
                             >
-                                {standardProjects.map((project, idx) => (
+                                {filteredProjects.map((project, idx) => (
                                     <ProjectCard
                                         key={project.title}
                                         project={project}
-                                        // Offset the index for Animation delays
-                                        index={heroProjects.length + idx}
-                                        isHero={false}
+                                        index={idx}
                                         onClick={setSelectedProject}
                                     />
                                 ))}

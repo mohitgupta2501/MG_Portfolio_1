@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { Calendar, MapPin, Building2, Rocket, Briefcase, Clock } from 'lucide-react';
+import { Calendar, MapPin, Building2, Briefcase, Rocket, ArrowRight, Heart, GraduationCap } from 'lucide-react';
 import { experienceData } from '@/data/experience';
+import ExperienceModal from '@/components/ui/ExperienceModal';
 
 // Helper to get RGB from Hex for CSS custom properties
 const hexToRgb = (hex) => {
@@ -11,370 +12,485 @@ const hexToRgb = (hex) => {
 
 const FilterTabs = ({ categories, activeCategory, setActiveCategory, categoryCounts }) => {
     return (
-        <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-nowrap md:flex-wrap items-center justify-start md:justify-center gap-[10px] overflow-x-auto pb-4 md:pb-0 mb-16 scrollbar-hide px-4 md:px-0 w-full max-w-[800px] mx-auto"
-        >
+        <div className="w-full flex flex-wrap justify-center gap-[10px]">
             {categories.map((cat, idx) => {
                 const isActive = activeCategory === cat;
                 return (
                     <button
                         key={idx}
                         onClick={() => setActiveCategory(cat)}
-                        className={`group relative flex items-center gap-[8px] whitespace-nowrap px-[20px] py-[8px] rounded-full text-[13px] font-medium transition-all duration-300 border ${isActive
-                                ? 'bg-[linear-gradient(135deg,#ff4d5a,#ff7043)] border-transparent text-white font-[600] shadow-[0_4px_20px_rgba(255,77,90,0.35)] -translate-y-[2px]'
-                                : 'bg-[#111111] border-[#1e1e1e] text-[#888888] hover:border-[rgba(255,77,90,0.3)] hover:text-[#cccccc] hover:-translate-y-[1px]'
+                        className={`group relative flex items-center px-[18px] py-[8px] rounded-[50px] text-[13px] transition-all ease-in-out duration-300 ${isActive
+                            ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] -translate-y-[2px] border border-transparent'
+                            : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
                             }`}
                     >
                         {cat}
-                        <span className={`inline-flex items-center justify-center px-[6px] py-[2px] rounded-full text-[10px] transition-colors duration-300 ${isActive ? 'bg-[rgba(255,255,255,0.2)] text-white' : 'bg-[rgba(255,255,255,0.08)] text-[#888888] group-hover:text-[#aaa]'
+                        <span className={`inline-flex items-center justify-center rounded-[50px] px-[7px] py-[1px] ml-[6px] text-[10px] transition-colors duration-300 ${isActive ? 'bg-[rgba(255,255,255,0.25)] text-white font-[700]' : 'bg-[rgba(255,255,255,0.07)] text-[#555] group-hover:bg-[rgba(255,77,90,0.15)] group-hover:text-[#ff9090]'
                             }`}>
                             {categoryCounts[cat]}
                         </span>
                     </button>
                 );
             })}
-        </motion.div>
-    );
-};
-
-const StatCard = ({ icon: Icon, num, label, colorClass }) => {
-    return (
-        <div className="group bg-[linear-gradient(145deg,#111111,#0d0d0d)] border border-[#1a1a1a] rounded-[16px] py-5 px-3 sm:px-4 text-center flex-1 transition-all duration-400 hover:-translate-y-[3px] hover:border-[rgba(255,77,90,0.3)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-            <div className="flex justify-center mb-3">
-                <Icon className={`w-[20px] h-[20px] ${colorClass} transition-transform duration-500 ease-in-out group-hover:rotate-[360deg]`} />
-            </div>
-            <div className="text-[var(--accent)] font-bold text-[24px] sm:text-[28px] leading-none mb-2">{num}</div>
-            <div className="text-[#666] text-[9px] sm:text-[10px] uppercase tracking-[1px] sm:tracking-[2px] font-medium">{label}</div>
         </div>
     );
 };
 
-const ExperienceCard = React.memo(({ item, index, layoutIndex }) => {
-    // Alternating layout on desktop based on VISUAL index
-    const isLeft = layoutIndex % 2 === 0;
-    const isFirstCard = layoutIndex === 0; // for bullet-pulse specifically
-    const cardColorRgb = hexToRgb(item.color);
+function useCountUp(end, duration = 2000) {
+    const [count, setCount] = useState(0);
+    const [hasStarted, setHasStarted] = useState(false);
+    const ref = useRef(null);
 
-    // Format text to highlight the first word with new styling
-    const formatHighlight = (text) => {
-        const words = text.split(' ');
-        if (words.length === 0) return text;
-        const firstWord = words[0];
-        const rest = words.slice(1).join(' ');
-        return (
-            <>
-                <span
-                    className="text-white font-[600] transition-colors duration-200"
-                    style={{
-                        textDecoration: 'underline',
-                        textDecorationColor: `rgba(${cardColorRgb}, 0.4)`,
-                        textUnderlineOffset: '3px'
-                    }}
-                >
-                    {firstWord}
-                </span> {rest}
-            </>
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting && !hasStarted) {
+                    setHasStarted(true);
+                }
+            },
+            { threshold: 0.1 }
         );
-    };
+        if (ref.current) observer.observe(ref.current);
+        return () => observer.disconnect();
+    }, [hasStarted]);
 
-    const getSystemIcon = (sys) => {
-        if (sys.includes("AutoML")) return "🤖";
-        if (sys.includes("Unified Gateway")) return "🔗";
-        if (sys.includes("Roll Analytics")) return "📊";
-        if (sys.includes("Coil")) return "🏭";
-        if (sys.includes("Energy")) return "⚡";
-        return "⚙️";
+    useEffect(() => {
+        if (!hasStarted) return;
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            // easeOutQuart
+            const ease = 1 - Math.pow(1 - progress, 4);
+            setCount(Math.floor(ease * end));
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
+                setCount(end);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }, [hasStarted, end, duration]);
+
+    return { count, ref };
+}
+
+// Stat Card Component
+const StatCard = React.memo(({ icon: Icon, num, label, sub, color }) => {
+    const numericValue = parseInt(num.replace(/\+/g, '').replace(/%/g, ''));
+    const isPlus = num.includes('+');
+    const isPercent = num.includes('%');
+    const { count, ref } = useCountUp(numericValue, 1500);
+    const colorRgb = hexToRgb(color) || '255,255,255';
+
+    return (
+        <div
+            ref={ref}
+            className="proj-stat-card bg-[#111] border border-[#1a1a1a] rounded-2xl p-5 flex flex-col items-center justify-center text-center group cursor-default h-full w-full min-h-[140px]"
+            style={{
+                '--cat-color': color,
+                '--cat-rgb': colorRgb
+            }}
+        >
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                .proj-stat-card {
+                    transition: all 0.3s ease;
+                }
+                .proj-stat-card:hover {
+                    transform: translateY(-6px);
+                    background-color: rgba(var(--cat-rgb), 0.08);
+                    border-color: rgba(var(--cat-rgb), 0.3);
+                    box-shadow: 0 8px 24px rgba(var(--cat-rgb), 0.2);
+                }
+                .proj-stat-card:hover .stat-icon {
+                    filter: drop-shadow(0 0 8px var(--cat-color));
+                }
+                .proj-stat-card:hover .stat-value {
+                    text-shadow: 0 0 12px var(--cat-color);
+                }
+                `
+            }} />
+            <Icon className="stat-icon w-6 h-6 mb-3 transition-all duration-300" style={{ color: color }} />
+            <span
+                className="stat-value font-bold text-[clamp(24px,3vw,32px)] leading-none mb-1.5 transition-all duration-300"
+                style={{ color: color }}
+            >
+                {count}{isPlus && '+'}{isPercent && '%'}
+            </span>
+            <span className="text-[#555] text-[10px] uppercase tracking-[1.5px] font-bold">
+                {label}
+            </span>
+            <span className="text-[#333] text-[11px] mt-[3px]">
+                {sub}
+            </span>
+        </div>
+    );
+});
+StatCard.displayName = 'StatCard';
+
+const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCards }) => {
+    const cardColorRgb = hexToRgb(item.color);
+    const isHitachi = item.company.includes("Hitachi");
+
+    // Hardcoded brief summaries map based on requested specs
+    const getBriefSummary = (company, role) => {
+        if (company.includes("Hitachi")) return "Built industrial AI systems including AutoML platform, Unified Gateway, and analytics dashboards.";
+        if (company.includes("Netfotech")) return "Developed SmartGoodsMatch web app using Flask, SQLite, and RESTful APIs.";
+        if (company.includes("Eagle Wears")) return "Founded premium apparel brand, secured ₹1L+ order, managed full operations.";
+        if (company.includes("Aashraya") && role.includes("Representative")) return "Campus representative organizing social awareness programs and outreach.";
+        if (company.includes("Aashraya") && role.includes("Volunteer")) return "Permanent volunteer supporting community welfare across Maharashtra.";
+        if (company.includes("Sahyadri")) return "Contributed to social development and community outreach initiatives.";
+        return "";
     };
 
     return (
         <motion.div
             layout
-            initial={{ x: isLeft ? -80 : 80, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.15 }}
-            className={`relative w-full flex justify-between items-center mb-10 md:mb-16 ${isLeft ? 'flex-row-reverse md:flex-row' : 'flex-row-reverse'}`}
+            initial={{ y: 40, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
+            className={`relative w-full h-full ${totalCards % 2 !== 0 && index === totalCards - 1 ? 'md:col-span-1 md:max-w-[560px] md:mx-auto lg:col-span-2' : ''}`}
         >
-            {/* Desktop Empty Space */}
-            <div className="hidden md:block w-[45%]" />
-
-            {/* Center Timeline Dot (Now with Ripple and Double Ring) */}
-            <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.3 }} // 0.3s delay as requested
-                className="absolute left-[20px] md:left-1/2 -translate-x-1/2 w-[28px] h-[28px] rounded-full flex items-center justify-center z-10 timeline-dot-container"
-                style={{
-                    border: `1px solid rgba(${cardColorRgb}, 0.2)`,
-                    backgroundColor: '#080808'
-                }}
-            >
-                {/* Inner Dot */}
-                <div
-                    className="w-[14px] h-[14px] rounded-full relative"
-                    style={{ backgroundColor: item.color }}
-                >
-                    {/* Ripple Effect Pseudo */}
-                    <style dangerouslySetInnerHTML={{
-                        __html: `
-                        .timeline-dot-container::after {
-                            content: '';
-                            position: absolute;
-                            inset: 0;
-                            border-radius: 50%;
-                            background-color: ${item.color};
-                            animation: enter-ripple 1s cubic-bezier(0.1, 0, 0.3, 1) forwards;
-                            animation-delay: 0.5s;
-                            opacity: 0;
-                            z-index: -1;
-                        }
-                        @keyframes enter-ripple {
-                            0% { transform: scale(1); opacity: 0.8; }
-                            100% { transform: scale(2.5); opacity: 0; }
-                        }
-                    `}} />
-                </div>
-            </motion.div>
-
-            {/* Horizontal Connector Line */}
-            <motion.div
-                initial={{ width: 0, opacity: 0 }}
-                whileInView={{ width: '40px', opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                className={`absolute h-[2px] top-[40px] md:top-1/2 md:-translate-y-1/2 hidden md:block z-0
-                    ${isLeft ? 'right-[calc(50%+14px)]' : 'left-[calc(50%+14px)]'}
-                `}
-                style={{ backgroundColor: item.color }}
-            />
-            {/* Mobile Connector */}
-            <motion.div
-                initial={{ width: 0, opacity: 0 }}
-                whileInView={{ width: 'calc(44px - 20px - 14px)', opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                className="absolute left-[34px] h-[2px] top-[40px] md:hidden z-0"
-                style={{ backgroundColor: item.color }}
-            />
-
             {/* The Card */}
             <div
-                className="group relative w-full md:w-[45%] bg-[linear-gradient(145deg,rgba(17,17,17,0.9),rgba(12,12,12,0.95))] backdrop-blur-[2px] border border-[#1a1a1a] rounded-[22px] p-[20px] sm:p-[28px] ml-[44px] md:ml-0 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] hover:-translate-y-[6px]"
+                className="experience-card group"
+                onClick={() => onClick(item)}
                 style={{
-                    '--card-color': item.color,
-                    '--card-color-rgb': cardColorRgb
+                    '--cat-color': item.color,
+                    '--cat-rgb': cardColorRgb
                 }}
             >
-                {/* Advanced Hover Styles & Corner Glow rendering */}
+                {/* Advanced Hover Styles */}
                 <style dangerouslySetInnerHTML={{
                     __html: `
-                    .group:hover {
-                        border-color: rgba(var(--card-color-rgb), 0.4);
-                        box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(var(--card-color-rgb), 0.1), 0 0 40px rgba(var(--card-color-rgb), 0.06);
-                    }
-                    .group:hover .accent-bar { transform: scaleY(1); }
-                    .group:hover .shimmer { transform: translateX(100%); }
-                    .group:hover .role-title { color: var(--card-color); }
-                    .group:hover .top-stripe { opacity: 1; }
-                    .group:hover::before { opacity: 1; }
-                    .group:hover .bg-index { color: rgba(var(--card-color-rgb), 0.08); }
-                    
-                    /* Corner Glow */
-                    .group::before {
-                        content: '';
-                        position: absolute;
-                        top: -40px;
-                        right: -40px;
-                        width: 100px;
-                        height: 100px;
-                        background: radial-gradient(circle, rgba(var(--card-color-rgb), 0.12), transparent 65%);
-                        opacity: 0;
-                        transition: opacity 0.5s ease;
-                        pointer-events: none;
-                        border-radius: 50%;
+                    .experience-card {
+                      position: relative;
+                      overflow: hidden;
+                      background: linear-gradient(145deg, #111111, #0c0c0c);
+                      border: 1px solid rgba(255, 255, 255, 0.06);
+                      border-radius: 20px;
+                      padding: 24px;
+                      display: flex;
+                      flex-direction: column;
+                      height: 100%;
+                      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                      cursor: pointer;
                     }
 
-                    /* Skills Hover */
-                    .skill-pill:hover { 
-                        background-color: rgba(var(--card-color-rgb), 0.1) !important; 
-                        border-color: rgba(var(--card-color-rgb), 0.35) !important; 
-                        color: var(--card-color) !important; 
-                        transform: translateY(-2px) scale(1.05);
-                        box-shadow: 0 4px 12px rgba(var(--card-color-rgb), 0.15);
+                    .experience-card:hover {
+                      transform: translateY(-8px) scale(1.012);
+                      border-color: rgba(var(--cat-rgb), 0.55);
+                      box-shadow:
+                        0 28px 70px rgba(0,0,0,0.55),
+                        0 12px 30px rgba(0,0,0,0.35),
+                        0 0 0 1px rgba(var(--cat-rgb), 0.15),
+                        0 0 50px rgba(var(--cat-rgb), 0.1);
                     }
-                    
-                    /* Bullet Text Hover */
-                    .bullet-text:hover { color: rgba(255,255,255,0.9); }
+
+                    .experience-card .top-stripe {
+                      position: absolute;
+                      top: 0; left: 0; right: 0;
+                      height: 2px;
+                      background: linear-gradient(90deg,
+                        transparent,
+                        rgba(var(--cat-rgb), 1) 50%,
+                        transparent);
+                      opacity: 0;
+                      transition: opacity 0.35s;
+                      border-radius: 20px 20px 0 0;
+                    }
+                    .experience-card:hover .top-stripe {
+                      opacity: 1;
+                    }
+
+                    .experience-card:hover .role-title { color: var(--cat-color) !important; }
+                    .experience-card:hover .company-name { color: #ddd !important; }
+
+                    .experience-card .card-number {
+                      position: absolute;
+                      top: 16px; right: 20px;
+                      font-size: 56px;
+                      font-weight: 900;
+                      color: rgba(255,255,255,0.03);
+                      pointer-events: none;
+                      user-select: none;
+                      transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+                      line-height: 1;
+                      z-index: 0;
+                    }
+                    .experience-card:hover .card-number {
+                      color: var(--cat-color);
+                      text-shadow: 0 0 30px rgba(var(--cat-rgb), 0.6), 0 0 60px rgba(var(--cat-rgb), 0.25);
+                      transform: scale(1.08) translateY(-4px);
+                      opacity: 0.15;
+                    }
+
+                    .experience-card::after {
+                      content: '';
+                      position: absolute;
+                      inset: 0;
+                      background: linear-gradient(
+                        108deg,
+                        transparent 35%,
+                        rgba(255,255,255,0.03) 50%,
+                        transparent 65%
+                      );
+                      transform: translateX(-100%);
+                      transition: transform 0.7s ease;
+                      pointer-events: none;
+                      border-radius: inherit;
+                      z-index: 1;
+                    }
+                    .experience-card:hover::after {
+                      transform: translateX(100%);
+                    }
+
+                    .experience-card .view-details-btn {
+                      width: 100%;
+                      margin-top: auto;
+                      padding: 11px 20px;
+                      background: transparent;
+                      border: 1px solid rgba(var(--cat-rgb), 0.3);
+                      color: var(--cat-color);
+                      font-size: 13px;
+                      font-weight: 600;
+                      border-radius: 12px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      gap: 8px;
+                      cursor: pointer;
+                      position: relative;
+                      overflow: hidden;
+                      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+                      z-index: 2;
+                    }
+
+                    .experience-card .view-details-btn::before {
+                      content: '';
+                      position: absolute;
+                      inset: 0;
+                      background: linear-gradient(135deg,
+                        var(--cat-color),
+                        rgba(var(--cat-rgb), 0.8));
+                      opacity: 0;
+                      transition: opacity 0.35s ease;
+                      border-radius: 11px;
+                      z-index: 0;
+                    }
+
+                    .experience-card .view-details-btn span,
+                    .experience-card .view-details-btn svg {
+                      position: relative;
+                      z-index: 1;
+                      transition: color 0.35s, transform 0.35s;
+                    }
+
+                    .experience-card .view-details-btn:hover {
+                      border-color: var(--cat-color);
+                      transform: translateY(-2px);
+                      box-shadow:
+                        0 10px 28px rgba(var(--cat-rgb), 0.45),
+                        0 4px 12px rgba(var(--cat-rgb), 0.25);
+                    }
+
+                    .experience-card .view-details-btn:hover::before {
+                      opacity: 1;
+                    }
+
+                    .experience-card .view-details-btn:hover span {
+                      color: white;
+                    }
+
+                    .experience-card .view-details-btn:hover svg {
+                      color: white;
+                      transform: translateX(5px);
+                    }
+
+                    .experience-card .view-details-btn:active {
+                      transform: translateY(0) scale(0.97);
+                      box-shadow: 0 4px 14px rgba(var(--cat-rgb), 0.3);
+                    }
+
+                    .experience-card .accent-bar {
+                      position: absolute;
+                      left: 0; top: 0; bottom: 0;
+                      width: 3px;
+                      border-radius: 0 2px 2px 0;
+                      background: linear-gradient(to bottom,
+                        transparent 0%,
+                        var(--cat-color) 30%,
+                        var(--cat-color) 70%,
+                        transparent 100%);
+                      opacity: 0.15;
+                      transition: opacity 0.4s ease, width 0.3s ease;
+                      z-index: 2;
+                    }
+                    .experience-card:hover .accent-bar {
+                      opacity: 1;
+                      width: 4px;
+                    }
+
+                    .experience-card .skill-pill {
+                      background-color: rgba(var(--cat-rgb), 0.08);
+                      border: 1px solid rgba(var(--cat-rgb), 0.2);
+                      color: var(--cat-color);
+                      font-size: 12px;
+                      font-weight: 500;
+                      border-radius: 8px;
+                      padding: 4px 12px;
+                      letter-spacing: 0.3px;
+                      opacity: 0.9;
+                      transition: all 0.25s ease;
+                    }
+                    .experience-card:hover .skill-pill {
+                      background-color: rgba(var(--cat-rgb), 0.15);
+                      border-color: rgba(var(--cat-rgb), 0.4);
+                      color: var(--cat-color);
+                      transform: translateY(-2px);
+                      box-shadow: 0 4px 12px rgba(var(--cat-rgb), 0.2);
+                      opacity: 1;
+                    }
+
+                    .experience-card .skill-pill.more-pill {
+                      background-color: rgba(var(--cat-rgb), 0.05);
+                      border: 1px solid rgba(var(--cat-rgb), 0.15);
+                      color: rgba(var(--cat-rgb), 0.7);
+                      font-size: 11px;
+                      border-radius: 8px;
+                      padding: 4px 10px;
+                    }
+                    .experience-card:hover .skill-pill.more-pill {
+                      background-color: rgba(var(--cat-rgb), 0.12);
+                      border-color: rgba(var(--cat-rgb), 0.3);
+                      color: var(--cat-color);
+                      transform: translateY(-2px);
+                    }
                 `}} />
 
                 {/* Top Stripe */}
-                <div
-                    className="top-stripe absolute top-0 left-0 right-0 h-[1px] opacity-0 transition-opacity duration-400 rounded-t-[22px] pointer-events-none z-10"
-                    style={{
-                        background: `linear-gradient(90deg, transparent 0%, rgba(${cardColorRgb}, 0.6) 30%, rgba(${cardColorRgb}, 0.8) 50%, rgba(${cardColorRgb}, 0.6) 70%, transparent 100%)`
-                    }}
-                />
+                <div className="top-stripe" />
 
                 {/* Number Indicator */}
-                <div className="bg-index absolute top-[10px] sm:top-[20px] right-[20px] text-[rgba(255,255,255,0.04)] font-[900] text-[48px] leading-none pointer-events-none transition-colors duration-400 z-0">
+                <div className="card-number">
                     {String(layoutIndex + 1).padStart(2, '0')}
                 </div>
 
-                {/* Shimmer Effect */}
-                <div className="shimmer absolute inset-0 -translate-x-[100%] transition-transform duration-[600ms] ease-out pointer-events-none z-0 rounded-[22px] overflow-hidden">
-                    <div className="w-full h-full bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.025),transparent)]" />
-                </div>
-
                 {/* Left Accent Bar */}
-                <div
-                    className="accent-bar absolute left-0 top-[15%] bottom-[15%] w-[3px] rounded-r-[3px] scale-y-0 origin-center transition-transform duration-300 ease-out z-10"
-                    style={{ backgroundColor: 'var(--card-color)' }}
-                />
+                <div className="accent-bar" />
 
                 {/* INNER CONTENT */}
-                <div className="relative z-10">
+                <div className="relative z-10 flex flex-col h-full">
                     {/* TOP SECTION */}
                     {/* Row 1 */}
-                    <div className="flex flex-col xl:flex-row justify-between items-start gap-4 xl:gap-2 pr-[40px]">
+                    <div className="flex flex-row justify-between items-center gap-2 pr-[80px] h-[28px] shrink-0">
                         <div className="flex flex-wrap items-center gap-[6px]">
                             <span
-                                className="inline-flex items-center px-[10px] py-[3px] rounded-full text-[10px] uppercase tracking-[2px] font-bold border"
-                                style={{ backgroundColor: `rgba(${cardColorRgb}, 0.1)`, borderColor: `rgba(${cardColorRgb}, 0.25)`, color: 'var(--card-color)' }}
+                                className="inline-flex items-center px-[12px] py-[4px] rounded-[50px] text-[10px] uppercase tracking-[2.5px] font-[700] border"
+                                style={{ backgroundColor: `rgba(var(--cat-rgb), 0.12)`, borderColor: `rgba(var(--cat-rgb), 0.35)`, color: 'var(--cat-color)' }}
                             >
                                 {item.category}
                             </span>
                             {item.badge && (
                                 <span
-                                    className="inline-flex items-center gap-[4px] px-[8px] py-[3px] rounded-full text-[10px] font-bold tracking-[1px] uppercase border"
-                                    style={{ backgroundColor: `rgba(${cardColorRgb}, 0.15)`, borderColor: `rgba(${cardColorRgb}, 0.3)`, color: 'var(--card-color)' }}
+                                    className="inline-flex items-center gap-[6px] px-[12px] py-[4px] rounded-[50px] text-[10px] font-[700] tracking-[2px] uppercase border"
+                                    style={{
+                                        backgroundColor: item.badge.includes('FOUNDER') ? 'rgba(245, 158, 11, 0.12)' : 'rgba(255, 77, 90, 0.12)',
+                                        borderColor: item.badge.includes('FOUNDER') ? 'rgba(245, 158, 11, 0.35)' : 'rgba(255, 77, 90, 0.35)',
+                                        color: item.badge.includes('FOUNDER') ? '#f59e0b' : '#ff4d5a'
+                                    }}
                                 >
-                                    {item.badge}
+                                    {item.badge === 'Current Role' ? '★ CURRENT ROLE' : item.badge === 'Founder' ? 'FOUNDER' : item.badge}
                                 </span>
                             )}
                         </div>
-                        <div className="inline-flex items-center gap-[6px] bg-[rgba(255,255,255,0.04)] border border-[#1e1e1e] rounded-full px-[12px] py-[4px] shrink-0">
+                        <div
+                            className="inline-flex items-center gap-[6px] rounded-[50px] px-[12px] py-[4px] shrink-0"
+                            style={{
+                                backgroundColor: item.duration.includes("Present") ? 'rgba(34, 197, 94, 0.1)' : 'rgba(255,255,255,0.05)',
+                                border: item.duration.includes("Present") ? '1px solid rgba(34, 197, 94, 0.25)' : '1px solid rgba(255,255,255,0.1)',
+                                color: item.duration.includes("Present") ? '#22c55e' : '#666'
+                            }}
+                        >
                             {item.duration.includes("Present") ? (
-                                <div className="w-[6px] h-[6px] rounded-full bg-[#22c55e] animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
-                            ) : (
-                                <div className="w-[6px] h-[6px] rounded-full bg-[#555]" />
-                            )}
-                            <Calendar className="w-[12px] h-[12px] text-[#888] hidden sm:block" />
-                            <span className="text-[#888] text-[12px] whitespace-nowrap">{item.duration}</span>
+                                <div className="w-[7px] h-[7px] rounded-full bg-[#22c55e] animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
+                            ) : null}
+                            <span className="text-[12px] whitespace-nowrap">{item.duration}</span>
                         </div>
                     </div>
 
                     {/* Row 2 */}
-                    <div className="mt-4">
-                        <h3 className="role-title text-white font-[700] text-[clamp(17px,2vw,21px)] leading-tight transition-colors duration-300">
+                    <div className="mt-3 flex flex-col gap-1 shrink-0">
+                        <h3 className="role-title text-white font-[700] text-[17px] sm:text-[19px] leading-[22px] transition-colors duration-300 pr-[60px] h-[44px]" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                             {item.role}
                         </h3>
-                        <div className="flex flex-wrap items-center gap-[8px] mt-[8px]">
-                            <div className="flex items-center gap-[6px] text-[#aaaaaa]">
-                                <Building2 className="w-[14px] h-[14px] shrink-0" />
-                                <span className="text-[14px] font-[500]">{item.company}</span>
+                        {/* Company & Type Row */}
+                        <div className="flex items-center gap-[6px] sm:gap-[8px] mt-[4px] overflow-hidden relative z-10 h-[20px] shrink-0">
+                            <div className="flex items-center gap-[4px] min-w-0">
+                                {item.company.includes("St. Vincent Pallotti") ? (
+                                    <GraduationCap className="w-[14px] h-[14px] shrink-0 text-[#777]" />
+                                ) : (
+                                    <Building2 className="w-[14px] h-[14px] shrink-0 text-[#777]" />
+                                )}
+                                <span className="company-name text-[13px] font-[500] text-[#bbb] transition-colors duration-300 truncate leading-none">{item.company}</span>
                             </div>
-                            <span className="text-[#444] text-[12px] hidden sm:inline">•</span>
-                            <div className="flex items-center gap-[4px] text-[#666] text-[13px]">
-                                <MapPin className="w-[12px] h-[12px] shrink-0" />
-                                <span>{item.location}</span>
-                            </div>
+                            <span className="text-[#444] text-[12px] shrink-0">•</span>
+                            <span className="bg-[rgba(255,255,255,0.05)] px-2 py-[2px] rounded text-[#777] text-[10px] sm:text-[11px] font-medium shrink-0 leading-none">{item.type}</span>
+                        </div>
+                        {/* Location Row */}
+                        <div className="flex items-center gap-[4px] text-[#777] mt-[2px] shrink-0 h-[16px] overflow-hidden">
+                            <MapPin className="w-[12px] h-[12px] shrink-0" />
+                            <span className="text-[11px] sm:text-[12px] whitespace-nowrap truncate leading-none">{item.location}</span>
                         </div>
                     </div>
-                </div>
 
-                {/* DIVIDER */}
-                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,#1e1e1e,transparent)] my-[16px] relative z-10" />
+                    {/* DIVIDER */}
+                    <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent)] my-[12px] relative z-10 opacity-40 shrink-0" />
 
-                {/* SPECIAL HIGHLIGHT ROWS */}
-
-                {/* Key Systems (Hitachi) */}
-                {item.keySystems && (
-                    <div className="relative z-10 mb-5">
-                        <span className="block text-[#555] text-[10px] uppercase tracking-[2px] mb-3 font-medium">KEY SYSTEMS</span>
-                        <div className="flex flex-wrap gap-[8px]">
-                            {item.keySystems.map((sys, idx) => (
-                                <span
-                                    key={idx}
-                                    className="inline-flex items-center gap-[6px] bg-[rgba(255,77,90,0.06)] border border-[rgba(255,77,90,0.15)] text-[#ff7070] text-[11px] rounded-lg px-[12px] py-[4px] transition-all duration-300 hover:bg-[rgba(255,77,90,0.15)] hover:-translate-y-[3px] hover:scale-[1.05] hover:shadow-[0_6px_16px_rgba(255,77,90,0.2)] cursor-default"
-                                >
-                                    <span className="text-[12px]">{getSystemIcon(sys)}</span>
-                                    {sys}
-                                </span>
-                            ))}
-                        </div>
+                    {/* BRIEF SUMMARY */}
+                    <div className="relative z-10 mb-2 mt-1 min-h-[64px] shrink-0">
+                        <p className="text-[#888888] text-[13px] leading-[1.6] line-clamp-3" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                            {getBriefSummary(item.company, item.role)}
+                        </p>
                     </div>
-                )}
 
-                {/* Key Project (Netfotech) */}
-                {item.keyProject && (
-                    <div className="relative z-10 mb-5">
-                        <span className="block text-[#555] text-[10px] uppercase tracking-[2px] mb-3 font-medium">KEY PROJECT</span>
-                        <div className="bg-[#0d0d0d] border border-[#1e1e1e] rounded-xl p-[12px] flex items-center gap-[8px] hover:border-[rgba(59,130,246,0.3)] transition-colors duration-300">
-                            <Rocket className="w-[14px] h-[14px] text-[var(--accent)]" />
-                            <span className="text-white text-[13px] font-bold">{item.keyProject}</span>
-                        </div>
-                    </div>
-                )}
-
-                {/* CONTRIBUTIONS */}
-                <div className="relative z-10 mt-[8px]">
-                    <span className="block text-[#555] text-[10px] uppercase tracking-[2px] mb-3 font-medium">KEY CONTRIBUTIONS</span>
-                    <div className="flex flex-col gap-[12px]">
-                        {item.contributions.map((highlight, idx) => (
-                            <div key={idx} className="flex gap-[10px] items-start">
-                                <div
-                                    className={`w-[6px] h-[6px] rounded-full mt-[7px] shrink-0 ${isFirstCard ? 'animate-[bullet-pulse_2s_ease_infinite]' : ''}`}
-                                    style={{
-                                        backgroundColor: 'var(--card-color)',
-                                        boxShadow: `0 0 6px rgba(${cardColorRgb}, 0.5)`
-                                    }}
-                                >
-                                    {isFirstCard && (
-                                        <style dangerouslySetInnerHTML={{
-                                            __html: `
-                                            @keyframes bullet-pulse {
-                                                0%, 100% { transform: scale(1); }
-                                                50% { transform: scale(1.4); }
-                                            }
-                                        `}} />
+                    {/* Pushed to bottom section */}
+                    <div className="relative z-10 mt-auto pt-4 flex flex-col justify-end">
+                        {/* SKILLS PREVIEW (Max 3) */}
+                        <div className="min-h-[26px] mb-4">
+                            {(item.techStack || item.skills) && (
+                                <div className="flex flex-wrap gap-[6px]">
+                                    {(item.techStack || item.skills).slice(0, 3).map((skill, idx) => (
+                                        <span
+                                            key={idx}
+                                            className="skill-pill inline-flex items-center justify-center cursor-default"
+                                        >
+                                            {skill}
+                                        </span>
+                                    ))}
+                                    {(item.techStack || item.skills).length > 3 && (
+                                        <span className="skill-pill more-pill inline-flex items-center justify-center cursor-default">
+                                            + {(item.techStack || item.skills).length - 3} more
+                                        </span>
                                     )}
                                 </div>
-                                <p className="bullet-text text-[#aaaaaa] text-[14px] leading-[1.65] transition-colors duration-200 cursor-default">
-                                    {formatHighlight(highlight)}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                            )}
+                        </div>
 
-                {/* SKILLS / TECH STACK */}
-                {(item.techStack || item.skills) && (
-                    <div className="relative z-10 mt-[16px] pt-[16px] border-t border-[rgba(255,255,255,0.04)]">
-                        <span className="block text-[#555] text-[10px] uppercase tracking-[2px] mb-3 font-medium">
-                            {item.techStack ? "TECH STACK" : "SKILLS"}
-                        </span>
-                        <div className="flex flex-wrap gap-[8px]">
-                            {(item.techStack || item.skills).map((skill, idx) => (
-                                <motion.span
-                                    initial={{ y: 10, opacity: 0 }}
-                                    whileInView={{ y: 0, opacity: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.4, delay: idx * 0.03 }}
-                                    key={idx}
-                                    className="skill-pill inline-flex items-center justify-center bg-[rgba(255,255,255,0.03)] border border-[#1e1e1e] text-[#777] text-[11px] rounded-full px-[12px] py-[4px] transition-all duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] cursor-default"
-                                >
-                                    {skill}
-                                </motion.span>
-                            ))}
+                        {/* Action Button */}
+                        <div className="flex flex-col mt-auto relative z-10 w-full">
+                            <button
+                                onClick={(e) => { e.stopPropagation(); onClick(item); }}
+                                className="view-details-btn"
+                            >
+                                <span>View Details</span>
+                                <ArrowRight className="w-[14px] h-[14px]" />
+                            </button>
                         </div>
                     </div>
-                )}
+                </div>
             </div>
         </motion.div>
     );
@@ -383,6 +499,7 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex }) => {
 const Experience = React.memo(function Experience() {
     const sectionRef = useRef(null);
     const [activeCategory, setActiveCategory] = useState("All");
+    const [selectedExperience, setSelectedExperience] = useState(null);
 
     const categories = useMemo(() => {
         const cats = new Set(experienceData.map(item => item.category));
@@ -411,7 +528,7 @@ const Experience = React.memo(function Experience() {
     const indicatorHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
     return (
-        <section ref={sectionRef} id="experience" className="relative py-24 lg:py-32 bg-[#080808] overflow-hidden" style={{ contain: 'layout style' }}>
+        <section ref={sectionRef} id="experience" className="relative pt-[80px] pb-[80px] bg-[#080808] overflow-hidden" style={{ contain: 'layout style' }}>
 
             {/* BACKGROUND ENHANCEMENTS: 3 Orbs + Mesh Grid */}
             <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
@@ -475,77 +592,76 @@ const Experience = React.memo(function Experience() {
 
                 {/* SECTION HEADER */}
                 <motion.div
-                    className="flex flex-col items-center justify-center text-center mb-10"
+                    className="flex flex-col items-center justify-center text-center mb-[40px]"
                     initial={{ y: 40, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, ease: "easeOut" }}
                 >
-                    <div className="inline-flex items-center justify-center mb-6">
-                        <span className="bg-[linear-gradient(135deg,#1e0a0d,#2a1215)] border border-[rgba(255,77,90,0.3)] text-[var(--accent)] tracking-[4px] text-[11px] uppercase rounded-full px-[22px] py-[7px] font-medium relative group">
-                            EXPERIENCE
-                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] bg-[var(--accent)] animate-[line-expand_0.8s_ease-out_forwards]" />
+                    <div className="inline-flex items-center justify-center mb-0">
+                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px]">
+                            ● EXPERIENCE
                         </span>
                     </div>
-                    <h2 className="text-white font-[200] text-[clamp(42px,5.5vw,66px)] leading-tight mb-4 font-display">
+                    <div className="w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px] mx-auto mb-6 mt-[8px]" />
+                    <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] leading-tight mb-4 font-display">
                         Work Experience
                     </h2>
                     <p className="max-w-[580px] text-[#888888] text-[16px] italic">
-                        My professional journey — from engineering to entrepreneurship
+                        Where industry experience, entrepreneurship, and social impact come together to build meaningful technology.
                     </p>
                 </motion.div>
 
                 {/* STATS ROW */}
                 <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="flex justify-center gap-[12px] sm:gap-[20px] max-w-[600px] mx-auto mb-14"
+                    variants={{
+                        visible: { transition: { staggerChildren: 0.1 } }
+                    }}
+                    className="grid grid-cols-2 md:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-[32px] items-stretch"
                 >
-                    <StatCard icon={Briefcase} num="3" label="INTERNSHIPS" colorClass="text-[#3b82f6]" />
-                    <StatCard icon={Clock} num="2+" label="YEARS EXPERIENCE" colorClass="text-[#f59e0b]" />
-                    <StatCard icon={Building2} num="5" label="ORGANIZATIONS" colorClass="text-[#22c55e]" />
+                    <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                        <StatCard icon={Briefcase} num="2" label="INDUSTRY INTERNSHIPS" color="#ff4d5a" />
+                    </motion.div>
+                    <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                        <StatCard icon={Rocket} num="1" label="STARTUP FOUNDED" color="#3b82f6" />
+                    </motion.div>
+                    <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                        <StatCard icon={Building2} num="5" label="ORGANIZATIONS" color="#f59e0b" />
+                    </motion.div>
+                    <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                        <StatCard icon={Heart} num="2" label="SOCIAL IMPACT" color="#22c55e" />
+                    </motion.div>
                 </motion.div>
 
                 {/* FILTER TABS */}
-                <FilterTabs
-                    categories={categories}
-                    activeCategory={activeCategory}
-                    setActiveCategory={setActiveCategory}
-                    categoryCounts={categoryCounts}
-                />
+                <div className="mb-[40px]">
+                    <FilterTabs
+                        categories={categories}
+                        activeCategory={activeCategory}
+                        setActiveCategory={setActiveCategory}
+                        categoryCounts={categoryCounts}
+                    />
+                </div>
 
-                {/* VERTICAL TIMELINE */}
-                <div className="relative pt-4 md:pt-10">
+                {/* HORIZONTAL DIVIDER - NEW */}
+                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-[40px]" />
 
-                    {/* CENTER VERTICAL LINE: Animated Shimmering Gradient */}
-                    <div className="absolute left-[20px] md:left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] pointer-events-none z-0">
-                        <div className="absolute inset-0 bg-[#1a1a1a] h-full w-full" />
-                        <motion.div
-                            initial={{ height: "0%" }}
-                            whileInView={{ height: "100%" }}
-                            viewport={{ once: true, amount: 0.1 }}
-                            transition={{ duration: 1.5, ease: "easeInOut" }}
-                            className="absolute top-0 left-0 w-full"
-                            style={{
-                                background: "linear-gradient(to bottom, transparent 0%, rgba(255,77,90,0.15) 20%, rgba(255,77,90,0.7) 50%, rgba(255,77,90,0.15) 80%, transparent 100%)",
-                                backgroundSize: "100% 200%",
-                                animation: "line-shimmer 4s ease-in-out infinite"
-                            }}
-                        >
-                            <style dangerouslySetInnerHTML={{
-                                __html: `
-                                @keyframes line-shimmer {
-                                    0% { background-position: 0% 0%; }
-                                    100% { background-position: 0% 100%; }
-                                }
-                            `}} />
-                        </motion.div>
-                    </div>
+                {/* VERTICAL TIMELINE AND CARDS ROW */}
+                <div className="relative w-full">
 
-                    {/* EXPERIENCE CARDS */}
-                    <div className="relative z-10 w-full flex flex-col">
+                    {/* SECTION TOP DIVIDER (decorative)
+                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.2),transparent)]" /> */}
+
+                    {/* DECORATIVE YEAR MARKERS */}
+                    <div className="absolute left-0 top-20 text-[rgba(255,255,255,0.05)] text-[10px] font-bold tracking-widest -rotate-90 origin-left pointer-events-none hidden lg:block">2026</div>
+                    <div className="absolute left-0 top-1/2 text-[rgba(255,255,255,0.05)] text-[10px] font-bold tracking-widest -rotate-90 origin-left pointer-events-none hidden lg:block">2025</div>
+                    <div className="absolute left-0 bottom-20 text-[rgba(255,255,255,0.05)] text-[10px] font-bold tracking-widest -rotate-90 origin-left pointer-events-none hidden lg:block">2024</div>
+
+                    {/* EXPERIENCE CARDS GRID */}
+                    <div className="relative z-10 w-full grid grid-cols-1 md:grid-cols-2 gap-[20px] items-stretch lg:px-6">
                         <AnimatePresence mode="popLayout">
                             {filteredData.map((exp, idx) => (
                                 <ExperienceCard
@@ -553,6 +669,8 @@ const Experience = React.memo(function Experience() {
                                     item={exp}
                                     index={idx}
                                     layoutIndex={idx}
+                                    onClick={setSelectedExperience}
+                                    totalCards={filteredData.length}
                                 />
                             ))}
                         </AnimatePresence>
@@ -560,6 +678,17 @@ const Experience = React.memo(function Experience() {
 
                 </div>
             </div>
+
+            {/* EXPERIENCE MODAL PORTAL */}
+            <ExperienceModal
+                exp={selectedExperience}
+                onClose={() => setSelectedExperience(null)}
+            />
+
+            <style dangerouslySetInnerHTML={{
+                __html: `
+        `}} />
+
         </section>
     );
 });
