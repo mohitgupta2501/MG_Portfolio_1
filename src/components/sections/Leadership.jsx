@@ -263,7 +263,7 @@ const Leadership = memo(() => {
                         </div>
                         <div className="w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px] mx-auto mb-6 mt-[8px]" />
                         <h2 className="text-[#ffffff] font-[800] text-[clamp(42px,5.5vw,66px)] mb-4 leading-tight">Leadership & Activities</h2>
-                        <p className="lead-subtitle">Four years of student governance, event leadership, and community building</p>
+                        <p className="lead-subtitle">From organizing events to guiding teams - leadership in action</p>
                     </motion.div>
                 </div>
 

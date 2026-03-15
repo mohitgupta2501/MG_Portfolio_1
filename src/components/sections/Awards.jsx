@@ -208,7 +208,7 @@ const Awards = memo(() => {
                         </h2>
 
                         <p className="text-[#888888] text-[15px] sm:text-[16px] italic text-center max-w-2xl font-light">
-                            Excellence across academics, athletics, and mathematics — district to international level.
+                            Celebrating milestones achieved through passion, hard work, and determination.
                         </p>
                     </motion.div>
                 </div>

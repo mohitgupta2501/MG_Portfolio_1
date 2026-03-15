@@ -23,6 +23,13 @@ const SectionDivider = () => (
 
 function App() {
   useEffect(() => {
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    });
+
     const sectionTitles = {
       home: 'Mohit',
       about: 'About | Mohit',

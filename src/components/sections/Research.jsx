@@ -149,8 +149,7 @@ const Research = () => {
                     </h2>
 
                     <p className="text-[#888] text-[16px] italic max-w-[600px] mx-auto leading-[1.6]">
-                        "Peer-reviewed research in Healthcare AI and Generative AI —
-                        turning data into clinical and creative breakthroughs"
+                        Exploring ideas, validating them with data, and sharing knowledge through research.
                     </p>
                 </motion.div>
 

@@ -745,7 +745,7 @@ const Certifications = memo(() => {
                         </h2>
 
                         <p className="text-[#888888] text-[15px] sm:text-[16px] italic text-center max-w-2xl font-light mt-6">
-                            Exploring the intersection of artificial intelligence, industrial systems, and scalable software engineering to solve complex real-world problems.
+                           Certifications that validate expertise and reflect a commitment to continuous learning.
                         </p>
                     </motion.div>
                 </div>

@@ -76,7 +76,7 @@ const About = React.memo(function About() {
                         About Me
                     </h2>
                     <p className="max-w-[580px] text-[#888888] text-[16px] italic">
-                        Transforming complex problems into intelligent, real-world solutions — from healthcare AI to production-grade platforms.
+                        Turning ideas into intelligent systems and problems into powerful digital solutions.
                     </p>
                 </motion.div>
 

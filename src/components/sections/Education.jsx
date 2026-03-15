@@ -212,8 +212,7 @@ export default function Education() {
                         </h2>
 
                         <p className="text-[#888] text-[16px] italic max-w-[580px] leading-relaxed mx-auto">
-                            From foundational excellence to cutting-edge AI research —
-                            <br className="hidden sm:block" /> a decade of academic distinction
+                            Where theory meets technology to shape the future of intelligent systems.
                         </p>
                     </div>
                 </motion.div>

@@ -186,8 +186,7 @@ const Projects = memo(() => {
                         </h2>
 
                         <p className="text-[#888888] text-[15px] sm:text-[16px] italic text-center max-w-2xl font-light">
-                            Exploring the intersection of artificial intelligence, industrial systems, and scalable software engineering to solve complex real-world problems.
-                        </p>
+                            A collection of solutions where creativity meets code and innovation becomes reality.                        </p>
                     </motion.div>
                 </div>
 
