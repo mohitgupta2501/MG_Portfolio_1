@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const featuredImages = [
     {
         id: 1,
-        src: '/src/assets/images/gallery/Mohit_SOTY.jpeg',
+        src: '/gallery/Mohit_SOTY.jpeg',
         tag: 'STUDENT OF THE YEAR',
         title: 'Prestigious Student of the Year Award Batch (2022–2026)',
         orientation: 'portrait',
@@ -16,7 +16,7 @@ const featuredImages = [
     },
     {
         id: 2,
-        src: '/src/assets/images/gallery/Combine_SOTY.jpeg',
+        src: '/gallery/Combine_SOTY.jpeg',
         tag: 'STUDENT OF THE YEAR',
         title: 'Prestigious Student of the Year Award Batch (2022–2026)',
         orientation: 'portrait',
@@ -24,7 +24,7 @@ const featuredImages = [
     },
     {
         id: 3,
-        src: '/src/assets/images/gallery/Newsletter_Rank.jpg',
+        src: '/gallery/Newsletter_Rank.jpg',
         tag: 'NEWSLETTER',
         title: 'Secured Overall First Rank in Department',
         orientation: 'landscape',
@@ -32,7 +32,7 @@ const featuredImages = [
     },
     {
         id: 4,
-        src: '/src/assets/images/gallery/Newsletter_Rank1.jpg',
+        src: '/gallery/Newsletter_Rank1.jpg',
         tag: 'NEWSLETTER',
         title: 'Secured Overall First Rank in Department',
         orientation: 'landscape',
@@ -40,7 +40,7 @@ const featuredImages = [
     },
     {
         id: 5,
-        src: '/src/assets/images/gallery/Newsletter_Rank2.jpg',
+        src: '/gallery/Newsletter_Rank2.jpg',
         tag: 'PRESS COVERAGE',
         title: 'Secured Overall First Rank in Department',
         orientation: 'portrait',
@@ -48,7 +48,7 @@ const featuredImages = [
     },
     {
         id: 6,
-        src: '/src/assets/images/gallery/Newsletter_Achievements.jpg',
+        src: '/gallery/Newsletter_Achievements.jpg',
         tag: 'NEWSLETTER',
         title: 'Academic & Extracurricular Achievements',
         orientation: 'portrait',
@@ -56,7 +56,7 @@ const featuredImages = [
     },
     {
         id: 7,
-        src: '/src/assets/images/gallery/Newsletter_Achievements1.jpg',
+        src: '/gallery/Newsletter_Achievements1.jpg',
         tag: 'NEWSLETTER',
         title: 'Academic & Extracurricular Achievements',
         orientation: 'portrait',
@@ -64,7 +64,7 @@ const featuredImages = [
     },
     {
         id: 8,
-        src: '/src/assets/images/gallery/Newsletter_Achievements2.jpg',
+        src: '/gallery/Newsletter_Achievements2.jpg',
         tag: 'NEWSLETTER',
         title: 'Academic & Extracurricular Achievements',
         orientation: 'portrait',
@@ -72,7 +72,7 @@ const featuredImages = [
     },
     {
         id: 9,
-        src: '/src/assets/images/gallery/Newsletter_Forum.jpg',
+        src: '/gallery/Newsletter_Forum.jpg',
         tag: 'NEWSLETTER',
         title: 'Mentor & Vice President – NEXUS DS Forum',
         orientation: 'portrait',
@@ -80,7 +80,7 @@ const featuredImages = [
     },
     {
         id: 10,
-        src: '/src/assets/images/gallery/Newsletter_Forum1.jpg',
+        src: '/gallery/Newsletter_Forum1.jpg',
         tag: 'NEWSLETTER',
         title: 'Mentor & Vice President – NEXUS DS Forum',
         orientation: 'portrait',
@@ -88,7 +88,7 @@ const featuredImages = [
     },
     {
         id: 11,
-        src: '/src/assets/images/gallery/Newsletter_Forum2.jpg',
+        src: '/gallery/Newsletter_Forum2.jpg',
         tag: 'NEWSLETTER',
         title: 'Mentor & Vice President – NEXUS DS Forum',
         orientation: 'portrait',
@@ -96,7 +96,7 @@ const featuredImages = [
     },
     {
         id: 12,
-        src: '/src/assets/images/gallery/Newsletter_Internship.jpg',
+        src: '/gallery/Newsletter_Internship.jpg',
         tag: 'NEWSLETTER',
         title: 'Internship at Hitachi India Pvt. Ltd.',
         orientation: 'portrait',
@@ -104,7 +104,7 @@ const featuredImages = [
     },
     {
         id: 13,
-        src: '/src/assets/images/gallery/Newsletter_Internship1.jpg',
+        src: '/gallery/Newsletter_Internship1.jpg',
         tag: 'NEWSLETTER',
         title: 'Internship at Hitachi India Pvt. Ltd.',
         orientation: 'portrait',
@@ -112,7 +112,7 @@ const featuredImages = [
     },
     {
         id: 14,
-        src: '/src/assets/images/gallery/Newsletter_Sports.jpg',
+        src: '/gallery/Newsletter_Sports.jpg',
         tag: 'NEWSLETTER',
         title: 'Sports Champion & Team Leader',
         orientation: 'portrait',
@@ -120,7 +120,7 @@ const featuredImages = [
     },
     {
         id: 15,
-        src: '/src/assets/images/gallery/Newsletter_Sports1.jpg',
+        src: '/gallery/Newsletter_Sports1.jpg',
         tag: 'NEWSLETTER',
         title: 'Sports Champion & Team Leader',
         orientation: 'portrait',
@@ -128,7 +128,7 @@ const featuredImages = [
     },
     {
         id: 16,
-        src: '/src/assets/images/gallery/Newsletter_Teaching.jpg',
+        src: '/gallery/Newsletter_Teaching.jpg',
         tag: 'NEWSLETTER',
         title: 'Leading Knowledge Sharing Sessions',
         orientation: 'portrait',
@@ -136,7 +136,7 @@ const featuredImages = [
     },
     {
         id: 17,
-        src: '/src/assets/images/gallery/Newsletter_Writing.jpg',
+        src: '/gallery/Newsletter_Writing.jpg',
         tag: 'NEWSLETTER',
         title: 'My Insights & Reflections',
         orientation: 'portrait',
@@ -150,7 +150,7 @@ const featuredImages = [
 const momentsImages = [
     {
         id: 1,
-        src: '/src/assets/images/gallery/Sports_1.jpeg',
+        src: '/gallery/Sports_1.jpeg',
         tag: 'ATHLETICS',
         title: 'Shot Put & Discus Throw',
         sub: 'State-level competition',
@@ -161,7 +161,7 @@ const momentsImages = [
     },
     {
         id: 2,
-        src: '/src/assets/images/gallery/Sports_3.jpeg',
+        src: '/gallery/Sports_3.jpeg',
         tag: 'ABACUS',
         title: 'National Abacus Championship',
         sub: 'Champion of Champions',
@@ -172,7 +172,7 @@ const momentsImages = [
     },
     {
         id: 3,
-        src: '/src/assets/images/gallery/Sports_4.jpeg',
+        src: '/gallery/Sports_4.jpeg',
         tag: 'SPORTS · INSIGHT',
         title: 'INSIGHT Cricket Tournament',
         sub: 'Annual college event',
@@ -183,7 +183,7 @@ const momentsImages = [
     },
     {
         id: 4,
-        src: '/src/assets/images/gallery/Abacus_1.jpeg',
+        src: '/gallery/Abacus_1.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -194,7 +194,7 @@ const momentsImages = [
     },
     {
         id: 5,
-        src: '/src/assets/images/gallery/Abacus_2.jpeg',
+        src: '/gallery/Abacus_2.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -205,7 +205,7 @@ const momentsImages = [
     },
     {
         id: 6,
-        src: '/src/assets/images/gallery/Abacus_3.jpeg',
+        src: '/gallery/Abacus_3.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -216,7 +216,7 @@ const momentsImages = [
     },
     {
         id: 7,
-        src: '/src/assets/images/gallery/Department_1.jpeg',
+        src: '/gallery/Department_1.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -227,7 +227,7 @@ const momentsImages = [
     },
     {
         id: 8,
-        src: '/src/assets/images/gallery/Department_2.jpeg',
+        src: '/gallery/Department_2.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -238,7 +238,7 @@ const momentsImages = [
     },
     {
         id: 9,
-        src: '/src/assets/images/gallery/Department_3.jpeg',
+        src: '/gallery/Department_3.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -249,7 +249,7 @@ const momentsImages = [
     },
     {
         id: 10,
-        src: '/src/assets/images/gallery/Forum_1.jpeg',
+        src: '/gallery/Forum_1.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -260,7 +260,7 @@ const momentsImages = [
     },
     {
         id: 11,
-        src: '/src/assets/images/gallery/Red_House.jpeg',
+        src: '/gallery/Red_House.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -271,7 +271,7 @@ const momentsImages = [
     },
     {
         id: 12,
-        src: '/src/assets/images/gallery/House_Captain2.jpeg',
+        src: '/gallery/House_Captain2.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -282,7 +282,7 @@ const momentsImages = [
     },
     {
         id: 13,
-        src: '/src/assets/images/gallery/Insight_1.jpeg',
+        src: '/gallery/Insight_1.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -293,7 +293,7 @@ const momentsImages = [
     },
     {
         id: 14,
-        src: '/src/assets/images/gallery/Insight_2.jpeg',
+        src: '/gallery/Insight_2.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -304,7 +304,7 @@ const momentsImages = [
     },
     {
         id: 15,
-        src: '/src/assets/images/gallery/Internship.jpeg',
+        src: '/gallery/Internship.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -315,7 +315,7 @@ const momentsImages = [
     },
     {
         id: 16,
-        src: '/src/assets/images/gallery/Internship_2.jpeg',
+        src: '/gallery/Internship_2.jpeg',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -326,7 +326,7 @@ const momentsImages = [
     },
     {
         id: 17,
-        src: '/src/assets/images/gallery/IMG_7664.JPG',
+        src: '/gallery/IMG_7664.JPG',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -337,7 +337,7 @@ const momentsImages = [
     },
     {
         id: 18,
-        src: '/src/assets/images/gallery/IMG_7678.JPG',
+        src: '/gallery/IMG_7678.JPG',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
@@ -348,7 +348,7 @@ const momentsImages = [
     },
     {
         id: 19,
-        src: '/src/assets/images/gallery/IMG_7701.JPG',
+        src: '/gallery/IMG_7701.JPG',
         tag: 'NEXUS-DS FORUM',
         title: 'Vice President — Forum Badge',
         sub: 'CSE Data Science leadership',
