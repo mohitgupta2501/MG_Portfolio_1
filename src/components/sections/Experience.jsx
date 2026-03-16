@@ -12,7 +12,7 @@ const hexToRgb = (hex) => {
 
 const FilterTabs = ({ categories, activeCategory, setActiveCategory, categoryCounts }) => {
     return (
-        <div className="w-full flex flex-wrap justify-center gap-[10px] min-w-0 overflow-hidden px-2 max-[480px]:px-1">
+        <div className="w-full flex flex-wrap justify-center gap-[10px] min-w-0 px-2 max-[480px]:px-1">
             {categories.map((cat, idx) => {
                 const isActive = activeCategory === cat;
                 return (
@@ -20,8 +20,8 @@ const FilterTabs = ({ categories, activeCategory, setActiveCategory, categoryCou
                         key={idx}
                         onClick={() => setActiveCategory(cat)}
                         className={`group relative flex items-center px-[18px] py-[8px] rounded-[50px] text-[13px] transition-all ease-in-out duration-300 ${isActive
-                            ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] -translate-y-[2px] border border-transparent'
-                            : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
+                            ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] border border-transparent'
+                            : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
                             }`}
                     >
                         {cat}
@@ -604,9 +604,16 @@ const Experience = React.memo(function Experience() {
                             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </span>
                     </div>
-                    <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight mb-4 font-display break-words">
+                    <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight mb-2 font-display break-words">
                         Work Experience
                     </h2>
+                    <div style={{ 
+                        width: '60px', 
+                        height: '3px', 
+                        background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
+                        borderRadius: '999px', 
+                        margin: '8px auto 24px auto' 
+                    }} />
                     <p className="max-w-[580px] w-full text-[#888888] text-[16px] max-[480px]:text-[14px] italic min-w-0 break-words px-2">
                         Where industry experience, entrepreneurship, and social impact come together to build meaningful technology.
                     </p>

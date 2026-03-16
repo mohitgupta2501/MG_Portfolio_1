@@ -3,8 +3,8 @@ export const navLinks = [
     { name: 'About', href: '#about' },
     { name: 'Experience', href: '#experience' },
     {
-        name: 'Portfolio',
-        href: '#portfolio',
+        name: 'Profile',
+        href: '#profile',
         dropdown: [
             { name: 'Projects', href: '#projects', icon: 'FolderOpen' },
             { name: 'Research & Publications', href: '#research', icon: 'FlaskConical' },

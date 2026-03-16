@@ -205,9 +205,16 @@ const Awards = memo(() => {
                             </span>
                         </div>
 
-                        <h2 className="section-heading text-[#ffffff] text-center font-[800] break-words text-[clamp(24px,5.5vw,66px)] max-[480px]:text-[clamp(22px,5vw,30px)]" style={{ letterSpacing: '-0.02em' }}>
+                        <h2 className="section-heading text-[#ffffff] text-center font-[800] break-words text-[clamp(24px,5.5vw,66px)] max-[480px]:text-[clamp(22px,5vw,30px)] mb-2" style={{ letterSpacing: '-0.02em' }}>
                             Awards & Honors
                         </h2>
+                        <div style={{ 
+                            width: '60px', 
+                            height: '3px', 
+                            background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
+                            borderRadius: '999px', 
+                            margin: '8px auto 24px auto' 
+                        }} />
 
                         <p className="text-[#888888] text-[15px] min-[481px]:text-[16px] max-[480px]:text-[14px] italic text-center max-w-2xl w-full font-light mt-3 min-w-0 break-words px-2">
                             Celebrating milestones achieved through passion, hard work, and determination.
@@ -235,7 +242,7 @@ const Awards = memo(() => {
                 </div>
 
                 {/* Pill Style Tabs */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 overflow-hidden max-[480px]:px-2">
+                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 max-[480px]:px-2">
                     {Object.entries(tabData).map(([key, data]) => {
                         const isActive = activeTab === key;
                         return (
@@ -243,8 +250,8 @@ const Awards = memo(() => {
                                 key={key}
                                 onClick={() => setActiveTab(key)}
                                 className={`group relative flex items-center px-[18px] py-[8px] rounded-[9999px] text-[13px] transition-all ease-in-out duration-300 ${isActive
-                                    ? 'text-white font-[700] shadow-[0_8px_24px_rgba(var(--tab-rgb),0.45),0_4px_12px_rgba(var(--tab-rgb),0.3)] -translate-y-[2px] border border-transparent'
-                                    : 'bg-[rgba(255,255,255,0.04)] border transition-all duration-300 text-[#666] font-[500] hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(var(--tab-rgb),0.1)]'
+                                    ? 'text-white font-[700] shadow-[0_8px_24px_rgba(var(--tab-rgb),0.45),0_4px_12px_rgba(var(--tab-rgb),0.3)] border border-transparent'
+                                    : 'bg-[rgba(255,255,255,0.04)] border transition-all duration-300 text-[#666] font-[500] hover:shadow-[0_4px_16px_rgba(var(--tab-rgb),0.1)]'
                                     }`}
                                 style={isActive ? {
                                     backgroundColor: data.color

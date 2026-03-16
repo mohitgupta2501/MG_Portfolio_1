@@ -742,9 +742,16 @@ const Certifications = memo(() => {
                             </span>
                         </div>
 
-                        <h2 className="section-heading text-[#ffffff] text-center font-[800] break-words text-[clamp(24px,5.5vw,66px)] max-[480px]:text-[clamp(22px,5vw,30px)]" style={{ letterSpacing: '-0.02em' }}>
+                        <h2 className="section-heading text-[#ffffff] text-center font-[800] break-words text-[clamp(24px,5.5vw,66px)] max-[480px]:text-[clamp(22px,5vw,30px)] mb-2" style={{ letterSpacing: '-0.02em' }}>
                             Licenses &amp; Certifications
                         </h2>
+                        <div style={{ 
+                            width: '60px', 
+                            height: '3px', 
+                            background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
+                            borderRadius: '999px', 
+                            margin: '8px auto 24px auto' 
+                        }} />
 
                         <p className="text-[#888888] text-[15px] min-[481px]:text-[16px] max-[480px]:text-[14px] italic text-center max-w-2xl w-full font-light mt-3 min-w-0 break-words px-2">
                            Certifications that validate expertise and reflect a commitment to continuous learning.
@@ -762,7 +769,7 @@ const Certifications = memo(() => {
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 overflow-hidden max-[480px]:px-2">
+                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 max-[480px]:px-2">
                     {FILTERS.map((filter) => {
                         const { name, count } = filter;
                         const isActive = activeFilter === name;
@@ -772,8 +779,8 @@ const Certifications = memo(() => {
                                 key={name}
                                 onClick={() => setActiveFilter(name)}
                                 className={`group relative flex items-center px-[18px] py-[8px] rounded-[50px] text-[13px] transition-all ease-in-out duration-300 ${isActive
-                                    ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] -translate-y-[2px] border border-transparent'
-                                    : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
+                                    ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] border border-transparent'
+                                    : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
                                     }`}
                             >
                                 {name}

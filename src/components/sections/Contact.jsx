@@ -193,9 +193,16 @@ const Contact = React.memo(function Contact() {
                             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] bg-[var(--accent)] animate-[line-expand_0.8s_ease-out_forwards]" />
                         </span>
                     </div>
-                    <h2 className="section-heading text-white font-[200] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight mb-6 font-display break-words">
+                    <h2 className="section-heading text-white font-[200] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight mb-2 font-display break-words">
                         Let's Work Together
                     </h2>
+                    <div style={{ 
+                        width: '60px', 
+                        height: '3px', 
+                        background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
+                        borderRadius: '999px', 
+                        margin: '8px auto 24px auto' 
+                    }} />
                     <p className="max-w-[580px] w-full text-[#888888] text-[16px] max-[480px]:text-[14px] leading-[1.7] min-w-0 break-words px-2">
                         Have a project in mind or want to collaborate on something amazing?<br className="max-[480px]:hidden" />
                         <span className="max-[480px]:block">I'm always open to discussing new opportunities.</span>

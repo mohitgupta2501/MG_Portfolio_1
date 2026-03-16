@@ -113,7 +113,7 @@ StatCard.displayName = 'StatCard';
 
 const EducationStats = memo(() => {
     const stats = [
-        { label: "CGPA", val: "9", icon: Star, color: "#ff4d5a", rgb: "255, 77, 90", suffix: "60" },
+        { label: "CGPA", val: "9.60", icon: Star, color: "#ff4d5a", rgb: "255, 77, 90", suffix: "60" },
         { label: "1ST/2ND/3RD/4TH YEAR RANK", val: "1st", icon: Trophy, color: "#f59e0b", rgb: "245, 158, 11" },
         { label: "TOTAL AWARDS/MEDALS", val: "78+", icon: Award, color: "#22c55e", rgb: "34, 197, 94" },
         { label: "RESEARCH PAPERS", val: "4", icon: FileText, color: "#a855f7", rgb: "168, 85, 247" }
@@ -204,9 +204,16 @@ export default function Education() {
                             </span>
                         </div>
 
-                        <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-[1.1] tracking-tight break-words">
+                        <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-[1.1] tracking-tight break-words mb-2">
                             Academic Journey
                         </h2>
+                        <div style={{ 
+                            width: '60px', 
+                            height: '3px', 
+                            background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
+                            borderRadius: '999px', 
+                            margin: '8px auto 24px auto' 
+                        }} />
 
                         <p className="text-[#888] text-[16px] max-[480px]:text-[14px] italic max-w-[580px] w-full leading-relaxed mx-auto mt-3 min-w-0 break-words px-2">
                             Where theory meets technology to shape the future of intelligent systems.

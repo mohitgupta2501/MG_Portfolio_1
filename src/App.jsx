@@ -15,6 +15,7 @@ const Skills = React.lazy(() => import('@/components/sections/Skills'));
 const Certifications = React.lazy(() => import('@/components/sections/Certifications'));
 const Awards = React.lazy(() => import('@/components/sections/Awards'));
 const Leadership = React.lazy(() => import('@/components/sections/Leadership'));
+const Gallery = React.lazy(() => import('@/components/sections/Gallery'));
 const Contact = React.lazy(() => import('@/components/sections/Contact'));
 
 const SectionDivider = () => (
@@ -128,6 +129,8 @@ function App() {
             <Awards />
             <SectionDivider />
             <Leadership />
+            <SectionDivider />
+            <Gallery />
             <SectionDivider />
             <Contact />
           </Suspense>

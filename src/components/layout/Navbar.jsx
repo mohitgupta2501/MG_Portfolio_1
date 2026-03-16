@@ -24,7 +24,7 @@ export default function Navbar() {
 
     // Track all possible section IDs
     const activeSectionId = useActiveSection([
-        'home', 'about', 'experience', 'portfolio', 'projects', 'research', 'education',
+        'home', 'about', 'experience', 'profile', 'projects', 'research', 'education',
         'skills', 'certifications', 'achievements', 'awards', 'leadership', 'gallery', 'contact'
     ]);
 
@@ -106,7 +106,7 @@ export default function Navbar() {
                                                                     href={dropItem.href}
                                                                     className={`flex items-center gap-3 px-4 py-2.5 rounded-[10px] text-[14px] transition-all duration-200 group/dropitem ${isChildActive
                                                                         ? 'text-[var(--accent)] bg-[rgba(255,77,90,0.06)]'
-                                                                        : 'text-[#888] hover:text-white hover:bg-[rgba(255,77,90,0.08)] hover:translate-x-1'
+                                                                        : 'text-[#888] hover:text-[var(--accent)] hover:bg-[rgba(255,77,90,0.08)] hover:translate-x-1'
                                                                         }`}
                                                                 >
                                                                     {IconComponent && (
@@ -114,8 +114,7 @@ export default function Navbar() {
                                                                     )}
                                                                     {dropItem.name}
                                                                 </a>
-                                                            </li>
-                                                        );
+                                                            </li>                                                        );
                                                     })}
                                                 </ul>
                                             </motion.div>

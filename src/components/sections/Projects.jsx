@@ -183,9 +183,16 @@ const Projects = memo(() => {
                             </span>
                         </div>
 
-                        <h2 className="section-heading text-[#ffffff] text-center font-[800] break-words text-[clamp(24px,5.5vw,66px)] max-[480px]:text-[clamp(22px,5vw,30px)]" style={{ letterSpacing: '-0.02em' }}>
+                        <h2 className="section-heading text-[#ffffff] text-center font-[800] break-words text-[clamp(24px,5.5vw,66px)] max-[480px]:text-[clamp(22px,5vw,30px)] mb-2" style={{ letterSpacing: '-0.02em' }}>
                             Featured Projects
                         </h2>
+                        <div style={{ 
+                            width: '60px', 
+                            height: '3px', 
+                            background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
+                            borderRadius: '999px', 
+                            margin: '8px auto 24px auto' 
+                        }} />
 
                         <p className="text-[#888888] text-[15px] min-[481px]:text-[16px] max-[480px]:text-[14px] italic text-center max-w-2xl w-full font-light mt-3 min-w-0 break-words px-2">
                             A collection of solutions where creativity meets code and innovation becomes reality.

@@ -72,9 +72,16 @@ const About = React.memo(function About() {
                             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </span>
                     </div>
-                    <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight mb-4 font-display break-words">
+                    <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight mb-2 font-display break-words">
                         About Me
                     </h2>
+                    <div style={{ 
+                        width: '60px', 
+                        height: '3px', 
+                        background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
+                        borderRadius: '999px', 
+                        margin: '8px auto 24px auto' 
+                    }} />
                     <p className="max-w-[580px] w-full text-[#888888] text-[16px] max-[480px]:text-[14px] italic min-w-0 break-words px-2">
                         Turning ideas into intelligent systems and problems into powerful digital solutions.
                     </p>
