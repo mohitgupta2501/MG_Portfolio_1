@@ -30,10 +30,10 @@ const EducationCard = memo(({ edu, onViewDetails, index }) => {
     const getHighlights = () => {
         if (isBTech) {
             return [
-                "CGPA 9.60/10 — Class Topper all 4 years",
-                "2 Best Project Nominees (Barrett's + Seizure Detection)",
-                "Whole College Student Representative — IQAC & CDC"
-            ];
+    "CGPA 9.60/10 with perfect 10.0 SGPA in 2nd and 4th semesters showing strong academic excellence",
+    "Rank 1 class topper in all four years with consistent top performance",
+    "Won 28 sports medals including 23 gold demonstrating excellence beyond academics"
+];
         }
         return edu.topAchievements || [];
     };
@@ -186,7 +186,10 @@ const EducationCard = memo(({ edu, onViewDetails, index }) => {
                             {isBTech ? edu.cgpa.value : edu.percentage}
                         </span>
                         {isBTech && (
-                            <span className="text-[#666] text-[16px] font-medium">/{edu.cgpa.outOf} CGPA</span>
+                            <span className="text-[16px] font-medium">
+                                <span className="text-[#666]">/{edu.cgpa.outOf} </span>
+                                <span className="font-[800]" style={{ color: color }}>CGPA</span>
+                            </span>
                         )}
                     </div>
                     <div className="text-[#888] text-[13px] font-medium mb-3">

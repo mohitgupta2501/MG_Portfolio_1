@@ -365,7 +365,7 @@ const Gallery = () => {
     const [isFeaturedAutoPlaying, setIsFeaturedAutoPlaying] = useState(true);
     const [isMomentsAutoPlaying, setIsMomentsAutoPlaying] = useState(true);
     const [lightbox, setLightbox] = useState({
-        open: false, src: '', title: '', tag: '', sub: '', orientation: 'portrait', type: 'photo'
+        open: false, src: '', title: '', tag: '', sub: '', orientation: 'portrait', type: 'photo', color: '#ff4d5a', rgb: '255,77,90'
     });
 
     const [isMobile, setIsMobile] = useState(false);
@@ -442,7 +442,6 @@ const Gallery = () => {
             return {
                 width: isMobile ? '85vw' : isTablet ? 240 : 300,
                 height: isMobile ? 'auto' : isTablet ? 340 : 420,
-                aspectRatio: '3/4',
                 objectFit: 'contain'
             };
         }
@@ -450,37 +449,43 @@ const Gallery = () => {
             return {
                 width: isMobile ? '85vw' : isTablet ? 220 : 280,
                 height: isMobile ? 'calc(70vw * 1.4)' : isTablet ? 340 : 420,
-                aspectRatio: '3/4',
                 objectFit: 'cover'
             };
         }
-        // Landscape
         return {
             width: isMobile ? '85vw' : isTablet ? 380 : 520,
             height: isMobile ? 'calc(85vw * 0.6)' : isTablet ? 240 : 320,
-            aspectRatio: '16/9',
             objectFit: 'cover'
         };
     };
 
     const getMomentsMetrics = (img) => {
         const { orientation, type } = img;
-        if (isMobile) {
+        if (type === 'document') {
             return {
-                width: '85vw',
-                aspectRatio: orientation === 'landscape' ? '16/9' : '3/4',
-                objectFit: type === 'document' ? 'contain' : 'cover'
+                width: isMobile ? '85vw' : isTablet ? 240 : 300,
+                aspectRatio: '3 / 4',
+                objectFit: 'contain',
+                objectPosition: 'center',
+                background: '#0d0d0d'
             };
         }
-        if (isTablet) {
-            if (type === 'document') return { width: 240, aspectRatio: '3/4', objectFit: 'contain' };
-            if (orientation === 'portrait') return { width: 220, aspectRatio: '3/4', objectFit: 'cover' };
-            return { width: 360, aspectRatio: '16/9', objectFit: 'cover' };
+        if (orientation === 'portrait') {
+            return {
+                width: isMobile ? '85vw' : isTablet ? 220 : 280,
+                aspectRatio: '3 / 4',
+                objectFit: 'cover',
+                objectPosition: 'center top',
+                background: '#111111'
+            };
         }
-        // Desktop
-        if (type === 'document') return { width: 300, aspectRatio: '3/4', objectFit: 'contain' };
-        if (orientation === 'portrait') return { width: 280, aspectRatio: '3/4', objectFit: 'cover' };
-        return { width: 480, aspectRatio: '16/9', objectFit: 'cover' };
+        return {
+            width: isMobile ? '85vw' : isTablet ? 360 : 480,
+            aspectRatio: '16 / 9',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            background: '#111111'
+        };
     };
 
     const getOffset = (index, images, gap, metricsFn = getCardMetrics) => {
@@ -501,12 +506,15 @@ const Gallery = () => {
     const arrowSize = isMobile ? 36 : isTablet ? 40 : 44;
     const featuredGap = isMobile ? 14 : 20;
     const momentsGap = isMobile ? 14 : isTablet ? 16 : 20;
+    const lbColor = lightbox?.color || '#ff4d5a';
+    const lbRgb = lightbox?.rgb || '255,77,90';
 
     return (
-        <section id="gallery" className="relative pt-[80px] pb-[80px] bg-[#080808] overflow-hidden">
+        <section id="gallery" className="pt-[80px] pb-[80px] relative overflow-hidden bg-transparent">
             <style>{`
                 .gallery-card:hover .gallery-img { transform: scale(1.07); }
                 .gallery-card-document:hover .gallery-img { transform: scale(1); }
+                .gallery-card-document:hover .tint-overlay { opacity: 0; }
                 
                 .gallery-card:hover { 
                     transform: translateY(-6px) scale(1.02);
@@ -525,6 +533,11 @@ const Gallery = () => {
                     border: 1px solid rgba(255, 255, 255, 0.15);
                     backdrop-filter: blur(8px);
                     transition: all 0.2s ease;
+                }
+
+                .glass-nav:hover {
+                    background: var(--nav-hover, #ff4d5a);
+                    border-color: var(--nav-hover, #ff4d5a);
                 }
 
                 .card-overlay {
@@ -546,7 +559,7 @@ const Gallery = () => {
                 }
             `}</style>
 
-            <div className="max-w-7xl mx-auto px-4 max-[480px]:px-3 min-[481px]:px-6 min-[1025px]:px-8 relative z-10 w-full min-w-0">
+            <div className="max-w-7xl mx-auto px-4 max-[480px]:px-3 min-[481px]:px-6 relative z-10 w-full min-w-0">
 
                 {/* SECTION HEADER */}
                 <motion.div
@@ -554,7 +567,7 @@ const Gallery = () => {
                     initial={{ y: 40, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
                 >
                     <div className="w-full flex justify-center mb-6 min-w-0">
                         <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] max-[480px]:text-[10px] font-medium uppercase rounded-[50px] px-[22px] max-[480px]:px-4 py-[7px] relative max-w-full truncate">
@@ -565,12 +578,12 @@ const Gallery = () => {
                     <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight mb-2 font-display break-words">
                         A Glimpse Into <span className="font-light">My Journey</span>
                     </h2>
-                    <div style={{ 
-                        width: '60px', 
-                        height: '3px', 
-                        background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
-                        borderRadius: '999px', 
-                        margin: '8px auto 24px auto' 
+                    <div style={{
+                        width: '60px',
+                        height: '3px',
+                        background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)',
+                        borderRadius: '999px',
+                        margin: '8px auto 24px auto'
                     }} />
                     <p className="max-w-[580px] w-full text-[#888888] text-[16px] max-[480px]:text-[14px] italic min-w-0 break-words px-2">
                         Press features, recognition and memories
@@ -592,23 +605,24 @@ const Gallery = () => {
                         }} />
                     </div>
 
-                    <div 
-                        className="relative"
-                        onMouseEnter={() => setIsFeaturedAutoPlaying(false)}
-                        onMouseLeave={() => setIsFeaturedAutoPlaying(true)}
-                    >
+                    <div className="bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] rounded-[24px] p-6 max-[639px]:p-4 backdrop-blur-[4px]">
+                        <div 
+                            className="relative"
+                            onMouseEnter={() => setIsFeaturedAutoPlaying(false)}
+                            onMouseLeave={() => setIsFeaturedAutoPlaying(true)}
+                        >
                         <button
                             onClick={() => handleFeaturedManual(featuredIndex === 0 ? featuredImages.length - 1 : featuredIndex - 1)}
-                            className="absolute left-[-10px] sm:left-[-20px] top-1/2 -translate-y-1/2 z-20 glass-nav rounded-full flex items-center justify-center hover:bg-[#ff4d5a] hover:border-[#ff4d5a]"
-                            style={{ width: arrowSize, height: arrowSize }}
+                            className="absolute left-[-10px] sm:left-[-20px] top-1/2 -translate-y-1/2 z-20 glass-nav rounded-full flex items-center justify-center"
+                            style={{ width: arrowSize, height: arrowSize, '--nav-hover': '#ff4d5a' }}
                         >
                             <ChevronLeft className="w-5 h-5 text-white" />
                         </button>
 
                         <button
                             onClick={() => handleFeaturedManual(featuredIndex === featuredImages.length - 1 ? 0 : featuredIndex + 1)}
-                            className="absolute right-[-10px] sm:right-[-20px] top-1/2 -translate-y-1/2 z-20 glass-nav rounded-full flex items-center justify-center hover:bg-[#ff4d5a] hover:border-[#ff4d5a]"
-                            style={{ width: arrowSize, height: arrowSize }}
+                            className="absolute right-[-10px] sm:right-[-20px] top-1/2 -translate-y-1/2 z-20 glass-nav rounded-full flex items-center justify-center"
+                            style={{ width: arrowSize, height: arrowSize, '--nav-hover': '#ff4d5a' }}
                         >
                             <ChevronRight className="w-5 h-5 text-white" />
                         </button>
@@ -633,9 +647,10 @@ const Gallery = () => {
                                             onClick={() => setLightbox({
                                                 open: true, src: img.src,
                                                 title: img.title, tag: img.tag, sub: '',
-                                                orientation: img.orientation, type: img.type
+                                                orientation: img.orientation, type: img.type,
+                                                color: '#ff4d5a', rgb: '255,77,90'
                                             })}
-                                            className={`gallery-card ${img.type === 'document' ? 'gallery-card-document' : ''} rounded-2xl overflow-hidden cursor-pointer flex-shrink-0 transition-all duration-[0.35s] border shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative`}
+                                            className={`gallery-card ${img.type === 'document' ? 'gallery-card-document' : ''} rounded-2xl overflow-hidden cursor-pointer flex-shrink-0 transition-all duration-[0.35s] border shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative ${isActive ? 'opacity-100' : 'opacity-75 hover:opacity-100'}`}
                                             style={{
                                                 '--accent-color': '#ff4d5a',
                                                 '--accent-rgb': '255,77,90',
@@ -643,13 +658,20 @@ const Gallery = () => {
                                                 height: metrics.height,
                                                 background: img.type === 'document' ? '#0d0d0d' : '#111111',
                                                 borderColor: isActive ? '#ff4d5a' : 'rgba(255,255,255,0.08)',
+                                                boxShadow: isActive ? `0 0 20px rgba(255,77,90, 0.4)` : '0 4px 24px rgba(0,0,0,0.4)',
                                             }}
                                         >
+                                            {isActive && (
+                                                <div 
+                                                    className="absolute left-0 top-0 w-[3px] h-full z-30"
+                                                    style={{ background: '#ff4d5a' }}
+                                                />
+                                            )}
                                             <div className="tint-overlay absolute inset-0 z-10" />
                                             <img
                                                 src={img.src}
                                                 alt={img.title}
-                                                className="gallery-img w-full h-full transition-transform duration-400"
+                                                className={`gallery-img w-full ${metrics.height === 'auto' ? 'h-auto' : 'h-full'} transition-transform duration-400`}
                                                 style={{ objectFit: metrics.objectFit, objectPosition: 'center' }}
                                             />
                                             
@@ -668,16 +690,36 @@ const Gallery = () => {
                                 })}
                             </motion.div>
                         </div>
-                    </div>
+                        </div>
 
-                    <div className="flex justify-center gap-[6px] mt-8">
-                        {featuredImages.map((_, i) => (
-                            <button
-                                key={i}
-                                onClick={() => handleFeaturedManual(i)}
-                                className={`h-[8px] rounded-full transition-all duration-300 ${i === featuredIndex ? 'w-[24px] bg-[#ff4d5a]' : 'w-[8px] bg-gray-600'}`}
-                            />
-                        ))}
+                        <div className="flex justify-center gap-[6px] mt-8">
+                            {featuredImages.map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => handleFeaturedManual(i)}
+                                    className={`rounded-full transition-all duration-300 ${isMobile ? 'h-[6px]' : 'h-[8px]'} ${i === featuredIndex ? 'w-[24px] bg-[#ff4d5a]' : `${isMobile ? 'w-[6px]' : 'w-[8px]'} bg-gray-600`}`}
+                                />
+                            ))}
+                        </div>
+
+                        <div className="mt-6 text-center">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={featuredIndex}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.25 }}
+                                >
+                                    <span className="bg-[#ff4d5a] text-white text-[10px] font-semibold uppercase px-3 py-1 rounded-full inline-block mb-2">
+                                        {featuredImages[featuredIndex]?.tag}
+                                    </span>
+                                    <p className="text-white font-bold text-base max-[639px]:text-sm">
+                                        {featuredImages[featuredIndex]?.title}
+                                    </p>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
                     </div>
                 </div>
 
@@ -696,37 +738,24 @@ const Gallery = () => {
                         }} />
                     </div>
 
-                    <div 
-                        className="relative"
-                        onMouseEnter={() => setIsMomentsAutoPlaying(false)}
-                        onMouseLeave={() => setIsMomentsAutoPlaying(true)}
-                    >
+                    <div className="bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] rounded-[24px] p-6 max-[639px]:p-4 backdrop-blur-[4px]">
+                        <div 
+                            className="relative"
+                            onMouseEnter={() => setIsMomentsAutoPlaying(false)}
+                            onMouseLeave={() => setIsMomentsAutoPlaying(true)}
+                        >
                         <button
                             onClick={() => handleMomentsManual(momentsIndex === 0 ? momentsImages.length - 1 : momentsIndex - 1)}
-                            className="absolute left-[-10px] sm:left-[-20px] top-1/2 -translate-y-1/2 z-20 glass-nav rounded-full flex items-center justify-center transition-colors duration-200"
-                            style={{ 
-                                width: arrowSize, 
-                                height: arrowSize,
-                                backgroundColor: 'rgba(255,255,255,0.08)',
-                                border: '1px solid rgba(255,255,255,0.15)'
-                            }}
-                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = momentsImages[momentsIndex].color}
-                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'}
+                            className="absolute left-[-10px] sm:left-[-20px] top-1/2 -translate-y-1/2 z-20 glass-nav rounded-full flex items-center justify-center"
+                            style={{ width: arrowSize, height: arrowSize, '--nav-hover': momentsImages[momentsIndex]?.color }}
                         >
                             <ChevronLeft className="w-5 h-5 text-white" />
                         </button>
 
                         <button
                             onClick={() => handleMomentsManual(momentsIndex === momentsImages.length - 1 ? 0 : momentsIndex + 1)}
-                            className="absolute right-[-10px] sm:right-[-20px] top-1/2 -translate-y-1/2 z-20 glass-nav rounded-full flex items-center justify-center transition-colors duration-200"
-                            style={{ 
-                                width: arrowSize, 
-                                height: arrowSize,
-                                backgroundColor: 'rgba(255,255,255,0.08)',
-                                border: '1px solid rgba(255,255,255,0.15)'
-                            }}
-                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = momentsImages[momentsIndex].color}
-                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'}
+                            className="absolute right-[-10px] sm:right-[-20px] top-1/2 -translate-y-1/2 z-20 glass-nav rounded-full flex items-center justify-center"
+                            style={{ width: arrowSize, height: arrowSize, '--nav-hover': momentsImages[momentsIndex]?.color }}
                         >
                             <ChevronRight className="w-5 h-5 text-white" />
                         </button>
@@ -751,15 +780,16 @@ const Gallery = () => {
                                             onClick={() => setLightbox({
                                                 open: true, src: img.src,
                                                 title: img.title, tag: img.tag, sub: img.sub,
-                                                orientation: img.orientation, type: img.type
+                                                orientation: img.orientation, type: img.type,
+                                                color: img.color, rgb: img.rgb
                                             })}
-                                            className={`gallery-card ${img.type === 'document' ? 'gallery-card-document' : ''} rounded-2xl overflow-hidden cursor-pointer flex-shrink-0 transition-all duration-[0.35s] border relative ${isActive ? 'opacity-100' : 'opacity-75 hover:opacity-100'}`}
+                                            className={`gallery-card ${img.type === 'document' ? 'gallery-card-document' : ''} rounded-2xl cursor-pointer flex-shrink-0 transition-all duration-[0.35s] border shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative ${isActive ? 'opacity-100' : 'opacity-75 hover:opacity-100'}`}
                                             style={{
                                                 '--accent-color': img.color,
                                                 '--accent-rgb': img.rgb,
                                                 width: metrics.width,
-                                                aspectRatio: metrics.aspectRatio,
-                                                background: img.type === 'document' ? '#0d0d0d' : '#111111',
+                                                height: 'auto',
+                                                background: '#111111',
                                                 borderColor: isActive ? img.color : 'rgba(255,255,255,0.08)',
                                                 boxShadow: isActive ? `0 0 20px rgba(${img.rgb}, 0.4)` : '0 4px 24px rgba(0,0,0,0.4)',
                                             }}
@@ -772,54 +802,62 @@ const Gallery = () => {
                                                 />
                                             )}
 
-                                            <div className="tint-overlay absolute inset-0 z-10" />
-                                            <img
-                                                src={img.src}
-                                                alt={img.title}
-                                                className="gallery-img w-full h-full transition-transform duration-400"
-                                                style={{ 
-                                                    objectFit: metrics.objectFit, 
-                                                    objectPosition: img.orientation === 'portrait' ? 'center top' : 'center' 
-                                                }}
-                                            />
-                                            
-                                            <div className="absolute inset-x-0 bottom-0 h-[60%] card-overlay z-20" />
-                                            
-                                            <div className="absolute bottom-3 left-3 z-30">
-                                                <span
-                                                    className="text-white text-[10px] font-semibold uppercase px-3 py-1 rounded-full mb-2 inline-block"
-                                                    style={{ background: '#a855f7' }}
-                                                >
-                                                    {img.tag}
-                                                </span>
-                                                <p className="text-white text-sm font-bold leading-tight">
+                                            <div
+                                                className="relative w-full rounded-2xl"
+                                                style={{ aspectRatio: metrics.aspectRatio, background: metrics.background }}
+                                            >
+                                                <div className="tint-overlay absolute inset-0 z-10 rounded-2xl" />
+
+                                                <img
+                                                    src={img.src}
+                                                    alt={img.title}
+                                                    className="gallery-img absolute inset-0 w-full h-full rounded-2xl transition-transform duration-400"
+                                                    style={{
+                                                        objectFit: metrics.objectFit,
+                                                        objectPosition: metrics.objectPosition,
+                                                        background: metrics.background,
+                                                    }}
+                                                />
+
+                                                <div className="absolute inset-x-0 bottom-0 h-[40%] card-overlay z-20 rounded-b-2xl" />
+
+                                                <p className="absolute bottom-9 left-3 z-30 text-white text-base font-bold leading-tight max-w-[90%]">
                                                     {img.title}
                                                 </p>
+
                                                 {img.sub && (
-                                                    <p className="text-gray-300 text-xs leading-tight mt-0.5">
+                                                    <p className="absolute bottom-[26px] left-3 z-30 text-gray-300 text-xs leading-tight max-w-[90%]">
                                                         {img.sub}
                                                     </p>
                                                 )}
+
+                                                <span
+                                                    className="absolute bottom-3 left-3 z-30 text-white text-xs font-semibold uppercase px-3 py-1 rounded-full tracking-wider"
+                                                    style={{ background: img.color }}
+                                                >
+                                                    {img.tag}
+                                                </span>
                                             </div>
                                         </motion.div>
                                     )
                                 })}
                             </motion.div>
                         </div>
-                    </div>
+                        </div>
 
-                    <div className="flex justify-center gap-[6px] mt-8">
-                        {momentsImages.map((img, i) => (
-                            <button
-                                key={i}
-                                onClick={() => handleMomentsManual(i)}
-                                className="h-[8px] rounded-full transition-all duration-300"
-                                style={{ 
-                                    width: i === momentsIndex ? '24px' : '8px',
-                                    background: i === momentsIndex ? img.color : '#374151'
-                                }}
-                            />
-                        ))}
+                        <div className="flex justify-center gap-[6px] mt-8">
+                            {momentsImages.map((img, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => handleMomentsManual(i)}
+                                    className={`rounded-full transition-all duration-300 ${isMobile ? 'h-[6px]' : 'h-[8px]'}`}
+                                    style={{ 
+                                        width: i === momentsIndex ? '24px' : (isMobile ? '6px' : '8px'),
+                                        background: i === momentsIndex ? img.color : '#374151'
+                                    }}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -849,20 +887,33 @@ const Gallery = () => {
                             onClick={(e) => e.stopPropagation()}
                             className="relative max-w-full flex flex-col items-center"
                         >
-                            <img
-                                src={lightbox.src}
-                                alt={lightbox.title}
-                                className="rounded-xl shadow-2xl border border-white/10"
+                            <div
                                 style={{
+                                    boxShadow: `0 0 50px rgba(${lbRgb}, 0.3), 0 24px 80px rgba(0,0,0,0.8)`,
+                                    border: `1.5px solid rgba(${lbRgb}, 0.35)`,
+                                    borderRadius: '16px',
+                                    overflow: 'hidden',
                                     maxWidth: isMobile ? '95vw' : '90vw',
-                                    maxHeight: isMobile ? '80vh' : '85vh',
-                                    objectFit: 'contain',
+                                    maxHeight: isMobile ? '80vh' : '85vh'
                                 }}
-                            />
+                            >
+                                <img
+                                    src={lightbox.src}
+                                    alt={lightbox.title}
+                                    className="w-full h-full"
+                                    style={{
+                                        objectFit: 'contain',
+                                    }}
+                                />
+                            </div>
                             <div className="mt-6 text-center">
                                 <span 
                                     className="text-white text-[10px] font-bold tracking-[2px] uppercase rounded-full px-4 py-1.5 inline-block mb-3"
-                                    style={{ background: lightbox.type === 'photo' ? '#ff4d5a' : '#333' }}
+                                    style={{
+                                        backgroundColor: lbColor,
+                                        boxShadow: `0 0 14px rgba(${lbRgb}, 0.5)`,
+                                        border: `1px solid rgba(${lbRgb}, 0.4)` 
+                                    }}
                                 >
                                     {lightbox.tag}
                                 </span>

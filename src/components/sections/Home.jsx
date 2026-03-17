@@ -23,14 +23,14 @@ const StatItem = ({ end, suffix, label }) => {
     }, [inView, end]);
 
     return (
-        <div className="flex-1 text-center px-2 sm:px-4">
+        <div className="flex-1 text-center px-1 sm:px-2 min-w-0 overflow-hidden">
             <div
                 ref={ref}
                 className="text-[var(--accent)] font-bold text-[clamp(20px,2.5vw,32px)] leading-none"
             >
                 {count}{suffix}
             </div>
-            <div className="text-[#666] text-[9px] sm:text-[10px] uppercase tracking-[1px] sm:tracking-[2px] mt-1.5 font-medium">
+            <div className="text-[#666] text-[9px] sm:text-[10px] uppercase tracking-[0.5px] sm:tracking-[1px] mt-1.5 font-medium leading-tight text-center break-words w-full px-1">
                 {label}
             </div>
         </div>
@@ -242,13 +242,13 @@ const Home = React.memo(function Home() {
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, delay: 0.9, ease: "easeOut" }}
-                    className="grid grid-cols-2 min-[481px]:grid-cols-3 min-[1025px]:grid-cols-5 min-[1025px]:divide-x min-[1025px]:divide-[rgba(255,255,255,0.1)] gap-4 min-[1025px]:gap-0 w-full max-w-[640px] mx-auto px-3 py-4 max-[480px]:px-3 min-[481px]:px-6 sm:py-6 bg-[rgba(255,255,255,0.03)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.07)] rounded-[16px]"
+                    className="grid grid-cols-2 min-[481px]:grid-cols-3 min-[1025px]:grid-cols-5 min-[1025px]:divide-x min-[1025px]:divide-[rgba(255,255,255,0.1)] gap-3 min-[1025px]:gap-0 w-full max-w-[640px] mx-auto px-2 py-4 max-[480px]:px-2 min-[481px]:px-4 sm:py-6 bg-[rgba(255,255,255,0.03)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.07)] rounded-[16px] overflow-hidden"
                 >
                     <StatItem end={9} suffix=".60" label="CGPA" />
-                    <StatItem end={9} suffix="+" label="PROJECTS" />
+                    <StatItem end={9} suffix="" label="PROJECTS" />
                     <StatItem end={3} suffix="" label="PUBLICATIONS" />
-                    <StatItem end={21} suffix="+" label="CERTIFICATIONS" />
-                    <div className="col-span-2 min-[481px]:col-span-1 flex justify-center items-center min-[1025px]:col-span-1">
+                    <StatItem end={21} suffix="" label="CERTIFICATIONS" />
+                    <div className="col-span-2 min-[481px]:col-span-1 min-[1025px]:col-span-1 flex justify-center items-center min-w-0">
                         <StatItem end={75} suffix="+" label="AWARDS" />
                     </div>
                 </motion.div>

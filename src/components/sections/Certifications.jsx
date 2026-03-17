@@ -187,7 +187,7 @@ const ISSUER_GROUPS = [
                 date: "Feb 2026",
                 certificateLink: "https://coursera.org/verify/3ATH2RD4FJUE",
                 desc: "Introduced core concepts of Data Science, the role of data scientists, and how data-driven decision making is used to solve real-world business problems.",
-                tags: ["Data Science", "Business Analytics", "Problem Solving"]
+                tags: ["Data-driven Decision Making", "Problem Solving", "Data Analysis", "Business Analytics"]
             },
             {
                 num: "02",
@@ -196,7 +196,7 @@ const ISSUER_GROUPS = [
                 certificateLink: "https://coursera.org/verify/SLO21JKA7U10",
                 date: "Feb 2026",
                 desc: "Hands-on experience with essential Data Science tools including Jupyter Notebook, RStudio, GitHub, and IBM Watson Studio used in modern data workflows.",
-                tags: ["Jupyter Notebook", "GitHub", "IBM Watson Studio"]
+                tags: ["GitHub", "IBM Watson Studio", "Jupyter Notebook", "RStudio"]
             },
             {
                 num: "03",
@@ -205,7 +205,7 @@ const ISSUER_GROUPS = [
                 certificateLink: "https://coursera.org/verify/BZVZX0QZTBGM",
                 date: "Feb 2026",
                 desc: "Learned the CRISP-DM methodology for solving data science problems including business understanding, data preparation, modeling, evaluation, and deployment.",
-                tags: ["CRISP-DM", "Data Science Process", "Problem Solving"]
+                tags: ["Analytical Skills", "Problem Solving", "CRISP-DM", "Data Analysis"]
             },
             {
                 num: "04",
@@ -214,7 +214,7 @@ const ISSUER_GROUPS = [
                 certificateLink: "https://coursera.org/verify/UYM9FHCXWPBG",
                 date: "Feb 2026",
                 desc: "Built strong foundations in Python programming including data manipulation, APIs, and data analysis using NumPy, Pandas, and Jupyter Notebook.",
-                tags: ["Python", "NumPy", "Pandas"]
+                tags: ["Python Programming", "Jupyter Notebook", "Data Analysis", "Data Visualization"]
             },
             {
                 num: "05",
@@ -223,7 +223,7 @@ const ISSUER_GROUPS = [
                 certificateLink: "https://coursera.org/verify/X8YUHXV0QYP7",
                 date: "Feb 2026",
                 desc: "Completed real-world data analysis projects involving data extraction, web scraping, cleaning, analysis, and visualization using Python.",
-                tags: ["Python", "Web Scraping", "Data Cleaning"]
+                tags: ["Python Programming", "Web Scraping", "Data Cleaning", "Data Visualization"]
             },
             {
                 num: "06",
@@ -232,7 +232,7 @@ const ISSUER_GROUPS = [
                 certificateLink: "https://coursera.org/verify/8KVJJMXKHOU4",
                 date: "Feb 2026",
                 desc: "Learned relational database concepts and SQL queries for data extraction, manipulation, and integration with Python for analytics tasks.",
-                tags: ["SQL", "Database Management", "Python"]
+                tags: ["Database Design & Management", "Python Programming", "Microsoft SQL Server", "Data Querying"]
             },
             {
                 num: "07",
@@ -241,7 +241,7 @@ const ISSUER_GROUPS = [
                 certificateLink: "https://coursera.org/verify/WD0XAWF5FC5B",
                 date: "Feb 2026",
                 desc: "Performed exploratory data analysis (EDA), statistical analysis, and data cleaning using Python libraries such as Pandas and NumPy.",
-                tags: ["Python", "EDA", "Pandas"]
+                tags: ["Python Programming", "Exploratory Data Analysis (EDA)", "Data Analysis", "Data Visualization"]
             },
             {
                 num: "08",
@@ -250,7 +250,7 @@ const ISSUER_GROUPS = [
                 certificateLink: "https://coursera.org/verify/46984H6SD9HN",
                 date: "Feb 2026",
                 desc: "Created compelling data visualizations using Matplotlib, Seaborn, and Folium to effectively communicate insights from real-world datasets.",
-                tags: ["Data Visualization", "Matplotlib", "Seaborn"]
+                tags: ["Data Visualization", "Python Programming", "Exploratory Data Analysis (EDA)"]
             },
             {
                 num: "09",
@@ -259,7 +259,7 @@ const ISSUER_GROUPS = [
                 certificateLink: "https://coursera.org/verify/MY76Y7VKBLVR",
                 date: "Feb 2026",
                 desc: "Implemented supervised and unsupervised machine learning algorithms including regression, classification, clustering, and model evaluation using Scikit-learn.",
-                tags: ["Machine Learning", "Scikit-learn", "Model Evaluation"]
+                tags: ["Deep Learning", "Model Evaluation & Validation", "Machine Learning"]
             },
             {
                 num: "10",
@@ -268,7 +268,7 @@ const ISSUER_GROUPS = [
                 certificateLink: "https://coursera.org/verify/X1I6GPPBBR62",
                 date: "Feb 2026",
                 desc: "Completed an end-to-end data science project including data collection, exploratory analysis, predictive modeling, and visualization to solve a real-world problem.",
-                tags: ["Data Science", "Predictive Modeling", "Capstone"]
+                tags: ["Model Deployment", "Exploratory Data Analysis (EDA)", "Data Analysis", "Data Visualization", "Machine Learning", "Deep Learning"]
             },
             {
                 num: "11",
@@ -277,7 +277,7 @@ const ISSUER_GROUPS = [
                 certificateLink: "https://coursera.org/verify/J1QX1CQQ14X3",
                 date: "Feb 2026",
                 desc: "Explored Generative AI concepts, Large Language Models (LLMs), and prompt engineering techniques used to enhance modern AI-driven data science workflows.",
-                tags: ["Generative AI", "LLMs", "Prompt Engineering"]
+                tags: ["Generative AI", "Artificial Intelligence (AI)", "Large Language Models (LLMs)", "Machine Learning", "Prompt Engineering"]
             },
             {
                 num: "12",
@@ -286,7 +286,7 @@ const ISSUER_GROUPS = [
                 certificateLink: "https://coursera.org/verify/09R7VN5XQ00O",
                 date: "Feb 2026",
                 desc: "Learned strategies for building a data science portfolio, preparing for technical interviews, and understanding career pathways in data science and AI roles.",
-                tags: ["Career Development", "Interview Preparation", "Portfolio"]
+                tags: ["Data Analysis", "Data Cleaning", "Data Preprocessing", "Data Visualization", "Exploratory Data Analysis (EDA)", "Machine Learning", "Deep Learning", "Model Deployment", "Model Evaluation & Validation"]
             },
             {
                 num: "13",
@@ -295,7 +295,7 @@ const ISSUER_GROUPS = [
                 certificateLink: "https://coursera.org/verify/professional-cert/3XZLXCVFX9JL",
                 date: "Feb 2026",
                 desc: "Completed the IBM Data Science Professional Certificate program covering Python, SQL, data analysis, visualization, machine learning, and real-world capstone projects.",
-                tags: ["Professional Certificate", "IBM", "Data Science"],
+                tags: ["Data Analysis", "Data Cleaning", "Data Preprocessing", "Data Visualization", "Data Querying", "Microsoft SQL Server", "Data-driven Decision Making", "Database Design & Management", "Exploratory Data Analysis (EDA)", "Python Programming", "Machine Learning", "Artificial Intelligence (AI)", "Large Language Models (LLMs)", "Deep Learning", "Model Deployment", "Model Evaluation & Validation", "IBM Watson Studio", "RStudio", "Web Scraping", "CRISP-DM", "Problem Solving", "Prompt Engineering", "Predictive Analytics", "Jupyter Notebook"],
                 specialBadge: "PROFESSIONAL CERTIFICATE"
             }
         ]
@@ -352,15 +352,7 @@ const ISSUER_GROUPS = [
                 date: "Jan 2026",
                 certificateLink: "https://www.udemy.com/certificate/UC-57ee45b8-5c14-47f4-bea9-36d7e0e3acc6/",
                 desc: "Comprehensive machine learning course covering data preprocessing, feature engineering, model building, evaluation, and implementation of supervised and unsupervised algorithms using Python and R, with exposure to modern AI tools like ChatGPT.",
-                tags: [
-                    "Machine Learning",
-                    "Data Preprocessing",
-                    "EDA",
-                    "Model Evaluation",
-                    "Python",
-                    "R",
-                    "AI"
-                ]
+                tags: ["Feature Engineering", "Data Preprocessing", "Exploratory Data Analysis (EDA)", "Model Evaluation & Validation", "Data Analysis", "Data Visualization", "Machine Learning"]
             },
             {
                 num: "19",
@@ -369,13 +361,7 @@ const ISSUER_GROUPS = [
                 date: "Jan 2026",
                 certificateLink: "https://www.udemy.com/certificate/UC-34ad11ae-b646-4668-952d-bdc7aa49d934/",
                 desc: "Learned object detection and computer vision techniques using deep learning models, implementing detection pipelines and training models for real-world image recognition tasks.",
-                tags: [
-                    "Computer Vision",
-                    "Object Detection",
-                    "Deep Learning",
-                    "Python",
-                    "Machine Learning"
-                ]
+                tags: ["Python Programming", "Deep Learning", "Computer Vision", "Machine Learning"]
             }
         ]
     },
@@ -398,8 +384,7 @@ const ISSUER_GROUPS = [
                 tags: [
                     "Python Programming",
                     "Object-Oriented Programming",
-                    "Control Structures",
-                    "Functions"
+                    "Programming Fundamentals"
                 ]
             },
             {
@@ -745,16 +730,16 @@ const Certifications = memo(() => {
                         <h2 className="section-heading text-[#ffffff] text-center font-[800] break-words text-[clamp(24px,5.5vw,66px)] max-[480px]:text-[clamp(22px,5vw,30px)] mb-2" style={{ letterSpacing: '-0.02em' }}>
                             Licenses &amp; Certifications
                         </h2>
-                        <div style={{ 
-                            width: '60px', 
-                            height: '3px', 
-                            background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
-                            borderRadius: '999px', 
-                            margin: '8px auto 24px auto' 
+                        <div style={{
+                            width: '60px',
+                            height: '3px',
+                            background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)',
+                            borderRadius: '999px',
+                            margin: '8px auto 24px auto'
                         }} />
 
                         <p className="text-[#888888] text-[15px] min-[481px]:text-[16px] max-[480px]:text-[14px] italic text-center max-w-2xl w-full font-light mt-3 min-w-0 break-words px-2">
-                           Certifications that validate expertise and reflect a commitment to continuous learning.
+                            Certifications that validate expertise and reflect a commitment to continuous learning.
                         </p>
                     </motion.div>
                 </div>

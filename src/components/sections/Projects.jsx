@@ -210,7 +210,7 @@ const Projects = memo(() => {
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 overflow-hidden max-[480px]:px-2">
+                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 max-[480px]:px-2">
                     {FILTERS.map(filter => {
                         const isActive = activeFilter === filter;
                         const count = filter === 'All' ? projects.length : projects.filter(p => p.category === filter).length;
@@ -220,8 +220,8 @@ const Projects = memo(() => {
                                 key={filter}
                                 onClick={() => setActiveFilter(filter)}
                                 className={`group relative flex items-center px-[18px] py-[8px] rounded-[50px] text-[13px] transition-all ease-in-out duration-300 ${isActive
-                                    ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] -translate-y-[2px] border border-transparent'
-                                    : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
+                                    ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] border border-transparent'
+                                    : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
                                     }`}
                             >
                                 {filter}
@@ -247,7 +247,13 @@ const Projects = memo(() => {
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
                                 transition={{ duration: 0.4 }}
-                                className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 gap-6 sm:gap-8 items-stretch w-full"
+                                className={`grid gap-6 sm:gap-8 items-stretch w-full ${
+                                    filteredProjects.length === 1
+                                        ? 'grid-cols-1 max-w-[400px] mx-auto'
+                                        : filteredProjects.length === 2
+                                            ? 'grid-cols-1 min-[481px]:grid-cols-2 max-w-[860px] mx-auto'
+                                            : 'grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3'
+                                    }`}
                             >
                                 {filteredProjects.map((project, idx) => (
                                     <ProjectCard

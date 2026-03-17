@@ -18,7 +18,7 @@ export const experienceData = [
         ],
         contributions: [
             "Developed an End-to-End AutoML platform automating the entire ML lifecycle including data ingestion, preprocessing, feature engineering, model training, evaluation, and automated benchmarking across multiple machine learning and deep learning algorithms",
-            "Engineered an Industrial Unified Gateway System enabling real-time communication between PLCs, sensors, and enterprise applications using industrial protocols such as Modbus TCP/IP, OPC UA, OPC DA, PROFINET, and DBLink",
+            "Engineered an Industrial Unified Gateway System enabling real-time communication between PLCs, sensors, and enterprise applications using industrial protocols such as Modbus, TCP/IP, OPC UA, OPC DA, PROFINET, and DBLink",
             "Built secure data pipelines and REST APIs enabling seamless integration between frontend applications, backend services, and industrial data sources",
             "Developed a Full-Stack Energy Monitoring System using React, Django, and SQL with interactive dashboards for real-time energy consumption tracking, KPI visualization, and industrial analytics",
             "Designed and implemented the Roll Analytics System (RAS) to analyze roll lifecycle, operational performance, cost intelligence, and KPI monitoring through advanced analytics dashboards",
@@ -40,14 +40,14 @@ export const experienceData = [
             "Distributed Systems",
             "Database Design & Management", "Microsoft SQL Server", "MongoDB",
             "Industrial IoT (IIoT)", "Industrial Communication Protocols",
-            "Modbus TCP/IP", "OPC UA", "PROFINET", "DBLink"
+            "Modbus", "TCP/IP", "OPC UA", "PROFINET", "DBLink"
         ]
     },
     {
         role: "Software Engineer Trainee",
         company: "Netfotech Solutions",
         companyLink: "https://www.netfotech.in/",
-        location: "Remote",
+        location: "Nagpur, Maharashtra, India",
         duration: "Jun 2025 – Jul 2025",
         type: "Internship · Remote",
         category: "Software Engineer",
@@ -75,7 +75,7 @@ export const experienceData = [
         role: "Founder & CEO",
         company: "Eagle Wears",
         companyLink: "https://eaglewears.in/",
-        location: "Nagpur, Maharashtra",
+        location: "Nagpur, Maharashtra, India",
         duration: "Dec 2024 – Present",
         type: "Entrepreneurship",
         category: "Startup Founded",
@@ -104,7 +104,7 @@ export const experienceData = [
         role: "Joint Campus Representative",
         company: "Prashraya Welfare Foundation (Team Aashraya)",
         companyLink: "https://prashraya.org/",
-        location: "Nagpur, Maharashtra",
+        location: "Nagpur, Maharashtra, India",
         duration: "Jan 2026 – Present",
         type: "Part-time · Hybrid",
         category: "Social Impact",
@@ -134,9 +134,9 @@ export const experienceData = [
         role: "Permanent Volunteer Member",
         company: "Prashraya Welfare Foundation (Team Aashraya)",
         companyLink: "https://prashraya.org/",
-        location: "Maharashtra, India",
+        location: "Nagpur, Maharashtra, India",
         duration: "Jan 2026 – Present",
-        type: "Part-time · Volunteer",
+        type: "Part-time · Hybrid",
         category: "Social Impact",
         color: "#22c55e", // green
         contributions: [
@@ -162,9 +162,9 @@ export const experienceData = [
         role: "Permanent Volunteer Member",
         company: "Sahyadri Foundation",
         companyLink: "https://sahyadrifoundation.co/",
-        location: "Maharashtra, India",
+        location: "Nagpur, Maharashtra, India",
         duration: "Jan 2026 – Present",
-        type: "Part-time · Volunteer",
+        type: "Part-time · Hybrid",
         category: "Social Impact",
         color: "#22c55e", // green
         contributions: [

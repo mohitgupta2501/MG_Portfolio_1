@@ -151,7 +151,7 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
-            className={`relative w-full h-full ${totalCards % 2 !== 0 && index === totalCards - 1 ? 'md:col-span-1 md:max-w-[560px] md:mx-auto lg:col-span-2' : ''}`}
+            className="relative w-full h-full"
         >
             {/* The Card */}
             <div
@@ -423,7 +423,13 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
 
                     {/* Row 2 */}
                     <div className="mt-3 flex flex-col gap-1 shrink-0">
-                        <h3 className="role-title text-white font-[700] text-[17px] max-[480px]:text-[15px] min-[481px]:text-[19px] leading-[22px] transition-colors duration-300 pr-[60px] h-[44px] break-words min-w-0" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                        <h3 className="role-title text-white font-[700] text-[17px] max-[480px]:text-[15px] min-[481px]:text-[19px] leading-[22px] transition-colors duration-300 pr-[60px] h-[44px] break-words min-w-0" style={{
+                            display: '-webkit-box',
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis'
+                        }}>
                             {item.role}
                         </h3>
                         {/* Company & Type Row */}
@@ -451,7 +457,14 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
 
                     {/* BRIEF SUMMARY */}
                     <div className="relative z-10 mb-2 mt-1 min-h-[64px] shrink-0 min-w-0">
-                        <p className="text-[#888888] text-[13px] max-[480px]:text-[12px] leading-[1.6] line-clamp-3 break-words" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                        <p className="text-[#888888] text-[13px] max-[480px]:text-[12px] leading-[1.6]" style={{
+                            display: '-webkit-box',
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            wordBreak: 'break-word'
+                        }}>
                             {getBriefSummary(item.company, item.role)}
                         </p>
                     </div>
@@ -668,7 +681,11 @@ const Experience = React.memo(function Experience() {
                     <div className="absolute left-0 bottom-20 text-[rgba(255,255,255,0.05)] text-[10px] font-bold tracking-widest -rotate-90 origin-left pointer-events-none hidden lg:block">2024</div>
 
                     {/* EXPERIENCE CARDS GRID — 1 col mobile, 2 cols tablet+ */}
-                    <div className="relative z-10 w-full grid grid-cols-1 min-[481px]:grid-cols-2 gap-[20px] items-stretch min-[1025px]:px-6">
+                    <div className={`relative z-10 w-full grid gap-[20px] items-stretch min-[1025px]:px-6 ${
+                        filteredData.length === 1
+                            ? 'grid-cols-1 max-w-[560px] mx-auto'
+                            : 'grid-cols-1 min-[481px]:grid-cols-2'
+                        }`}>
                         <AnimatePresence mode="popLayout">
                             {filteredData.map((exp, idx) => (
                                 <ExperienceCard
