@@ -9,136 +9,136 @@ const featuredImages = [
     {
         id: 1,
         src: '/gallery/Mohit_SOTY.jpeg',
-        tag: 'STUDENT OF THE YEAR',
-        title: 'Prestigious Student of the Year Award Batch (2022–2026)',
+        tag: 'ULTIMATE HONOR',
+        title: 'Crowned at the Pinnacle — Student of the Year (Batch 2022–2026)',
         orientation: 'portrait',
         type: 'photo',
     },
     {
         id: 2,
         src: '/gallery/Combine_SOTY.jpeg',
-        tag: 'STUDENT OF THE YEAR',
-        title: 'Prestigious Student of the Year Award Batch (2022–2026)',
+        tag: 'LEGACY ACHIEVEMENT',
+        title: 'A Defining Milestone — Student of the Year Recognition',
         orientation: 'portrait',
         type: 'photo',
     },
     {
         id: 3,
         src: '/gallery/Newsletter_Rank.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Secured Overall First Rank in Department',
+        tag: 'ACADEMIC DOMINANCE',
+        title: 'Ranked #1 — Leading with Unmatched Academic Excellence',
         orientation: 'landscape',
         type: 'document',
     },
     {
         id: 4,
         src: '/gallery/Newsletter_Rank1.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Secured Overall First Rank in Department',
+        tag: 'TOPPER STATUS',
+        title: 'At the Top — Recognized for Academic Brilliance',
         orientation: 'landscape',
         type: 'document',
     },
     {
         id: 5,
         src: '/gallery/Newsletter_Rank2.jpg',
-        tag: 'PRESS COVERAGE',
-        title: 'Secured Overall First Rank in Department',
+        tag: 'MEDIA SPOTLIGHT',
+        title: 'In the Headlines — Department Topper Featured',
         orientation: 'portrait',
         type: 'document',
     },
     {
         id: 6,
         src: '/gallery/Newsletter_Achievements.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Academic & Extracurricular Achievements',
+        tag: 'ALL-ROUND EXCELLENCE',
+        title: 'Excelling Everywhere — Academic & Extracurricular Mastery',
         orientation: 'portrait',
         type: 'document',
     },
     {
         id: 7,
         src: '/gallery/Newsletter_Achievements1.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Academic & Extracurricular Achievements',
+        tag: 'BEYOND LIMITS',
+        title: 'More than Academics — A Journey of Versatility & Success',
         orientation: 'portrait',
         type: 'document',
     },
     {
         id: 8,
         src: '/gallery/Newsletter_Achievements2.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Academic & Extracurricular Achievements',
+        tag: 'CONSISTENT GREATNESS',
+        title: 'Dedication that Wins — Recognized for Consistent Excellence',
         orientation: 'portrait',
         type: 'document',
     },
     {
         id: 9,
         src: '/gallery/Newsletter_Forum.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Mentor & Vice President – NEXUS DS Forum',
+        tag: 'VISIONARY MENTORSHIP',
+        title: 'Leading with Purpose — Mentor & Vice President, Nexus-DS',
         orientation: 'portrait',
         type: 'document',
     },
     {
         id: 10,
         src: '/gallery/Newsletter_Forum1.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Mentor & Vice President – NEXUS DS Forum',
+        tag: 'EMPOWERING LEADERSHIP',
+        title: 'Shaping Minds — Forum Leadership & Mentorship Impact',
         orientation: 'portrait',
         type: 'document',
     },
     {
         id: 11,
         src: '/gallery/Newsletter_Forum2.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Mentor & Vice President – NEXUS DS Forum',
+        tag: 'INNOVATION DRIVER',
+        title: 'Driving Change — Nexus-DS Leadership & Innovation',
         orientation: 'portrait',
         type: 'document',
     },
     {
         id: 12,
         src: '/gallery/Newsletter_Internship.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Internship at Hitachi India Pvt. Ltd.',
+        tag: 'INDUSTRY EXPERIENCE',
+        title: 'Stepping into the Real World — Internship at Hitachi India',
         orientation: 'portrait',
         type: 'document',
     },
     {
         id: 13,
         src: '/gallery/Newsletter_Internship1.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Internship at Hitachi India Pvt. Ltd.',
+        tag: 'CAREER BUILDING',
+        title: 'From Learning to Execution — Professional Growth at Hitachi',
         orientation: 'portrait',
         type: 'document',
     },
     {
         id: 14,
         src: '/gallery/Newsletter_Sports.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Sports Champion & Team Leader',
+        tag: 'CHAMPION MINDSET',
+        title: 'Built to Win — Excellence in Sports & Leadership',
         orientation: 'portrait',
         type: 'document',
     },
     {
         id: 15,
         src: '/gallery/Newsletter_Sports1.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Sports Champion & Team Leader',
+        tag: 'GAME LEADER',
+        title: 'Leading from the Front — Sports Achievements & Team Spirit',
         orientation: 'portrait',
         type: 'document',
     },
     {
         id: 16,
         src: '/gallery/Newsletter_Teaching.jpg',
-        tag: 'NEWSLETTER',
-        title: 'Leading Knowledge Sharing Sessions',
+        tag: 'KNOWLEDGE LEADER',
+        title: 'Guiding Minds — Delivering Impactful Learning Sessions',
         orientation: 'portrait',
         type: 'document',
     },
     {
         id: 17,
         src: '/gallery/Newsletter_Writing.jpg',
-        tag: 'NEWSLETTER',
-        title: 'My Insights & Reflections',
+        tag: 'CREATIVE EXPRESSION',
+        title: 'Words that Inspire — Thoughts, Insights & Reflections',
         orientation: 'portrait',
         type: 'document',
     },
@@ -151,9 +151,8 @@ const momentsImages = [
     {
         id: 1,
         src: '/gallery/Sports_1.jpeg',
-        tag: 'ATHLETICS',
-        title: 'Shot Put & Discus Throw',
-        sub: 'State-level competition',
+        tag: 'ELITE ATHLETICS',
+        title: 'Dominating the Field — Shot Put & Discus Excellence',
         color: '#f59e0b',
         rgb: '245,158,11',
         orientation: 'landscape',
@@ -162,9 +161,8 @@ const momentsImages = [
     {
         id: 2,
         src: '/gallery/Sports_3.jpeg',
-        tag: 'ABACUS',
-        title: 'National Abacus Championship',
-        sub: 'Champion of Champions',
+        tag: 'MENTAL MASTERY',
+        title: 'Precision & Brilliance — National Abacus Championship',
         color: '#ff4d5a',
         rgb: '255,77,90',
         orientation: 'landscape',
@@ -173,9 +171,8 @@ const momentsImages = [
     {
         id: 3,
         src: '/gallery/Sports_4.jpeg',
-        tag: 'SPORTS · INSIGHT',
-        title: 'INSIGHT Cricket Tournament',
-        sub: 'Annual college event',
+        tag: 'COMPETITIVE SPIRIT',
+        title: 'Cricketing Glory — INSIGHT Tournament Leadership',
         color: '#22c55e',
         rgb: '34,197,94',
         orientation: 'landscape',
@@ -184,9 +181,8 @@ const momentsImages = [
     {
         id: 4,
         src: '/gallery/Abacus_1.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'VISIONARY LEADERSHIP',
+        title: 'Leading Innovation — Nexus-DS Vice Presidency',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -195,9 +191,8 @@ const momentsImages = [
     {
         id: 5,
         src: '/gallery/Abacus_2.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'POWER & RESPONSIBILITY',
+        title: 'Symbol of Authority — Steering Forum Excellence',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -206,9 +201,8 @@ const momentsImages = [
     {
         id: 6,
         src: '/gallery/Abacus_3.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'DATA SCIENCE LEADERSHIP',
+        title: 'Empowering Minds — Driving Innovation in Data Science',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -217,9 +211,8 @@ const momentsImages = [
     {
         id: 7,
         src: '/gallery/Department_1.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'ACADEMIC INFLUENCE',
+        title: 'Shaping Futures — Departmental Leadership Excellence',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -228,9 +221,8 @@ const momentsImages = [
     {
         id: 8,
         src: '/gallery/Department_2.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'EXCELLENCE IN ACTION',
+        title: 'Driving Academic Brilliance — Leading by Example',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -239,9 +231,8 @@ const momentsImages = [
     {
         id: 9,
         src: '/gallery/Department_3.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'IMPACTFUL CONTRIBUTIONS',
+        title: 'Inspiring Growth — Building a Strong Academic Legacy',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -250,9 +241,8 @@ const momentsImages = [
     {
         id: 10,
         src: '/gallery/Forum_1.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'STRATEGIC LEADERSHIP',
+        title: 'Strength in Execution — Forum Coordination at Scale',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -261,9 +251,8 @@ const momentsImages = [
     {
         id: 11,
         src: '/gallery/Red_House.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'HOUSE LEADERSHIP',
+        title: 'Pride in Command — Red House Captaincy',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -272,9 +261,8 @@ const momentsImages = [
     {
         id: 12,
         src: '/gallery/House_Captain2.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'LEADING FROM THE FRONT',
+        title: 'Commanding Excellence — House Captain Leadership',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -283,9 +271,8 @@ const momentsImages = [
     {
         id: 13,
         src: '/gallery/Insight_1.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'EVENT MASTERY',
+        title: 'Building Impact — INSIGHT Event Leadership',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -294,9 +281,8 @@ const momentsImages = [
     {
         id: 14,
         src: '/gallery/Insight_2.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'TEAM SYNERGY',
+        title: 'Vision & Teamwork — Driving INSIGHT Success',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -305,9 +291,8 @@ const momentsImages = [
     {
         id: 15,
         src: '/gallery/Internship.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'PROFESSIONAL JOURNEY',
+        title: 'Stepping into the Industry — Real-World Exposure',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -316,9 +301,8 @@ const momentsImages = [
     {
         id: 16,
         src: '/gallery/Internship_2.jpeg',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'CAREER MILESTONES',
+        title: 'From Learning to Leading — Internship Achievements',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -327,9 +311,8 @@ const momentsImages = [
     {
         id: 17,
         src: '/gallery/IMG_7664.JPG',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'ACHIEVEMENT UNLOCKED',
+        title: 'Moments of Glory — Celebrating Success',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -338,9 +321,8 @@ const momentsImages = [
     {
         id: 18,
         src: '/gallery/IMG_7678.JPG',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'BREAKING LIMITS',
+        title: 'Beyond Boundaries — Personal Evolution',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
@@ -349,517 +331,339 @@ const momentsImages = [
     {
         id: 19,
         src: '/gallery/IMG_7701.JPG',
-        tag: 'NEXUS-DS FORUM',
-        title: 'Vice President — Forum Badge',
-        sub: 'CSE Data Science leadership',
+        tag: 'LEGACY IN PROGRESS',
+        title: 'Journey of Excellence — Defining My Path',
         color: '#3b82f6',
         rgb: '59,130,246',
         orientation: 'portrait',
         type: 'photo',
     },
 ];
+// ─── CONSTANTS ─────────────────────────────────────────── 
+const FEATURED_COLOR = '#ff4d5a';
+const FEATURED_RGB = '255,77,90';
+const MOMENTS_COLOR = '#a855f7';
+const MOMENTS_RGB = '168,85,247';
 
+// ─── CAROUSEL COMPONENT ────────────────────────────────── 
+const Carousel = ({
+    images,
+    title,
+    description,
+    accentColor,
+    accentRgb,
+    cardHeight,
+    onOpenLightbox,
+}) => {
+    const [index, setIndex] = useState(0);
+    const [paused, setPaused] = useState(false);
+    const timerRef = useRef(null);
+    const trackRef = useRef(null);
+
+    const CARD_WIDTH = typeof window !== 'undefined' && window.innerWidth < 640
+        ? Math.floor(window.innerWidth * 0.82)
+        : typeof window !== 'undefined' && window.innerWidth < 1024
+            ? 280
+            : 320;
+    const CARD_GAP = 16;
+    const CARD_STRIDE = CARD_WIDTH + CARD_GAP;
+
+    // auto-scroll 
+    useEffect(() => {
+        if (paused) { clearInterval(timerRef.current); return; }
+        timerRef.current = setInterval(() => {
+            setIndex(i => (i + 1) % images.length);
+        }, 4000);
+        return () => clearInterval(timerRef.current);
+    }, [paused, images.length]);
+
+    const go = (newIndex) => {
+        clearInterval(timerRef.current);
+        setIndex((newIndex + images.length) % images.length);
+        setPaused(true);
+        setTimeout(() => setPaused(false), 3000);
+    };
+
+    const offsetX = index * CARD_STRIDE;
+
+    return (
+        <div className="mb-20">
+            {/* heading */}
+            <div className="flex flex-col items-center mb-8">
+                <span
+                    className="text-[11px] uppercase tracking-[4px] font-[800] mb-2"
+                    style={{ color: accentColor }}
+                >
+                    {title}
+                </span>
+                <div style={{
+                    width: 60, height: 3,
+                    background: `linear-gradient(90deg, ${accentColor}, ${accentColor}99)`,
+                    borderRadius: 999,
+                }} />
+                <p className="text-[#9ca3af] text-sm mt-3 text-center">{description}</p>
+            </div>
+
+            {/* track wrapper */}
+            <div
+                className="relative"
+                onMouseEnter={() => setPaused(true)}
+                onMouseLeave={() => setPaused(false)}
+            >
+                {/* prev arrow */}
+                <button
+                    onClick={() => go(index - 1)}
+                    className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center rounded-full transition-all duration-200"
+                    style={{
+                        width: 40, height: 40,
+                        background: 'rgba(255,255,255,0.08)',
+                        border: '1px solid rgba(255,255,255,0.15)',
+                        backdropFilter: 'blur(8px)',
+                    }}
+                    onMouseEnter={e => {
+                        e.currentTarget.style.background = accentColor;
+                        e.currentTarget.style.borderColor = accentColor;
+                        e.currentTarget.style.boxShadow = `0 0 16px rgba(${accentRgb},0.5)`;
+                    }}
+                    onMouseLeave={e => {
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+                        e.currentTarget.style.boxShadow = 'none';
+                    }}
+                >
+                    <ChevronLeft className="w-5 h-5 text-white" />
+                </button>
+
+                {/* next arrow */}
+                <button
+                    onClick={() => go(index + 1)}
+                    className="absolute right-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center rounded-full transition-all duration-200"
+                    style={{
+                        width: 40, height: 40,
+                        background: 'rgba(255,255,255,0.08)',
+                        border: '1px solid rgba(255,255,255,0.15)',
+                        backdropFilter: 'blur(8px)',
+                    }}
+                    onMouseEnter={e => {
+                        e.currentTarget.style.background = accentColor;
+                        e.currentTarget.style.borderColor = accentColor;
+                        e.currentTarget.style.boxShadow = `0 0 16px rgba(${accentRgb},0.5)`;
+                    }}
+                    onMouseLeave={e => {
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+                        e.currentTarget.style.boxShadow = 'none';
+                    }}
+                >
+                    <ChevronRight className="w-5 h-5 text-white" />
+                </button>
+
+                {/* scrollable track */}
+                <div
+                    className="overflow-hidden mx-[52px]"
+                    ref={trackRef}
+                >
+                    <motion.div
+                        className="flex"
+                        style={{ gap: CARD_GAP }}
+                        animate={{ x: -offsetX }}
+                        transition={{ type: 'spring', damping: 28, stiffness: 140 }}
+                    >
+                        {images.map((img, i) => {
+                            const isActive = i === index;
+                            const imgColor = img.color || accentColor;
+                            const imgRgb = img.rgb || accentRgb;
+                            return (
+                                <div
+                                    key={img.id}
+                                    onClick={() => isActive ? onOpenLightbox(img, accentColor, accentRgb) : go(i)}
+                                    className="gallery-card-item flex-shrink-0 rounded-2xl overflow-hidden relative cursor-pointer"
+                                    style={{
+                                        width: CARD_WIDTH,
+                                        height: cardHeight,
+                                        border: isActive
+                                            ? `1.5px solid ${accentColor}`
+                                            : '1px solid rgba(255,255,255,0.08)',
+                                        boxShadow: isActive
+                                            ? `0 0 32px rgba(${accentRgb},0.4), 0 16px 48px rgba(0,0,0,0.6)`
+                                            : '0 4px 20px rgba(0,0,0,0.4)',
+                                        opacity: isActive ? 1 : 0.6,
+                                        transition: 'all 0.35s ease',
+                                        background: img.type === 'document' ? '#0d0d0d' : '#111',
+                                    }}
+                                    onMouseEnter={e => {
+                                        if (!isActive) {
+                                            e.currentTarget.style.opacity = '0.85';
+                                            e.currentTarget.style.borderColor = `rgba(${accentRgb},0.4)`;
+                                        }
+                                    }}
+                                    onMouseLeave={e => {
+                                        if (!isActive) {
+                                            e.currentTarget.style.opacity = '0.6';
+                                            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+                                        }
+                                    }}
+                                >
+                                    {/* active left bar */}
+                                    {isActive && (
+                                        <div
+                                            className="absolute left-0 top-0 w-[3px] h-full z-30"
+                                            style={{ background: accentColor }}
+                                        />
+                                    )}
+
+                                    {/* image fills entire card */}
+                                    <img
+                                        src={img.src}
+                                        alt={img.title}
+                                        className={`gallery-zoom-img w-full h-full ${img.type === 'document' ? 'gallery-doc-img' : ''}`}
+                                        style={{
+                                            objectFit: img.type === 'document' ? 'contain' : 'cover',
+                                            objectPosition: 'center',
+                                            transition: 'transform 0.4s ease',
+                                            pointerEvents: 'none',
+                                        }}
+                                    />
+
+                                    {/* gradient overlay */}
+                                    <div
+                                        className="absolute inset-0 pointer-events-none"
+                                        style={{
+                                            background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 35%, rgba(0,0,0,0.2) 65%, transparent 100%)'
+                                        }}
+                                    />
+
+                                    {/* bottom content — badge above title, no overlap ever */}
+                                    <div className="absolute bottom-0 left-0 right-0 z-20 px-3 pb-3 flex flex-col gap-[6px]">
+                                        <span
+                                            className="self-start text-white text-[10px] font-bold uppercase px-3 py-[5px] rounded-full tracking-wider"
+                                            style={{ background: accentColor }}
+                                        >
+                                            {img.tag}
+                                        </span>
+                                        <p className="text-white text-[13px] font-bold leading-snug line-clamp-2 w-full">
+                                            {img.title}
+                                        </p>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </motion.div>
+                </div>
+
+                {/* dot indicators */}
+                <div className="flex justify-center gap-[6px] mt-6">
+                    {images.map((_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => go(i)}
+                            className="rounded-full transition-all duration-300"
+                            style={{
+                                width: i === index ? 24 : 8,
+                                height: 8,
+                                background: i === index ? accentColor : '#374151',
+                            }}
+                        />
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// ─── GALLERY ───────────────────────────────────────────── 
 const Gallery = () => {
-    const [featuredIndex, setFeaturedIndex] = useState(0);
-    const [momentsIndex, setMomentsIndex] = useState(0);
-    const [isFeaturedAutoPlaying, setIsFeaturedAutoPlaying] = useState(true);
-    const [isMomentsAutoPlaying, setIsMomentsAutoPlaying] = useState(true);
     const [lightbox, setLightbox] = useState({
-        open: false, src: '', title: '', tag: '', sub: '', orientation: 'portrait', type: 'photo', color: '#ff4d5a', rgb: '255,77,90'
+        open: false, src: '', title: '', tag: '', sub: '',
+        color: FEATURED_COLOR, rgb: FEATURED_RGB
     });
 
-    const [isMobile, setIsMobile] = useState(false);
-    const [isTablet, setIsTablet] = useState(false);
-
-    const featuredTimerRef = useRef(null);
-    const momentsTimerRef = useRef(null);
-
+    // Escape closes lightbox 
     useEffect(() => {
-        const update = () => {
-            const w = window.innerWidth;
-            setIsMobile(w < 640);
-            setIsTablet(w >= 640 && w < 1024);
-        };
-        update();
-        window.addEventListener('resize', update);
-        return () => window.removeEventListener('resize', update);
-    }, []);
-
-    // Auto-play logic
-    const startFeaturedTimer = () => {
-        clearInterval(featuredTimerRef.current);
-        featuredTimerRef.current = setInterval(() => {
-            setFeaturedIndex(i => i === featuredImages.length - 1 ? 0 : i + 1);
-        }, 4500);
-    };
-
-    const startMomentsTimer = () => {
-        clearInterval(momentsTimerRef.current);
-        momentsTimerRef.current = setInterval(() => {
-            setMomentsIndex(i => i === momentsImages.length - 1 ? 0 : i + 1);
-        }, 4500);
-    };
-
-    useEffect(() => {
-        if (isFeaturedAutoPlaying) startFeaturedTimer();
-        else clearInterval(featuredTimerRef.current);
-        return () => clearInterval(featuredTimerRef.current);
-    }, [isFeaturedAutoPlaying]);
-
-    useEffect(() => {
-        if (isMomentsAutoPlaying) startMomentsTimer();
-        else clearInterval(momentsTimerRef.current);
-        return () => clearInterval(momentsTimerRef.current);
-    }, [isMomentsAutoPlaying]);
-
-    // Manual interaction handlers
-    const handleFeaturedManual = (newIndex) => {
-        setFeaturedIndex(newIndex);
-        setIsFeaturedAutoPlaying(false);
-        setTimeout(() => setIsFeaturedAutoPlaying(true), 3000);
-    };
-
-    const handleMomentsManual = (newIndex) => {
-        setMomentsIndex(newIndex);
-        setIsMomentsAutoPlaying(false);
-        setTimeout(() => setIsMomentsAutoPlaying(true), 3000);
-    };
-
-    // Escape key closes lightbox
-    useEffect(() => {
-        const fn = e => {
-            if (e.key === 'Escape') {
-                setLightbox(l => ({ ...l, open: false }));
-            }
-        };
+        const fn = e => { if (e.key === 'Escape') setLightbox(l => ({ ...l, open: false })); };
         window.addEventListener('keydown', fn);
         return () => window.removeEventListener('keydown', fn);
     }, []);
 
-    const getCardMetrics = (img) => {
-        const { orientation, type } = img;
-        if (type === 'document') {
-            return {
-                width: isMobile ? '85vw' : isTablet ? 240 : 300,
-                height: isMobile ? 'auto' : isTablet ? 340 : 420,
-                objectFit: 'contain'
-            };
-        }
-        if (orientation === 'portrait') {
-            return {
-                width: isMobile ? '85vw' : isTablet ? 220 : 280,
-                height: isMobile ? 'calc(70vw * 1.4)' : isTablet ? 340 : 420,
-                objectFit: 'cover'
-            };
-        }
-        return {
-            width: isMobile ? '85vw' : isTablet ? 380 : 520,
-            height: isMobile ? 'calc(85vw * 0.6)' : isTablet ? 240 : 320,
-            objectFit: 'cover'
-        };
+    const openLightbox = (img, color, rgb) => {
+        setLightbox({
+            open: true,
+            src: img.src,
+            title: img.title,
+            tag: img.tag,
+            sub: img.sub || '',
+            color,
+            rgb,
+        });
     };
 
-    const getMomentsMetrics = (img) => {
-        const { orientation, type } = img;
-        if (type === 'document') {
-            return {
-                width: isMobile ? '85vw' : isTablet ? 240 : 300,
-                aspectRatio: '3 / 4',
-                objectFit: 'contain',
-                objectPosition: 'center',
-                background: '#0d0d0d'
-            };
-        }
-        if (orientation === 'portrait') {
-            return {
-                width: isMobile ? '85vw' : isTablet ? 220 : 280,
-                aspectRatio: '3 / 4',
-                objectFit: 'cover',
-                objectPosition: 'center top',
-                background: '#111111'
-            };
-        }
-        return {
-            width: isMobile ? '85vw' : isTablet ? 360 : 480,
-            aspectRatio: '16 / 9',
-            objectFit: 'cover',
-            objectPosition: 'center',
-            background: '#111111'
-        };
-    };
-
-    const getOffset = (index, images, gap, metricsFn = getCardMetrics) => {
-        let offset = 0;
-        for (let i = 0; i < index; i++) {
-            const metrics = metricsFn(images[i]);
-            let w;
-            if (typeof metrics.width === 'string' && metrics.width.includes('vw')) {
-                w = window.innerWidth * (parseFloat(metrics.width) / 100);
-            } else {
-                w = metrics.width;
-            }
-            offset += w + gap;
-        }
-        return offset;
-    };
-
-    const arrowSize = isMobile ? 36 : isTablet ? 40 : 44;
-    const featuredGap = isMobile ? 14 : 20;
-    const momentsGap = isMobile ? 14 : isTablet ? 16 : 20;
-    const lbColor = lightbox?.color || '#ff4d5a';
-    const lbRgb = lightbox?.rgb || '255,77,90';
+    const lbColor = lightbox.color;
+    const lbRgb = lightbox.rgb;
 
     return (
-        <section id="gallery" className="pt-[80px] pb-[80px] relative overflow-hidden bg-transparent">
-            <style>{`
-                .gallery-card:hover .gallery-img { transform: scale(1.07); }
-                .gallery-card-document:hover .gallery-img { transform: scale(1); }
-                .gallery-card-document:hover .tint-overlay { opacity: 0; }
-                
-                .gallery-card:hover { 
-                    transform: translateY(-6px) scale(1.02);
-                    border-color: var(--accent-color) !important;
-                    box-shadow: 0 12px 40px rgba(var(--accent-rgb), 0.3);
-                }
-                .gallery-card-document:hover {
-                    transform: translateY(-4px) scale(1.01);
-                }
-                
-                .gallery-section * { scrollbar-width: none; }
-                .gallery-section *::-webkit-scrollbar { display: none; }
-                
-                .glass-nav {
-                    background: rgba(255, 255, 255, 0.08);
-                    border: 1px solid rgba(255, 255, 255, 0.15);
-                    backdrop-filter: blur(8px);
-                    transition: all 0.2s ease;
-                }
+        <section id="gallery" className="pt-[80px] pb-[80px] relative bg-transparent">
+            <style>{` 
+                 #gallery img { display: block; } 
+                 .gallery-card-item:hover .gallery-zoom-img { 
+                     transform: scale(1.06); 
+                 } 
+                 .gallery-card-item:hover .gallery-doc-img { 
+                     transform: scale(1) !important; 
+                 } 
+             `}</style>
 
-                .glass-nav:hover {
-                    background: var(--nav-hover, #ff4d5a);
-                    border-color: var(--nav-hover, #ff4d5a);
-                }
-
-                .card-overlay {
-                    background: linear-gradient(
-                        to top,
-                        rgba(0,0,0,0.85) 0%,
-                        rgba(0,0,0,0.4) 50%,
-                        transparent 100%
-                    );
-                }
-
-                .tint-overlay {
-                    background: rgba(var(--accent-rgb), 0.12);
-                    opacity: 0;
-                    transition: opacity 0.3s ease;
-                }
-                .gallery-card:hover .tint-overlay {
-                    opacity: 1;
-                }
-            `}</style>
-
-            <div className="max-w-7xl mx-auto px-4 max-[480px]:px-3 min-[481px]:px-6 relative z-10 w-full min-w-0">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
                 {/* SECTION HEADER */}
                 <motion.div
-                    className="flex flex-col items-center justify-center text-center mb-10 w-full min-w-0"
+                    className="flex flex-col items-center text-center mb-14"
                     initial={{ y: 40, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.7, ease: "easeOut" }}
+                    transition={{ duration: 0.7 }}
                 >
-                    <div className="w-full flex justify-center mb-6 min-w-0">
-                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] max-[480px]:text-[10px] font-medium uppercase rounded-[50px] px-[22px] max-[480px]:px-4 py-[7px] relative max-w-full truncate">
+                    <div className="w-full flex justify-center mb-6">
+                        <span className="bg-[rgba(255,77,90,0.1)] border border-[rgba(255,77,90,0.3)] text-[#ff4d5a] tracking-[4px] text-[11px] font-medium uppercase rounded-[50px] px-[22px] py-[7px] relative">
                             ● GALLERY
                             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[40px] h-[2px] bg-[#ff4d5a] rounded-[2px]" />
                         </span>
                     </div>
-                    <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight mb-2 font-display break-words">
+                    <h2 className="text-white font-[800] text-[clamp(28px,5.5vw,66px)] leading-tight mb-2 break-words">
                         A Glimpse Into <span className="font-light">My Journey</span>
                     </h2>
                     <div style={{
-                        width: '60px',
-                        height: '3px',
-                        background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)',
-                        borderRadius: '999px',
-                        margin: '8px auto 24px auto'
+                        width: 60, height: 3,
+                        background: 'linear-gradient(90deg,#ff4d5a,#ff6b6b)',
+                        borderRadius: 999,
+                        margin: '8px auto 20px',
                     }} />
-                    <p className="max-w-[580px] w-full text-[#888888] text-[16px] max-[480px]:text-[14px] italic min-w-0 break-words px-2">
+                    <p className="text-[#888] text-[16px] italic max-w-[580px]">
                         Press features, recognition and memories
                     </p>
                 </motion.div>
 
-                {/* CAROUSEL 1 — FEATURED */}
-                <div className="mb-16 relative">
-                    <div className="flex flex-col items-center mb-8">
-                        <span className="text-[11px] uppercase tracking-[4px] font-[800] text-[#ff4d5a] mb-2">
-                            FEATURED MOMENTS
-                        </span>
-                        <div style={{ 
-                            width: '60px', 
-                            height: '3px', 
-                            background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
-                            borderRadius: '999px',
-                            margin: '6px auto 0 auto'
-                        }} />
-                    </div>
+                {/* CAROUSEL 1 — FEATURED MOMENTS */}
+                <Carousel
+                    images={featuredImages}
+                    title="FEATURED MOMENTS"
+                    description="Student of the Year · Newsletter · Newspaper · Internship"
+                    accentColor={FEATURED_COLOR}
+                    accentRgb={FEATURED_RGB}
+                    cardHeight={400}
+                    onOpenLightbox={openLightbox}
+                />
 
-                    <div className="bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] rounded-[24px] p-6 max-[639px]:p-4 backdrop-blur-[4px]">
-                        <div 
-                            className="relative"
-                            onMouseEnter={() => setIsFeaturedAutoPlaying(false)}
-                            onMouseLeave={() => setIsFeaturedAutoPlaying(true)}
-                        >
-                        <button
-                            onClick={() => handleFeaturedManual(featuredIndex === 0 ? featuredImages.length - 1 : featuredIndex - 1)}
-                            className="absolute left-[-10px] sm:left-[-20px] top-1/2 -translate-y-1/2 z-20 glass-nav rounded-full flex items-center justify-center"
-                            style={{ width: arrowSize, height: arrowSize, '--nav-hover': '#ff4d5a' }}
-                        >
-                            <ChevronLeft className="w-5 h-5 text-white" />
-                        </button>
+                {/* CAROUSEL 2 — MOMENTS & MEMORIES */}
+                <Carousel
+                    images={momentsImages}
+                    title="MOMENTS & MEMORIES"
+                    description="Sports · Competitions · Forum · Events"
+                    accentColor={MOMENTS_COLOR}
+                    accentRgb={MOMENTS_RGB}
+                    cardHeight={380}
+                    onOpenLightbox={openLightbox}
+                />
 
-                        <button
-                            onClick={() => handleFeaturedManual(featuredIndex === featuredImages.length - 1 ? 0 : featuredIndex + 1)}
-                            className="absolute right-[-10px] sm:right-[-20px] top-1/2 -translate-y-1/2 z-20 glass-nav rounded-full flex items-center justify-center"
-                            style={{ width: arrowSize, height: arrowSize, '--nav-hover': '#ff4d5a' }}
-                        >
-                            <ChevronRight className="w-5 h-5 text-white" />
-                        </button>
-
-                        <div className="overflow-hidden w-full">
-                            <motion.div
-                                className="flex items-stretch"
-                                style={{ gap: `${featuredGap}px` }}
-                                animate={{ x: -getOffset(featuredIndex, featuredImages, featuredGap) }}
-                                transition={{ type: "spring", damping: 25, stiffness: 120 }}
-                            >
-                                {featuredImages.map((img, i) => {
-                                    const metrics = getCardMetrics(img);
-                                    const isActive = i === featuredIndex;
-                                    return (
-                                        <motion.div
-                                            key={img.id}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ delay: i * 0.08 }}
-                                            onClick={() => setLightbox({
-                                                open: true, src: img.src,
-                                                title: img.title, tag: img.tag, sub: '',
-                                                orientation: img.orientation, type: img.type,
-                                                color: '#ff4d5a', rgb: '255,77,90'
-                                            })}
-                                            className={`gallery-card ${img.type === 'document' ? 'gallery-card-document' : ''} rounded-2xl overflow-hidden cursor-pointer flex-shrink-0 transition-all duration-[0.35s] border shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative ${isActive ? 'opacity-100' : 'opacity-75 hover:opacity-100'}`}
-                                            style={{
-                                                '--accent-color': '#ff4d5a',
-                                                '--accent-rgb': '255,77,90',
-                                                width: metrics.width,
-                                                height: metrics.height,
-                                                background: img.type === 'document' ? '#0d0d0d' : '#111111',
-                                                borderColor: isActive ? '#ff4d5a' : 'rgba(255,255,255,0.08)',
-                                                boxShadow: isActive ? `0 0 20px rgba(255,77,90, 0.4)` : '0 4px 24px rgba(0,0,0,0.4)',
-                                            }}
-                                        >
-                                            {isActive && (
-                                                <div 
-                                                    className="absolute left-0 top-0 w-[3px] h-full z-30"
-                                                    style={{ background: '#ff4d5a' }}
-                                                />
-                                            )}
-                                            <div className="tint-overlay absolute inset-0 z-10" />
-                                            <img
-                                                src={img.src}
-                                                alt={img.title}
-                                                className={`gallery-img w-full ${metrics.height === 'auto' ? 'h-auto' : 'h-full'} transition-transform duration-400`}
-                                                style={{ objectFit: metrics.objectFit, objectPosition: 'center' }}
-                                            />
-                                            
-                                            <div className="absolute inset-x-0 bottom-0 h-[40%] card-overlay z-20" />
-                                            
-                                            <div className="absolute bottom-3 left-3 z-30">
-                                                <span className="bg-[#ff4d5a] text-white text-[10px] font-semibold uppercase px-3 py-1 rounded-full mb-2 inline-block">
-                                                    {img.tag}
-                                                </span>
-                                                <p className="text-white text-sm font-bold leading-tight">
-                                                    {img.title}
-                                                </p>
-                                            </div>
-                                        </motion.div>
-                                    )
-                                })}
-                            </motion.div>
-                        </div>
-                        </div>
-
-                        <div className="flex justify-center gap-[6px] mt-8">
-                            {featuredImages.map((_, i) => (
-                                <button
-                                    key={i}
-                                    onClick={() => handleFeaturedManual(i)}
-                                    className={`rounded-full transition-all duration-300 ${isMobile ? 'h-[6px]' : 'h-[8px]'} ${i === featuredIndex ? 'w-[24px] bg-[#ff4d5a]' : `${isMobile ? 'w-[6px]' : 'w-[8px]'} bg-gray-600`}`}
-                                />
-                            ))}
-                        </div>
-
-                        <div className="mt-6 text-center">
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={featuredIndex}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    transition={{ duration: 0.25 }}
-                                >
-                                    <span className="bg-[#ff4d5a] text-white text-[10px] font-semibold uppercase px-3 py-1 rounded-full inline-block mb-2">
-                                        {featuredImages[featuredIndex]?.tag}
-                                    </span>
-                                    <p className="text-white font-bold text-base max-[639px]:text-sm">
-                                        {featuredImages[featuredIndex]?.title}
-                                    </p>
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
-                    </div>
-                </div>
-
-                {/* CAROUSEL 2 — MOMENTS */}
-                <div className="relative">
-                    <div className="flex flex-col items-center mb-8">
-                        <span className="text-[11px] uppercase tracking-[4px] font-[800] text-[#a855f7] mb-2">
-                            MOMENTS & MEMORIES
-                        </span>
-                        <div style={{ 
-                            width: '60px', 
-                            height: '3px', 
-                            background: 'linear-gradient(90deg, #a855f7, #c084fc)', 
-                            borderRadius: '999px',
-                            margin: '6px auto 0 auto'
-                        }} />
-                    </div>
-
-                    <div className="bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] rounded-[24px] p-6 max-[639px]:p-4 backdrop-blur-[4px]">
-                        <div 
-                            className="relative"
-                            onMouseEnter={() => setIsMomentsAutoPlaying(false)}
-                            onMouseLeave={() => setIsMomentsAutoPlaying(true)}
-                        >
-                        <button
-                            onClick={() => handleMomentsManual(momentsIndex === 0 ? momentsImages.length - 1 : momentsIndex - 1)}
-                            className="absolute left-[-10px] sm:left-[-20px] top-1/2 -translate-y-1/2 z-20 glass-nav rounded-full flex items-center justify-center"
-                            style={{ width: arrowSize, height: arrowSize, '--nav-hover': momentsImages[momentsIndex]?.color }}
-                        >
-                            <ChevronLeft className="w-5 h-5 text-white" />
-                        </button>
-
-                        <button
-                            onClick={() => handleMomentsManual(momentsIndex === momentsImages.length - 1 ? 0 : momentsIndex + 1)}
-                            className="absolute right-[-10px] sm:right-[-20px] top-1/2 -translate-y-1/2 z-20 glass-nav rounded-full flex items-center justify-center"
-                            style={{ width: arrowSize, height: arrowSize, '--nav-hover': momentsImages[momentsIndex]?.color }}
-                        >
-                            <ChevronRight className="w-5 h-5 text-white" />
-                        </button>
-
-                        <div className="overflow-hidden w-full">
-                            <motion.div
-                                className="flex items-stretch"
-                                style={{ gap: `${momentsGap}px` }}
-                                animate={{ x: -getOffset(momentsIndex, momentsImages, momentsGap, getMomentsMetrics) }}
-                                transition={{ type: "spring", damping: 25, stiffness: 120 }}
-                            >
-                                {momentsImages.map((img, i) => {
-                                    const metrics = getMomentsMetrics(img);
-                                    const isActive = i === momentsIndex;
-                                    return (
-                                        <motion.div
-                                            key={img.id}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ delay: i * 0.08 }}
-                                            onClick={() => setLightbox({
-                                                open: true, src: img.src,
-                                                title: img.title, tag: img.tag, sub: img.sub,
-                                                orientation: img.orientation, type: img.type,
-                                                color: img.color, rgb: img.rgb
-                                            })}
-                                            className={`gallery-card ${img.type === 'document' ? 'gallery-card-document' : ''} rounded-2xl cursor-pointer flex-shrink-0 transition-all duration-[0.35s] border shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative ${isActive ? 'opacity-100' : 'opacity-75 hover:opacity-100'}`}
-                                            style={{
-                                                '--accent-color': img.color,
-                                                '--accent-rgb': img.rgb,
-                                                width: metrics.width,
-                                                height: 'auto',
-                                                background: '#111111',
-                                                borderColor: isActive ? img.color : 'rgba(255,255,255,0.08)',
-                                                boxShadow: isActive ? `0 0 20px rgba(${img.rgb}, 0.4)` : '0 4px 24px rgba(0,0,0,0.4)',
-                                            }}
-                                        >
-                                            {/* LEFT ACCENT BAR */}
-                                            {isActive && (
-                                                <div 
-                                                    className="absolute left-0 top-0 w-[3px] h-full z-30"
-                                                    style={{ background: img.color }}
-                                                />
-                                            )}
-
-                                            <div
-                                                className="relative w-full rounded-2xl"
-                                                style={{ aspectRatio: metrics.aspectRatio, background: metrics.background }}
-                                            >
-                                                <div className="tint-overlay absolute inset-0 z-10 rounded-2xl" />
-
-                                                <img
-                                                    src={img.src}
-                                                    alt={img.title}
-                                                    className="gallery-img absolute inset-0 w-full h-full rounded-2xl transition-transform duration-400"
-                                                    style={{
-                                                        objectFit: metrics.objectFit,
-                                                        objectPosition: metrics.objectPosition,
-                                                        background: metrics.background,
-                                                    }}
-                                                />
-
-                                                <div className="absolute inset-x-0 bottom-0 h-[40%] card-overlay z-20 rounded-b-2xl" />
-
-                                                <p className="absolute bottom-9 left-3 z-30 text-white text-base font-bold leading-tight max-w-[90%]">
-                                                    {img.title}
-                                                </p>
-
-                                                {img.sub && (
-                                                    <p className="absolute bottom-[26px] left-3 z-30 text-gray-300 text-xs leading-tight max-w-[90%]">
-                                                        {img.sub}
-                                                    </p>
-                                                )}
-
-                                                <span
-                                                    className="absolute bottom-3 left-3 z-30 text-white text-xs font-semibold uppercase px-3 py-1 rounded-full tracking-wider"
-                                                    style={{ background: img.color }}
-                                                >
-                                                    {img.tag}
-                                                </span>
-                                            </div>
-                                        </motion.div>
-                                    )
-                                })}
-                            </motion.div>
-                        </div>
-                        </div>
-
-                        <div className="flex justify-center gap-[6px] mt-8">
-                            {momentsImages.map((img, i) => (
-                                <button
-                                    key={i}
-                                    onClick={() => handleMomentsManual(i)}
-                                    className={`rounded-full transition-all duration-300 ${isMobile ? 'h-[6px]' : 'h-[8px]'}`}
-                                    style={{ 
-                                        width: i === momentsIndex ? '24px' : (isMobile ? '6px' : '8px'),
-                                        background: i === momentsIndex ? img.color : '#374151'
-                                    }}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                </div>
             </div>
 
             {/* LIGHTBOX */}
@@ -870,13 +674,27 @@ const Gallery = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setLightbox(l => ({ ...l, open: false }))}
-                        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center p-4 bg-black/95 backdrop-blur-[16px]"
+                        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center p-4"
+                        style={{ background: 'rgba(0,0,0,0.95)', backdropFilter: 'blur(16px)' }}
                     >
+                        {/* close */}
                         <button
-                            className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-[#ff4d5a] transition-all z-50"
+                            className="absolute top-5 right-5 w-11 h-11 flex items-center justify-center rounded-full text-white z-50 transition-all duration-200"
+                            style={{
+                                background: 'rgba(255,255,255,0.08)',
+                                border: '1px solid rgba(255,255,255,0.15)',
+                            }}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.background = lbColor;
+                                e.currentTarget.style.borderColor = lbColor;
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+                            }}
                             onClick={() => setLightbox(l => ({ ...l, open: false }))}
                         >
-                            <X className="w-6 h-6" />
+                            <X className="w-5 h-5" />
                         </button>
 
                         <motion.div
@@ -884,40 +702,42 @@ const Gallery = () => {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.85, opacity: 0 }}
                             transition={{ duration: 0.3 }}
-                            onClick={(e) => e.stopPropagation()}
-                            className="relative max-w-full flex flex-col items-center"
+                            onClick={e => e.stopPropagation()}
+                            className="flex flex-col items-center max-w-full"
                         >
-                            <div
-                                style={{
-                                    boxShadow: `0 0 50px rgba(${lbRgb}, 0.3), 0 24px 80px rgba(0,0,0,0.8)`,
-                                    border: `1.5px solid rgba(${lbRgb}, 0.35)`,
-                                    borderRadius: '16px',
-                                    overflow: 'hidden',
-                                    maxWidth: isMobile ? '95vw' : '90vw',
-                                    maxHeight: isMobile ? '80vh' : '85vh'
-                                }}
-                            >
+                            <div style={{
+                                borderRadius: 16,
+                                overflow: 'hidden',
+                                border: `1.5px solid rgba(${lbRgb},0.4)`,
+                                boxShadow: `0 0 50px rgba(${lbRgb},0.3), 0 24px 80px rgba(0,0,0,0.8)`,
+                                maxWidth: '90vw',
+                                maxHeight: '80vh',
+                            }}>
                                 <img
                                     src={lightbox.src}
                                     alt={lightbox.title}
-                                    className="w-full h-full"
                                     style={{
+                                        display: 'block',
+                                        maxWidth: '90vw',
+                                        maxHeight: '80vh',
+                                        width: 'auto',
+                                        height: 'auto',
                                         objectFit: 'contain',
                                     }}
                                 />
                             </div>
-                            <div className="mt-6 text-center">
-                                <span 
-                                    className="text-white text-[10px] font-bold tracking-[2px] uppercase rounded-full px-4 py-1.5 inline-block mb-3"
+                            <div className="mt-5 text-center">
+                                <span
+                                    className="text-white text-[10px] font-bold tracking-[2px] uppercase rounded-full px-4 py-[6px] inline-block mb-3"
                                     style={{
-                                        backgroundColor: lbColor,
-                                        boxShadow: `0 0 14px rgba(${lbRgb}, 0.5)`,
-                                        border: `1px solid rgba(${lbRgb}, 0.4)` 
+                                        background: lbColor,
+                                        boxShadow: `0 0 16px rgba(${lbRgb},0.5)`,
+                                        border: `1px solid rgba(${lbRgb},0.4)`,
                                     }}
                                 >
                                     {lightbox.tag}
                                 </span>
-                                <h3 className="text-white text-xl font-bold">{lightbox.title}</h3>
+                                <h3 className="text-white text-xl font-bold max-w-[560px]">{lightbox.title}</h3>
                                 {lightbox.sub && <p className="text-gray-400 text-sm mt-1">{lightbox.sub}</p>}
                             </div>
                         </motion.div>
