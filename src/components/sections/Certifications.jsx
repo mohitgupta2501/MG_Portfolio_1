@@ -87,7 +87,7 @@ const INJECTED_STYLES = `
     background-color: rgba(var(--cat-rgb), 0.10);
     border-color: rgba(var(--cat-rgb), 0.3);
     color: rgba(var(--cat-rgb), 0.8);
-    transition: all 0.2s ease;
+    transition: all 300ms ease;
 }
 .skill-pill:hover { 
     background-color: rgba(var(--cat-rgb), 0.22);
@@ -436,6 +436,49 @@ const CertCardCompact = memo(({ data, issuerLabel, color, rgb, onViewDetails }) 
     const { num, title, platform, date, desc, tags, specialBadge } = data;
     const badgeLabel = specialBadge || issuerLabel;
 
+    const containerRef = useRef(null);
+    const [visibleCount, setVisibleCount] = useState(tags.length);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        const calculateVisible = () => {
+            const containerWidth = containerRef.current.offsetWidth;
+            const gap = 6;
+            const moreButtonWidth = 70;
+
+            // Check if ALL fit without "more" button
+            let totalWidthWithAll = 0;
+            for (let i = 0; i < tags.length; i++) {
+                totalWidthWithAll += (tags[i].length * 7.5 + 24) + (i > 0 ? gap : 0);
+            }
+
+            if (totalWidthWithAll <= containerWidth) {
+                setVisibleCount(tags.length);
+                return;
+            }
+
+            // If not all fit, find how many fit with "more" button
+            let currentWidth = 0;
+            let count = 0;
+            for (let i = 0; i < tags.length; i++) {
+                const pillWidth = (tags[i].length * 7.5 + 24);
+                if (currentWidth + pillWidth + gap + moreButtonWidth > containerWidth) {
+                    break;
+                }
+                currentWidth += pillWidth + (i > 0 ? gap : 0);
+                count++;
+            }
+            setVisibleCount(Math.max(1, count));
+        };
+
+        const observer = new ResizeObserver(() => calculateVisible());
+        observer.observe(containerRef.current);
+        calculateVisible();
+
+        return () => observer.disconnect();
+    }, [tags]);
+
     return (
         <div className="cert-card-wrapper h-full min-w-0">
             <div
@@ -463,12 +506,7 @@ const CertCardCompact = memo(({ data, issuerLabel, color, rgb, onViewDetails }) 
                 {/* ROW 1: Badge + Card number */}
                 <div className="flex justify-between items-center mb-[10px] relative z-10">
                     <span
-                        className="px-[8px] py-[2px] rounded-[50px] text-[9px] font-[700] tracking-[2px] uppercase border"
-                        style={{
-                            backgroundColor: `rgba(${rgb}, 0.1)`,
-                            color: color,
-                            borderColor: `rgba(${rgb}, 0.25)`
-                        }}
+                        className="skill-pill px-[10px] py-[3px] rounded-full text-[9px] font-[700] tracking-[2px] uppercase border cursor-default"
                     >
                         {badgeLabel}
                     </span>
@@ -495,16 +533,21 @@ const CertCardCompact = memo(({ data, issuerLabel, color, rgb, onViewDetails }) 
 
                 {/* Pushed to bottom section */}
                 <div className="mt-auto relative z-10 flex flex-col">
-                    {/* ROW 5: Tech Stack Pills */}
-                    <div className="flex flex-wrap gap-[6px] mb-[12px] min-h-[28px]">
-                        {tags.slice(0, 3).map((skill, index) => (
+                    {/* ROW 5: Tech Stack Pills (Dynamic) */}
+                    <div ref={containerRef} className="flex flex-wrap gap-[6px] mb-[12px] min-h-[28px]">
+                        {tags.slice(0, visibleCount).map((skill, index) => (
                             <span
                                 key={index}
-                                className="skill-pill px-[10px] py-[3px] border rounded-full text-[11px] transition-all duration-300 cursor-default"
+                                className="skill-pill px-[10px] py-[3px] border rounded-full text-[11px] sm:text-[12px] transition-all duration-300 cursor-default"
                             >
                                 {skill}
                             </span>
                         ))}
+                        {tags.length > visibleCount && (
+                            <span className="skill-pill px-[10px] py-[3px] border rounded-full text-[11px] sm:text-[12px] transition-all duration-300 cursor-default">
+                                + {tags.length - visibleCount} more
+                            </span>
+                        )}
                     </div>
 
                     {/* ROW 6: Action Buttons */}

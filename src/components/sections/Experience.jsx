@@ -132,6 +132,50 @@ StatCard.displayName = 'StatCard';
 const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCards }) => {
     const cardColorRgb = hexToRgb(item.color);
     const isHitachi = item.company.includes("Hitachi");
+    const skills = item.techStack || item.skills || [];
+
+    const containerRef = useRef(null);
+    const [visibleCount, setVisibleCount] = useState(skills.length);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        const calculateVisible = () => {
+            const containerWidth = containerRef.current.offsetWidth;
+            const gap = 6;
+            const moreButtonWidth = 70;
+
+            // Check if ALL fit without "more" button
+            let totalWidthWithAll = 0;
+            for (let i = 0; i < skills.length; i++) {
+                totalWidthWithAll += (skills[i].length * 7.5 + 24) + (i > 0 ? gap : 0);
+            }
+
+            if (totalWidthWithAll <= containerWidth) {
+                setVisibleCount(skills.length);
+                return;
+            }
+
+            // If not all fit, find how many fit with "more" button
+            let currentWidth = 0;
+            let count = 0;
+            for (let i = 0; i < skills.length; i++) {
+                const pillWidth = (skills[i].length * 7.5 + 24);
+                if (currentWidth + pillWidth + gap + moreButtonWidth > containerWidth) {
+                    break;
+                }
+                currentWidth += pillWidth + (i > 0 ? gap : 0);
+                count++;
+            }
+            setVisibleCount(Math.max(1, count));
+        };
+
+        const observer = new ResizeObserver(() => calculateVisible());
+        observer.observe(containerRef.current);
+        calculateVisible();
+
+        return () => observer.disconnect();
+    }, [skills]);
 
     // Hardcoded brief summaries map based on requested specs
     const getBriefSummary = (company, role) => {
@@ -334,39 +378,18 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
                     }
 
                     .experience-card .skill-pill {
-                      background-color: rgba(var(--cat-rgb), 0.08);
-                      border: 1px solid rgba(var(--cat-rgb), 0.2);
-                      color: var(--cat-color);
-                      font-size: 12px;
-                      font-weight: 500;
-                      border-radius: 8px;
-                      padding: 4px 12px;
-                      letter-spacing: 0.3px;
-                      opacity: 0.9;
-                      transition: all 0.25s ease;
+                      background-color: rgba(var(--cat-rgb), 0.10);
+                      border: 1px solid rgba(var(--cat-rgb), 0.3);
+                      color: rgba(var(--cat-rgb), 0.8);
+                      transition: all 300ms ease;
                     }
                     .experience-card:hover .skill-pill {
-                      background-color: rgba(var(--cat-rgb), 0.15);
-                      border-color: rgba(var(--cat-rgb), 0.4);
-                      color: var(--cat-color);
-                      transform: translateY(-2px);
-                      box-shadow: 0 4px 12px rgba(var(--cat-rgb), 0.2);
+                      background-color: rgba(var(--cat-rgb), 0.22);
+                      border-color: rgba(var(--cat-rgb), 0.7);
+                      color: var(--cat-color) !important; 
+                      box-shadow: 0 0 8px rgba(var(--cat-rgb), 0.4);
+                      transform: none;
                       opacity: 1;
-                    }
-
-                    .experience-card .skill-pill.more-pill {
-                      background-color: rgba(var(--cat-rgb), 0.05);
-                      border: 1px solid rgba(var(--cat-rgb), 0.15);
-                      color: rgba(var(--cat-rgb), 0.7);
-                      font-size: 11px;
-                      border-radius: 8px;
-                      padding: 4px 10px;
-                    }
-                    .experience-card:hover .skill-pill.more-pill {
-                      background-color: rgba(var(--cat-rgb), 0.12);
-                      border-color: rgba(var(--cat-rgb), 0.3);
-                      color: var(--cat-color);
-                      transform: translateY(-2px);
                     }
                 `}} />
 
@@ -388,18 +411,16 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
                     <div className="flex flex-row justify-between items-center gap-2 pr-[80px] h-[28px] shrink-0">
                         <div className="flex flex-wrap items-center gap-[6px]">
                             <span
-                                className="inline-flex items-center px-[12px] py-[4px] rounded-[50px] text-[10px] uppercase tracking-[2.5px] font-[700] border"
-                                style={{ backgroundColor: `rgba(var(--cat-rgb), 0.12)`, borderColor: `rgba(var(--cat-rgb), 0.35)`, color: 'var(--cat-color)' }}
+                                className="skill-pill inline-flex items-center px-[10px] py-[3px] rounded-full text-[10px] uppercase tracking-[2.5px] font-[700] border cursor-default"
                             >
                                 {item.category}
                             </span>
                             {item.badge && (
                                 <span
-                                    className="inline-flex items-center gap-[6px] px-[12px] py-[4px] rounded-[50px] text-[10px] font-[700] tracking-[2px] uppercase border"
+                                    className="skill-pill inline-flex items-center gap-[6px] px-[10px] py-[3px] rounded-full text-[10px] font-[700] tracking-[2px] uppercase border cursor-default"
                                     style={{
-                                        backgroundColor: item.badge.includes('FOUNDER') ? 'rgba(245, 158, 11, 0.12)' : 'rgba(255, 77, 90, 0.12)',
-                                        borderColor: item.badge.includes('FOUNDER') ? 'rgba(245, 158, 11, 0.35)' : 'rgba(255, 77, 90, 0.35)',
-                                        color: item.badge.includes('FOUNDER') ? '#f59e0b' : '#ff4d5a'
+                                        '--cat-rgb': item.badge.includes('FOUNDER') ? '245, 158, 11' : '255, 77, 90',
+                                        '--cat-color': item.badge.includes('FOUNDER') ? '#f59e0b' : '#ff4d5a'
                                     }}
                                 >
                                     {item.badge === 'Current Role' ? '★ CURRENT ROLE' : item.badge === 'Founder' ? 'FOUNDER' : item.badge}
@@ -471,23 +492,23 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
 
                     {/* Pushed to bottom section */}
                     <div className="relative z-10 mt-auto pt-4 flex flex-col justify-end">
-                        {/* SKILLS PREVIEW (Max 3) */}
-                        <div className="min-h-[26px] mb-4">
-                            {(item.techStack || item.skills) && (
+                        {/* SKILLS PREVIEW (Dynamic) */}
+                        <div ref={containerRef} className="min-h-[26px] mb-4">
+                            {skills.length > 0 && (
                                 <div className="flex flex-wrap gap-[6px]">
-                                    {(item.techStack || item.skills).slice(0, 3).map((skill, idx) => (
-                                        <span
-                                            key={idx}
-                                            className="skill-pill inline-flex items-center justify-center cursor-default"
-                                        >
-                                            {skill}
-                                        </span>
-                                    ))}
-                                    {(item.techStack || item.skills).length > 3 && (
-                                        <span className="skill-pill more-pill inline-flex items-center justify-center cursor-default">
-                                            + {(item.techStack || item.skills).length - 3} more
-                                        </span>
-                                    )}
+                                    {skills.slice(0, visibleCount).map((skill, idx) => (
+                                         <span
+                                             key={idx}
+                                             className="skill-pill px-[10px] py-[3px] border rounded-full text-[11px] sm:text-[12px] transition-all duration-300 cursor-default"
+                                         >
+                                             {skill}
+                                         </span>
+                                     ))}
+                                     {skills.length > visibleCount && (
+                                         <span className="skill-pill px-[10px] py-[3px] border rounded-full text-[11px] sm:text-[12px] transition-all duration-300 cursor-default">
+                                             + {skills.length - visibleCount} more
+                                         </span>
+                                     )}
                                 </div>
                             )}
                         </div>

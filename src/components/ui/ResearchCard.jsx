@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { GraduationCap, Calendar, ArrowRight, BookOpen, Clock, Building2 } from 'lucide-react';
 
 const hexToRgb = (hex) => {
@@ -13,6 +13,49 @@ const ResearchCard = ({ research, index, onClick }) => {
     } = research;
 
     const colorRgb = hexToRgb(color);
+
+    const containerRef = useRef(null);
+    const [visibleCount, setVisibleCount] = useState(modelsUsed.length);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        const calculateVisible = () => {
+            const containerWidth = containerRef.current.offsetWidth;
+            const gap = 6;
+            const moreButtonWidth = 70;
+
+            // Check if ALL fit without "more" button
+            let totalWidthWithAll = 0;
+            for (let i = 0; i < modelsUsed.length; i++) {
+                totalWidthWithAll += (modelsUsed[i].length * 7.5 + 24) + (i > 0 ? gap : 0);
+            }
+
+            if (totalWidthWithAll <= containerWidth) {
+                setVisibleCount(modelsUsed.length);
+                return;
+            }
+
+            // If not all fit, find how many fit with "more" button
+            let currentWidth = 0;
+            let count = 0;
+            for (let i = 0; i < modelsUsed.length; i++) {
+                const pillWidth = (modelsUsed[i].length * 7.5 + 24);
+                if (currentWidth + pillWidth + gap + moreButtonWidth > containerWidth) {
+                    break;
+                }
+                currentWidth += pillWidth + (i > 0 ? gap : 0);
+                count++;
+            }
+            setVisibleCount(Math.max(1, count));
+        };
+
+        const observer = new ResizeObserver(() => calculateVisible());
+        observer.observe(containerRef.current);
+        calculateVisible();
+
+        return () => observer.disconnect();
+    }, [modelsUsed]);
 
     return (
         <div
@@ -39,22 +82,16 @@ const ResearchCard = ({ research, index, onClick }) => {
                     color: rgba(var(--cat-rgb), 0.5);
                     text-shadow: 0 0 10px rgba(var(--cat-rgb), 0.3);
                 }
-                .research-pill {
-                    background-color: rgba(var(--cat-rgb), 0.07);
-                    border-color: rgba(var(--cat-rgb), 0.18);
-                    color: rgba(255, 255, 255, 0.82);
+                .skill-pill {
+                    background-color: rgba(var(--cat-rgb), 0.10);
+                    border-color: rgba(var(--cat-rgb), 0.3);
+                    color: rgba(var(--cat-rgb), 0.8);
                 }
-                .research-pill:hover {
+                .skill-pill:hover { 
                     background-color: rgba(var(--cat-rgb), 0.22);
                     border-color: rgba(var(--cat-rgb), 0.7);
                     color: var(--card-color) !important; 
                     box-shadow: 0 0 8px rgba(var(--cat-rgb), 0.4);
-                    transform: translateY(-2px);
-                }
-                .research-type-pill {
-                    background-color: rgba(255, 255, 255, 0.05);
-                    border-color: rgba(255, 255, 255, 0.1);
-                    color: #888;
                 }
                 .view-btn {
                     background-color: transparent;
@@ -105,12 +142,7 @@ const ResearchCard = ({ research, index, onClick }) => {
             {/* ROW 1: Badges */}
             <div className="flex flex-wrap items-center gap-[8px] mb-[10px] relative z-10 w-full">
                 <span
-                    className="px-[10px] py-[3px] rounded-[50px] text-[10px] font-[700] tracking-[2.5px] uppercase border"
-                    style={{
-                        backgroundColor: `rgba(${colorRgb}, 0.12)`,
-                        borderColor: `rgba(${colorRgb}, 0.3)`,
-                        color: color
-                    }}
+                    className="skill-pill px-[10px] py-[3px] rounded-full text-[10px] font-[700] tracking-[2.5px] uppercase border cursor-default"
                 >
                     {category}
                 </span>
@@ -178,43 +210,44 @@ const ResearchCard = ({ research, index, onClick }) => {
             </div>
 
             {/* ROW 7: Description */}
-            <div className="mb-[18px] relative z-10 w-full min-w-0 h-[60px] overflow-hidden">
-                <p className="text-[#777] text-[13px] max-[480px]:text-[12px] leading-[1.5] line-clamp-3 break-words">
+            <div className="mb-2 mt-1 min-h-[64px] relative z-10 w-full min-w-0 overflow-hidden">
+                <p className="text-[#888888] text-[13px] max-[480px]:text-[12px] leading-[1.6] line-clamp-3 break-words">
                     {desc}
                 </p>
             </div>
 
-            {/* ROW 8: Models list */}
-            <div className="relative z-10 w-full mb-[24px]">
-                <div className="text-[#555] text-[9px] uppercase tracking-[2px] mb-[10px] font-[600]">
+            {/* Pushed to bottom section */}
+            <div className="mt-auto relative z-10 w-full">
+                {/* MODELS USED */}
+                <div className="text-[#555] text-[9px] uppercase tracking-[2px] mb-2 font-[600]">
                     MODELS USED
                 </div>
-                <div className="flex flex-wrap gap-[6px] min-h-[50px]">
-                    {modelsUsed.slice(0, 4).map((model, i) => (
+                <div ref={containerRef} className="flex flex-wrap gap-1.5 mb-5 min-h-[26px]">
+                    {modelsUsed.slice(0, visibleCount).map((model, i) => (
                         <span
                             key={i}
-                            className="research-pill px-[10px] py-[3px] border rounded-[6px] text-[11px] transition-all duration-300 cursor-default"
+                            className="skill-pill px-[10px] py-[3px] border rounded-full text-[11px] sm:text-[12px] transition-all duration-300 cursor-default"
                         >
                             {model}
                         </span>
                     ))}
-                    {modelsUsed.length > 4 && (
-                        <span className="research-pill px-[10px] py-[3px] border rounded-[6px] text-[11px] transition-all duration-300 cursor-default">
-                            +{modelsUsed.length - 4}
+                    {modelsUsed.length > visibleCount && (
+                        <span className="skill-pill px-[10px] py-[3px] border rounded-full text-[11px] sm:text-[12px] transition-all duration-300 cursor-default">
+                            + {modelsUsed.length - visibleCount} more
                         </span>
                     )}
                 </div>
-            </div>
 
-            {/* ROW 8: Buttons */}
-            <div className="flex items-center gap-[10px] mt-auto relative z-10 w-full">
-                <button
-                    className="view-btn w-full py-[11px] px-[20px] rounded-[12px] border flex items-center justify-center gap-[8px] text-[13px] max-[480px]:text-[12px] font-[600] transition-all duration-300 group/btn"
-                    onClick={(e) => { e.stopPropagation(); onClick(research); }}
-                >
-                    View Details
-                    <ArrowRight className="w-[14px] h-[14px] group-hover/btn:translate-x-[3px] transition-transform" />
-                </button>
+                {/* ROW 8: Buttons */}
+                <div className="flex items-center gap-[10px] w-full">
+                    <button
+                        className="view-btn w-full py-[11px] px-[20px] rounded-[12px] border flex items-center justify-center gap-[8px] text-[13px] max-[480px]:text-[12px] font-[600] transition-all duration-300 group/btn"
+                        onClick={(e) => { e.stopPropagation(); onClick(research); }}
+                    >
+                        View Details
+                        <ArrowRight className="w-[14px] h-[14px] group-hover/btn:translate-x-[3px] transition-transform" />
+                    </button>
+                </div>
             </div>
         </div>
     );

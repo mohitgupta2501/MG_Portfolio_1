@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo } from 'react';
+import React, { useState, useEffect, useRef, memo, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Target, Brain, Cpu, FileText, Award } from 'lucide-react';
 import { researchData } from '@/data/research';
@@ -51,6 +51,33 @@ function useCountUp(end, duration = 2000) {
     return { count, ref };
 }
 
+
+const FilterTabs = ({ categories, activeCategory, setActiveCategory, categoryCounts }) => {
+    return (
+        <div className="w-full flex flex-wrap justify-center gap-[10px] min-w-0 px-2 max-[480px]:px-1 mb-8">
+            {categories.map((cat, idx) => {
+                const isActive = activeCategory === cat;
+                return (
+                    <button
+                        key={idx}
+                        onClick={() => setActiveCategory(cat)}
+                        className={`group relative flex items-center px-[18px] py-[8px] rounded-[50px] text-[13px] transition-all ease-in-out duration-300 ${isActive
+                            ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] border border-transparent'
+                            : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
+                            }`}
+                    >
+                        {cat}
+                        <span className={`inline-flex items-center justify-center rounded-[50px] px-[7px] py-[1px] ml-[6px] text-[10px] transition-colors duration-300 ${isActive ? 'bg-[rgba(255,255,255,0.25)] text-white font-[700]' : 'bg-[rgba(255,255,255,0.07)] text-[#555] group-hover:bg-[rgba(255,77,90,0.15)] group-hover:text-[#ff9090]'
+                            }`}>
+                            {categoryCounts[cat]}
+                        </span>
+                    </button>
+                );
+            })}
+        </div>
+    );
+};
+
 // Stat Card Component
 const StatCard = memo(({ icon: Icon, num, label, color }) => {
     const numericValue = parseInt(num.replace(/\+/g, ''));
@@ -102,7 +129,26 @@ const StatCard = memo(({ icon: Icon, num, label, color }) => {
 StatCard.displayName = 'StatCard';
 
 const Research = () => {
+    const [activeFilter, setActiveFilter] = useState('All');
     const [selectedResearch, setSelectedResearch] = useState(null);
+
+    const categories = useMemo(() => {
+        const cats = new Set(researchData.map(item => item.category));
+        return ["All", ...Array.from(cats)];
+    }, []);
+
+    const categoryCounts = useMemo(() => {
+        const counts = { "All": researchData.length };
+        researchData.forEach(item => {
+            counts[item.category] = (counts[item.category] || 0) + 1;
+        });
+        return counts;
+    }, []);
+
+    const filteredResearch = useMemo(() => {
+        if (activeFilter === 'All') return researchData;
+        return researchData.filter(item => item.category === activeFilter);
+    }, [activeFilter]);
 
     const stats = [
         { color: "#a855f7", icon: FileText, value: "3", label: "PUBLICATIONS", },
@@ -192,23 +238,37 @@ const Research = () => {
                     ))}
                 </motion.div>
 
+                {/* Filter Tabs */}
+                <FilterTabs 
+                    categories={categories} 
+                    activeCategory={activeFilter} 
+                    setActiveCategory={setActiveFilter} 
+                    categoryCounts={categoryCounts} 
+                />
+
+                {/* HORIZONTAL DIVIDER */}
+                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-7" />
+
                 {/* Research Cards — 1 col mobile, 2 tablet, 3 desktop */}
                 <div className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 gap-[20px] mb-8">
-                    {researchData.map((research, index) => (
-                        <motion.div
-                            key={research.id}
-                            initial={{ y: 50, opacity: 0 }}
-                            whileInView={{ y: 0, opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.1 * index, ease: [0.16, 1, 0.3, 1] }}
-                        >
-                            <ResearchCard
-                                research={research}
-                                index={index}
-                                onClick={setSelectedResearch}
-                            />
-                        </motion.div>
-                    ))}
+                    <AnimatePresence mode="popLayout">
+                        {filteredResearch.map((research, index) => (
+                            <motion.div
+                                key={research.id}
+                                layout
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.4 }}
+                            >
+                                <ResearchCard
+                                    research={research}
+                                    index={index}
+                                    onClick={setSelectedResearch}
+                                />
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                 </div>
 
 
