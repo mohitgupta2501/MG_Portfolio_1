@@ -236,6 +236,7 @@ const Contact = React.memo(function Contact() {
                             </div>
                         </div>
 
+                        <div className="flex flex-col overflow-hidden">
                         {/* Contact Info Cards */}
                         <div className="flex flex-col gap-4 mb-8">
                             {[
@@ -288,17 +289,18 @@ const Contact = React.memo(function Contact() {
                                 ))}
                             </div>
                         </div>
+                        </div>
                     </motion.div>
 
                     {/* RIGHT COLUMN */}
                     <motion.div
-                        className="w-full lg:w-[60%]"
+                        className="w-full lg:w-[60%] overflow-hidden"
                         variants={slideRight}
                         initial="hidden"
                         whileInView="show"
                         viewport={{ once: true, amount: 0.1 }}
                     >
-                        <div className="bg-[#111111] border border-[rgba(255,255,255,0.06)] rounded-[16px] p-[24px] sm:p-[32px] overflow-hidden h-full">
+                        <div className="bg-[#111111] border border-[rgba(255,255,255,0.06)] rounded-[16px] p-[24px] sm:p-[32px] h-full">
 
                             <div className="mb-6">
                                 <span className="text-[#ff4d5a] text-[11px] uppercase tracking-[3px] font-semibold block mb-2">SEND A MESSAGE</span>
@@ -411,7 +413,6 @@ const Contact = React.memo(function Contact() {
                             </div>
                         </div>
                     </motion.div>
-
                 </div>
 
                 {/* BOTTOM STRIP */}

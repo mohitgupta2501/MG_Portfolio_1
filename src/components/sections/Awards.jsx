@@ -7,6 +7,7 @@ import {
     Flag, Landmark, Shield, Building2
 } from 'lucide-react';
 import ShowMoreButton from '@/components/ui/ShowMoreButton';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 // Stats Data by Tab
 const tabData = {
@@ -167,25 +168,7 @@ const Awards = memo(() => {
     const [activeTab, setActiveTab] = useState('athletics');
     const { color, rgb, stats, items } = tabData[activeTab];
     const [isExpanded, setIsExpanded] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const mql = window.matchMedia('(max-width: 768px)');
-        const sync = () => {
-            const mobile = mql.matches;
-            setIsMobile(mobile);
-            setIsExpanded(!mobile);
-        };
-        sync();
-        const onChange = () => sync();
-        mql.addEventListener?.('change', onChange);
-        return () => mql.removeEventListener?.('change', onChange);
-    }, []);
-
-    const displayItems = useMemo(() => {
-        if (isMobile && !isExpanded) return items.slice(0, 1);
-        return items;
-    }, [items, isMobile, isExpanded]);
+    const isMobile = useIsMobile();
 
     return (
         <section id="awards" className="relative pt-[80px] pb-[80px] bg-[#080808] overflow-hidden min-h-screen" style={{ '--tab-color': color, '--tab-rgb': rgb }}>
@@ -243,7 +226,7 @@ const Awards = memo(() => {
                     </motion.div>
                 </div>
 
-                <div className={`${isMobile && !isExpanded ? 'hidden' : 'block'}`}>
+                <div className="w-full">
                     {/* Stats Grid — 4→2x2, 3→2+1 centered, 6→3x2 tablet / 2x3 mobile */}
                     <div className={`grid gap-[16px] max-w-[1100px] mx-auto mb-7 items-stretch
                         grid-cols-2
@@ -303,29 +286,79 @@ const Awards = memo(() => {
                             transition={{ duration: 0.4 }}
                             className="grid grid-cols-1 min-[481px]:grid-cols-2 gap-6"
                         >
-                            {displayItems.map((item, i) => (
+                            {items.length > 0 && (
                                 <motion.div
-                                    key={i}
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: i * 0.05 }}
+                                    transition={{ delay: 0 }}
                                     className="ach-list-card bg-[#111] border border-[rgba(255,255,255,0.07)] rounded-xl p-5 flex items-start gap-5 transition-all duration-300 group cursor-default relative overflow-hidden border-l-[3px] shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
                                     style={{ borderLeftColor: '#ff4d5a' }}
                                 >
                                     <div className="ach-badge-num flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-[13px] font-bold text-white transition-all duration-300"
                                         style={{ backgroundColor: '#ff4d5a' }}>
-                                        {(i + 1).toString().padStart(2, '0')}
+                                        01
                                     </div>
                                     <p className="ach-description text-[#9ca3af] text-[15px] max-[480px]:text-[14px] leading-[1.6] transition-all duration-300 pt-1 break-words min-w-0">
-                                        {item.text}
+                                        {items[0].text}
                                     </p>
                                 </motion.div>
-                            ))}
+                            )}
+
+                            {isMobile ? (
+                                <AnimatePresence>
+                                    {isExpanded && items.length > 1 && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 16 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 16 }}
+                                            className="flex flex-col gap-6"
+                                        >
+                                            {items.slice(1).map((item, i) => (
+                                                <motion.div
+                                                    key={i + 1}
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ delay: (i + 1) * 0.05 }}
+                                                    className="ach-list-card bg-[#111] border border-[rgba(255,255,255,0.07)] rounded-xl p-5 flex items-start gap-5 transition-all duration-300 group cursor-default relative overflow-hidden border-l-[3px] shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+                                                    style={{ borderLeftColor: '#ff4d5a' }}
+                                                >
+                                                    <div className="ach-badge-num flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-[13px] font-bold text-white transition-all duration-300"
+                                                        style={{ backgroundColor: '#ff4d5a' }}>
+                                                        {(i + 2).toString().padStart(2, '0')}
+                                                    </div>
+                                                    <p className="ach-description text-[#9ca3af] text-[15px] max-[480px]:text-[14px] leading-[1.6] transition-all duration-300 pt-1 break-words min-w-0">
+                                                        {item.text}
+                                                    </p>
+                                                </motion.div>
+                                            ))}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            ) : (
+                                items.slice(1).map((item, i) => (
+                                    <motion.div
+                                        key={i + 1}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: (i + 1) * 0.05 }}
+                                        className="ach-list-card bg-[#111] border border-[rgba(255,255,255,0.07)] rounded-xl p-5 flex items-start gap-5 transition-all duration-300 group cursor-default relative overflow-hidden border-l-[3px] shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+                                        style={{ borderLeftColor: '#ff4d5a' }}
+                                    >
+                                        <div className="ach-badge-num flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-[13px] font-bold text-white transition-all duration-300"
+                                            style={{ backgroundColor: '#ff4d5a' }}>
+                                            {(i + 2).toString().padStart(2, '0')}
+                                        </div>
+                                        <p className="ach-description text-[#9ca3af] text-[15px] max-[480px]:text-[14px] leading-[1.6] transition-all duration-300 pt-1 break-words min-w-0">
+                                            {item.text}
+                                        </p>
+                                    </motion.div>
+                                ))
+                            )}
                         </motion.div>
                     </AnimatePresence>
                 </div>
 
-                {items.length > 1 && (
+                {isMobile && items.length > 1 && (
                     <ShowMoreButton
                         isExpanded={isExpanded}
                         onClick={() => setIsExpanded((v) => !v)}

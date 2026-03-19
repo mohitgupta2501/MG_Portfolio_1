@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Award, Building2, Star, Calendar, ArrowRight, ExternalLink } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import ShowMoreButton from '@/components/ui/ShowMoreButton';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const INJECTED_STYLES = `
 /* STAT CARDS */
@@ -746,26 +747,13 @@ const Certifications = memo(() => {
     const [activeFilter, setActiveFilter] = useState('All');
     const [selectedCert, setSelectedCert] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const mql = window.matchMedia('(max-width: 768px)');
-        const sync = () => {
-            const mobile = mql.matches;
-            setIsMobile(mobile);
-            setIsExpanded(!mobile);
-        };
-        sync();
-        const onChange = () => sync();
-        mql.addEventListener?.('change', onChange);
-        return () => mql.removeEventListener?.('change', onChange);
-    }, []);
+    const isMobile = useIsMobile();
 
     const visibleGroups = activeFilter === 'All'
         ? ISSUER_GROUPS
         : ISSUER_GROUPS.filter((g) => g.filterName === activeFilter);
 
-    const displayGroups = (isMobile && !isExpanded) ? visibleGroups.slice(0, 1) : visibleGroups;
+
 
     return (
         <section id="certifications" className="relative pt-[80px] pb-[80px] bg-[#080808] overflow-hidden">
@@ -812,7 +800,7 @@ const Certifications = memo(() => {
                 </div>
 
                 {/* Stats Row — 4 cards: 2x2 tablet/mobile, single row desktop */}
-                <div className={`${isMobile && !isExpanded ? 'hidden' : 'block'}`}>
+                <div className="w-full">
                     <div className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch">
                         {stats.map((stat, i) => (
                             <div key={i} className="h-full">
@@ -852,85 +840,134 @@ const Certifications = memo(() => {
                 {/* Certifications Grid */}
                 <div className="w-full flex flex-col gap-6 sm:gap-8">
                     <AnimatePresence mode="popLayout">
-                        {displayGroups.map((group) => (
-                            <motion.div
-                                key={group.filterName}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.1 }}
-                                transition={{ duration: 0.5 }}
-                                className="w-full"
-                            >
-                                <div
-                                    className="relative w-full mb-[18px] rounded-[16px] border overflow-hidden"
-                                    style={{
-                                        backgroundColor: 'rgba(255,255,255,0.03)',
-                                        borderColor: `rgba(${group.catRGB}, 0.18)`
-                                    }}
+                        {visibleGroups.length > 0 && (() => {
+                            const group = visibleGroups[0];
+                            return (
+                                <motion.div
+                                    key={group.filterName}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.1 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="w-full"
                                 >
-                                    <div className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ backgroundColor: group.catColor }} />
-                                    <div className="flex items-center justify-between gap-4 px-[16px] sm:px-[18px] py-[12px]">
-                                        <div className="flex items-center gap-3 min-w-0">
-                                            <div
-                                                className="w-[40px] h-[40px] rounded-[12px] border flex items-center justify-center text-[12px] font-[800] tracking-[1px] shrink-0"
-                                                style={{
-                                                    backgroundColor: `rgba(${group.catRGB}, 0.10)`,
-                                                    borderColor: `rgba(${group.catRGB}, 0.25)`,
-                                                    color: group.catColor
-                                                }}
-                                            >
-                                                {group.issuerLogo}
+                                    <div
+                                        className="relative w-full mb-[18px] rounded-[16px] border overflow-hidden"
+                                        style={{ backgroundColor: 'rgba(255,255,255,0.03)', borderColor: `rgba(${group.catRGB}, 0.18)` }}
+                                    >
+                                        <div className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ backgroundColor: group.catColor }} />
+                                        <div className="flex items-center justify-between gap-4 px-[16px] sm:px-[18px] py-[12px]">
+                                            <div className="flex items-center gap-3 min-w-0">
+                                                <div className="w-[40px] h-[40px] rounded-[12px] border flex items-center justify-center text-[12px] font-[800] tracking-[1px] shrink-0" style={{ backgroundColor: `rgba(${group.catRGB}, 0.10)`, borderColor: `rgba(${group.catRGB}, 0.25)`, color: group.catColor }}>
+                                                    {group.issuerLogo}
+                                                </div>
+                                                <div className="min-w-0">
+                                                    <h3 className="text-white font-[800] text-[15px] sm:text-[16px] leading-tight truncate">{group.issuerFull}</h3>
+                                                    <p className="text-[#777] text-[12px] sm:text-[13px] truncate">{group.issuerSub}</p>
+                                                </div>
                                             </div>
-                                            <div className="min-w-0">
-                                                <h3 className="text-white font-[800] text-[15px] sm:text-[16px] leading-tight truncate">
-                                                    {group.issuerFull}
-                                                </h3>
-                                                <p className="text-[#777] text-[12px] sm:text-[13px] truncate">
-                                                    {group.issuerSub}
-                                                </p>
+                                            <div className="hidden sm:flex items-center gap-2">
+                                                <span className="px-3 py-1 rounded-full text-[10px] font-[700] tracking-[2px] uppercase border" style={{ backgroundColor: `rgba(${group.catRGB}, 0.10)`, borderColor: `rgba(${group.catRGB}, 0.25)`, color: group.catColor }}>
+                                                    {group.issuerLabel}
+                                                </span>
                                             </div>
-                                        </div>
-                                        <div className="hidden sm:flex items-center gap-2">
-                                            <span
-                                                className="px-3 py-1 rounded-full text-[10px] font-[700] tracking-[2px] uppercase border"
-                                                style={{
-                                                    backgroundColor: `rgba(${group.catRGB}, 0.10)`,
-                                                    borderColor: `rgba(${group.catRGB}, 0.25)`,
-                                                    color: group.catColor
-                                                }}
-                                            >
-                                                {group.issuerLabel}
-                                            </span>
                                         </div>
                                     </div>
-                                </div>
+                                    
+                                    <div className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 min-[1280px]:grid-cols-4 gap-4 sm:gap-6 items-stretch w-full">
+                                        {group.cards.length > 0 && (
+                                            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.5 }} className="h-full">
+                                                <CertCardCompact data={group.cards[0]} issuerLabel={group.issuerLabel} color={group.catColor} rgb={group.catRGB} onViewDetails={setSelectedCert} />
+                                            </motion.div>
+                                        )}
+                                        {isMobile ? (
+                                            <AnimatePresence>
+                                                {isExpanded && group.cards.length > 1 && (
+                                                    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 16 }} className="flex flex-col gap-4 sm:gap-6">
+                                                        {group.cards.slice(1).map((card) => (
+                                                            <CertCardCompact key={card.num} data={card} issuerLabel={group.issuerLabel} color={group.catColor} rgb={group.catRGB} onViewDetails={setSelectedCert} />
+                                                        ))}
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        ) : (
+                                            group.cards.slice(1).map((card) => (
+                                                <motion.div key={card.num} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.5 }} className="h-full">
+                                                    <CertCardCompact data={card} issuerLabel={group.issuerLabel} color={group.catColor} rgb={group.catRGB} onViewDetails={setSelectedCert} />
+                                                </motion.div>
+                                            ))
+                                        )}
+                                    </div>
+                                </motion.div>
+                            );
+                        })()}
 
-                                <div className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 min-[1280px]:grid-cols-4 gap-4 sm:gap-6 items-stretch w-full">
-                                    {(isMobile && !isExpanded ? group.cards.slice(0, 1) : group.cards).map((card) => (
-                                        <motion.div
-                                            key={card.num}
-                                            initial={{ opacity: 0, y: 30 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true, amount: 0.1 }}
-                                            transition={{ duration: 0.5 }}
-                                            className="h-full"
-                                        >
-                                            <CertCardCompact
-                                                data={card}
-                                                issuerLabel={group.issuerLabel}
-                                                color={group.catColor}
-                                                rgb={group.catRGB}
-                                                onViewDetails={setSelectedCert}
-                                            />
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </motion.div>
-                        ))}
+                        {isMobile ? (
+                            <AnimatePresence>
+                                {isExpanded && visibleGroups.length > 1 && (
+                                    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 16 }} className="flex flex-col gap-6 sm:gap-8 mt-6">
+                                        {visibleGroups.slice(1).map((group) => (
+                                            <div key={group.filterName} className="w-full">
+                                                <div className="relative w-full mb-[18px] rounded-[16px] border overflow-hidden" style={{ backgroundColor: 'rgba(255,255,255,0.03)', borderColor: `rgba(${group.catRGB}, 0.18)` }}>
+                                                    <div className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ backgroundColor: group.catColor }} />
+                                                    <div className="flex items-center justify-between gap-4 px-[16px] sm:px-[18px] py-[12px]">
+                                                        <div className="flex items-center gap-3 min-w-0">
+                                                            <div className="w-[40px] h-[40px] rounded-[12px] border flex items-center justify-center text-[12px] font-[800] tracking-[1px] shrink-0" style={{ backgroundColor: `rgba(${group.catRGB}, 0.10)`, borderColor: `rgba(${group.catRGB}, 0.25)`, color: group.catColor }}>
+                                                                {group.issuerLogo}
+                                                            </div>
+                                                            <div className="min-w-0">
+                                                                <h3 className="text-white font-[800] text-[15px] sm:text-[16px] leading-tight truncate">{group.issuerFull}</h3>
+                                                                <p className="text-[#777] text-[12px] sm:text-[13px] truncate">{group.issuerSub}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                                                    {group.cards.map((card) => (
+                                                        <CertCardCompact key={card.num} data={card} issuerLabel={group.issuerLabel} color={group.catColor} rgb={group.catRGB} onViewDetails={setSelectedCert} />
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        ) : (
+                            visibleGroups.slice(1).map((group) => (
+                                <motion.div key={group.filterName} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.5 }} className="w-full mt-6">
+                                    <div className="relative w-full mb-[18px] rounded-[16px] border overflow-hidden" style={{ backgroundColor: 'rgba(255,255,255,0.03)', borderColor: `rgba(${group.catRGB}, 0.18)` }}>
+                                        <div className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ backgroundColor: group.catColor }} />
+                                        <div className="flex items-center justify-between gap-4 px-[16px] sm:px-[18px] py-[12px]">
+                                            <div className="flex items-center gap-3 min-w-0">
+                                                <div className="w-[40px] h-[40px] rounded-[12px] border flex items-center justify-center text-[12px] font-[800] tracking-[1px] shrink-0" style={{ backgroundColor: `rgba(${group.catRGB}, 0.10)`, borderColor: `rgba(${group.catRGB}, 0.25)`, color: group.catColor }}>
+                                                    {group.issuerLogo}
+                                                </div>
+                                                <div className="min-w-0">
+                                                    <h3 className="text-white font-[800] text-[15px] sm:text-[16px] leading-tight truncate">{group.issuerFull}</h3>
+                                                    <p className="text-[#777] text-[12px] sm:text-[13px] truncate">{group.issuerSub}</p>
+                                                </div>
+                                            </div>
+                                            <div className="hidden sm:flex items-center gap-2">
+                                                <span className="px-3 py-1 rounded-full text-[10px] font-[700] tracking-[2px] uppercase border" style={{ backgroundColor: `rgba(${group.catRGB}, 0.10)`, borderColor: `rgba(${group.catRGB}, 0.25)`, color: group.catColor }}>
+                                                    {group.issuerLabel}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 min-[1280px]:grid-cols-4 gap-4 sm:gap-6 items-stretch w-full">
+                                        {group.cards.map((card) => (
+                                            <motion.div key={card.num} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.5 }} className="h-full">
+                                                <CertCardCompact data={card} issuerLabel={group.issuerLabel} color={group.catColor} rgb={group.catRGB} onViewDetails={setSelectedCert} />
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            ))
+                        )}
                     </AnimatePresence>
                 </div>
 
-                {(visibleGroups[0]?.cards?.length || 0) > 1 && (
+                {isMobile && ((visibleGroups[0]?.cards?.length || 0) > 1 || visibleGroups.length > 1) && (
                     <ShowMoreButton
                         isExpanded={isExpanded}
                         onClick={() => setIsExpanded((v) => !v)}

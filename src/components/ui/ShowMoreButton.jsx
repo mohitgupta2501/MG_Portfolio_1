@@ -7,20 +7,17 @@ const ShowMoreButton = ({ isExpanded, onClick, color }) => {
         <div className="flex justify-center mt-8 md:hidden">
             <button
                 onClick={onClick}
-                className="flex items-center gap-2 px-6 py-2.5 rounded-full text-[13px] font-bold transition-all duration-300 shadow-lg"
+                className="flex items-center justify-center gap-[6px] px-6 py-2.5 rounded-full text-[12px] font-[700] uppercase tracking-[2px] transition-all duration-300 shadow-lg"
                 style={{
-                    backgroundColor: `${color}15`,
+                    backgroundColor: `${color}14`,
                     color: color,
-                    border: `1px solid ${color}30`,
+                    border: `1px solid ${color}`,
                 }}
             >
                 {isExpanded ? 'Show Less' : 'Show More'}
-                <motion.div
-                    animate={{ rotate: isExpanded ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                >
-                    <ChevronDown className="w-4 h-4" />
-                </motion.div>
+                <ChevronDown 
+                    className={`w-[14px] h-[14px] transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} 
+                />
             </button>
         </div>
     );

@@ -2,6 +2,7 @@ import { useState, memo, useEffect, useRef, useMemo } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Calendar, Briefcase, Trophy, Users, ClipboardCheck, Building2, GraduationCap, Crown, Dumbbell, Presentation, Code2, Zap, CalendarDays, Star, Rocket } from 'lucide-react';
 import ShowMoreButton from '@/components/ui/ShowMoreButton';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 function useCountUp(end, duration = 2000, inView) {
     const [count, setCount] = useState(0);
@@ -246,26 +247,11 @@ const Leadership = memo(() => {
     const themeColor = '#ff4d5a';
     const themeRgb = '255, 77, 90';
     const [isExpanded, setIsExpanded] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
+    const isMobile = useIsMobile();
 
-    useEffect(() => {
-        const mql = window.matchMedia('(max-width: 768px)');
-        const sync = () => {
-            const mobile = mql.matches;
-            setIsMobile(mobile);
-            setIsExpanded(!mobile);
-        };
-        sync();
-        const onChange = () => sync();
-        mql.addEventListener?.('change', onChange);
-        return () => mql.removeEventListener?.('change', onChange);
-    }, []);
-
-    const displayItems = useMemo(() => {
-        const list = currentTab.items.filter((x) => x.type !== 'header');
-        if (isMobile && !isExpanded) return list.slice(0, 1);
-        return list;
-    }, [currentTab.items, isMobile, isExpanded]);
+    const fullList = useMemo(() => {
+        return currentTab.items.filter((x) => x.type !== 'header');
+    }, [currentTab.items]);
 
     return (
         <section
@@ -297,7 +283,7 @@ const Leadership = memo(() => {
                 </div>
 
                 {/* STATS ROW — 4 cards: 2x2 tablet/mobile, single row desktop */}
-                <div className={`${isMobile && !isExpanded ? 'hidden' : 'block'}`}>
+                <div className="w-full">
                     <div className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7">
                         {statsData.map((stat, i) => (
                             <StatCard key={i} stat={stat} i={i} />
@@ -346,12 +332,12 @@ const Leadership = memo(() => {
                             transition={{ duration: 0.4 }}
                             className="grid grid-cols-1 min-[481px]:grid-cols-2 gap-6"
                         >
-                            {displayItems.map((item, i) => (
+                            {fullList.length > 0 && (
                                 <motion.div
-                                    key={`${activeYear}-${i}`}
+                                    key={`${activeYear}-0`}
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: i * 0.05 }}
+                                    transition={{ delay: 0 }}
                                     className="ach-list-card bg-[#111] border border-[rgba(255,255,255,0.07)] rounded-xl p-5 flex items-start gap-5 transition-all duration-300 group cursor-default relative overflow-hidden border-l-[3px] shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
                                     style={{ borderLeftColor: 'var(--tab-color)' }}
                                 >
@@ -359,18 +345,73 @@ const Leadership = memo(() => {
                                         className="ach-badge-num flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-[13px] font-bold text-white transition-all duration-300"
                                         style={{ backgroundColor: 'var(--tab-color)' }}
                                     >
-                                        {(i + 1).toString().padStart(2, '0')}
+                                        01
                                     </div>
                                     <p className="ach-description text-[#9ca3af] text-[15px] max-[480px]:text-[14px] leading-[1.6] transition-all duration-300 pt-1 break-words min-w-0">
-                                        {item.title} {item.org && `— ${item.org}`} · {item.desc}
+                                        {fullList[0].title} {fullList[0].org && `— ${fullList[0].org}`} · {fullList[0].desc}
                                     </p>
                                 </motion.div>
-                            ))}
+                            )}
+
+                            {isMobile ? (
+                                <AnimatePresence>
+                                    {isExpanded && fullList.length > 1 && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 16 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 16 }}
+                                            className="flex flex-col gap-6"
+                                        >
+                                            {fullList.slice(1).map((item, i) => (
+                                                <motion.div
+                                                    key={`${activeYear}-${i + 1}`}
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ delay: (i + 1) * 0.05 }}
+                                                    className="ach-list-card bg-[#111] border border-[rgba(255,255,255,0.07)] rounded-xl p-5 flex items-start gap-5 transition-all duration-300 group cursor-default relative overflow-hidden border-l-[3px] shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+                                                    style={{ borderLeftColor: 'var(--tab-color)' }}
+                                                >
+                                                    <div
+                                                        className="ach-badge-num flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-[13px] font-bold text-white transition-all duration-300"
+                                                        style={{ backgroundColor: 'var(--tab-color)' }}
+                                                    >
+                                                        {(i + 2).toString().padStart(2, '0')}
+                                                    </div>
+                                                    <p className="ach-description text-[#9ca3af] text-[15px] max-[480px]:text-[14px] leading-[1.6] transition-all duration-300 pt-1 break-words min-w-0">
+                                                        {item.title} {item.org && `— ${item.org}`} · {item.desc}
+                                                    </p>
+                                                </motion.div>
+                                            ))}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            ) : (
+                                fullList.slice(1).map((item, i) => (
+                                    <motion.div
+                                        key={`${activeYear}-${i + 1}`}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: (i + 1) * 0.05 }}
+                                        className="ach-list-card bg-[#111] border border-[rgba(255,255,255,0.07)] rounded-xl p-5 flex items-start gap-5 transition-all duration-300 group cursor-default relative overflow-hidden border-l-[3px] shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+                                        style={{ borderLeftColor: 'var(--tab-color)' }}
+                                    >
+                                        <div
+                                            className="ach-badge-num flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-[13px] font-bold text-white transition-all duration-300"
+                                            style={{ backgroundColor: 'var(--tab-color)' }}
+                                        >
+                                            {(i + 2).toString().padStart(2, '0')}
+                                        </div>
+                                        <p className="ach-description text-[#9ca3af] text-[15px] max-[480px]:text-[14px] leading-[1.6] transition-all duration-300 pt-1 break-words min-w-0">
+                                            {item.title} {item.org && `— ${item.org}`} · {item.desc}
+                                        </p>
+                                    </motion.div>
+                                ))
+                            )}
                         </motion.div>
                     </AnimatePresence>
                 </div>
 
-                {currentTab.items.filter((x) => x.type !== 'header').length > 1 && (
+                {isMobile && fullList.length > 1 && (
                     <ShowMoreButton
                         isExpanded={isExpanded}
                         onClick={() => setIsExpanded((v) => !v)}

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ShowMoreButton from '@/components/ui/ShowMoreButton';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 // =============================================
 // 📸 FEATURED IMAGES — top carousel
@@ -603,6 +605,8 @@ const Gallery = () => {
         open: false, src: '', title: '', tag: '', sub: '',
         color: FEATURED_COLOR, rgb: FEATURED_RGB
     });
+    const [isExpanded, setIsExpanded] = useState(false);
+    const isMobile = useIsMobile();
 
     // Escape closes lightbox 
     useEffect(() => {
@@ -701,15 +705,45 @@ const Gallery = () => {
                 />
 
                 {/* CAROUSEL 2 — MOMENTS & MEMORIES */}
-                <Carousel
-                    images={momentsImages}
-                    title="MOMENTS & MEMORIES"
-                    description="Sports · Competitions · Forum · Events"
-                    accentColor={MOMENTS_COLOR}
-                    accentRgb={MOMENTS_RGB}
-                    cardHeight={380}
-                    onOpenLightbox={openLightbox}
-                />
+                {isMobile ? (
+                    <AnimatePresence>
+                        {isExpanded && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 16 }}
+                            >
+                                <Carousel
+                                    images={momentsImages}
+                                    title="MOMENTS & MEMORIES"
+                                    description="Sports · Competitions · Forum · Events"
+                                    accentColor={MOMENTS_COLOR}
+                                    accentRgb={MOMENTS_RGB}
+                                    cardHeight={380}
+                                    onOpenLightbox={openLightbox}
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                ) : (
+                    <Carousel
+                        images={momentsImages}
+                        title="MOMENTS & MEMORIES"
+                        description="Sports · Competitions · Forum · Events"
+                        accentColor={MOMENTS_COLOR}
+                        accentRgb={MOMENTS_RGB}
+                        cardHeight={380}
+                        onOpenLightbox={openLightbox}
+                    />
+                )}
+
+                {isMobile && (
+                    <ShowMoreButton
+                        isExpanded={isExpanded}
+                        onClick={() => setIsExpanded(v => !v)}
+                        color="#ff4d5a"
+                    />
+                )}
 
             </div>
 

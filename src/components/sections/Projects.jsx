@@ -5,6 +5,7 @@ import { projects } from '@/data/projects';
 import ProjectCard from '@/components/ui/ProjectCard';
 import ProjectModal from '@/components/ui/ProjectModal';
 import ShowMoreButton from '@/components/ui/ShowMoreButton';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 // Filter Categories
 const FILTERS = [
@@ -125,16 +126,7 @@ const Projects = memo(() => {
     const [activeFilter, setActiveFilter] = useState('All');
     const [selectedProject, setSelectedProject] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
+    const isMobile = useIsMobile();
 
     // Filter projects
     const filteredProjects = useMemo(() => {
@@ -220,7 +212,7 @@ const Projects = memo(() => {
                 </div>
 
                 {/* Stats Row — 4 cards: 2x2 tablet/mobile, single row desktop */}
-                <div className={`${isMobile && !isExpanded ? 'hidden' : 'block'}`}>
+                <div className="w-full">
                     <div className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch">
                         {stats.map((stat, i) => (
                             <div key={i} className="h-full">
@@ -269,26 +261,54 @@ const Projects = memo(() => {
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.4 }}
                                 className={`grid gap-6 sm:gap-8 items-stretch w-full ${
-                                    displayProjects.length === 1
+                                    filteredProjects.length === 1
                                         ? 'grid-cols-1 max-w-[400px] mx-auto'
-                                        : displayProjects.length === 2
+                                        : filteredProjects.length === 2
                                             ? 'grid-cols-1 min-[481px]:grid-cols-2 max-w-[860px] mx-auto'
                                             : 'grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3'
                                     }`}
                             >
-                                {displayProjects.map((project, idx) => (
-                                    <ProjectCard
-                                        key={project.title}
-                                        project={project}
-                                        index={idx}
-                                        onClick={setSelectedProject}
-                                    />
-                                ))}
+                                <ProjectCard
+                                    key={filteredProjects[0].title}
+                                    project={filteredProjects[0]}
+                                    index={0}
+                                    onClick={setSelectedProject}
+                                />
+                                {isMobile ? (
+                                    <AnimatePresence>
+                                        {isExpanded && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 16 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: 16 }}
+                                                className="flex flex-col gap-6 sm:gap-8"
+                                            >
+                                                {filteredProjects.slice(1).map((project, idx) => (
+                                                    <ProjectCard
+                                                        key={project.title}
+                                                        project={project}
+                                                        index={idx + 1}
+                                                        onClick={setSelectedProject}
+                                                    />
+                                                ))}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                ) : (
+                                    filteredProjects.slice(1).map((project, idx) => (
+                                        <ProjectCard
+                                            key={project.title}
+                                            project={project}
+                                            index={idx + 1}
+                                            onClick={setSelectedProject}
+                                        />
+                                    ))
+                                )}
                             </motion.div>
                         )}
                     </AnimatePresence>
 
-                    {filteredProjects.length > 1 && (
+                    {isMobile && filteredProjects.length > 1 && (
                         <ShowMoreButton
                             isExpanded={isExpanded}
                             onClick={() => setIsExpanded(!isExpanded)}

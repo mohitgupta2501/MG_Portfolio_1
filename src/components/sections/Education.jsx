@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect, memo } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Star, Trophy, Award, FileText } from 'lucide-react';
 import EducationCard from '../ui/EducationCard';
 import { educationData } from '@/data/education';
+import ShowMoreButton from '@/components/ui/ShowMoreButton';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 // --- STYLES INJECTED AS CONSTANT (AVOIDING EXTERNAL CSS DEPENDENCY) ---
 const INJECTED_STYLES = `
@@ -172,6 +174,9 @@ export default function Education() {
     const hsc = educationData.find(e => e.id === 'hsc');
     const ssc = educationData.find(e => e.id === 'ssc');
 
+    const [isExpanded, setIsExpanded] = useState(false);
+    const isMobile = useIsMobile();
+
     return (
         <section id="education" className="pt-[80px] pb-[80px] relative bg-[#080808] overflow-hidden">
             <style>{INJECTED_STYLES}</style>
@@ -228,12 +233,44 @@ export default function Education() {
                 {/* Cards — 1 col mobile, 2 tablet, 3 desktop */}
                 <div className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 gap-6 min-[1025px]:gap-5 w-full mx-auto items-stretch">
                     <EducationCard edu={btech} index={0} onViewDetails={() => { }} />
-                    <EducationCard edu={hsc} index={1} onViewDetails={() => { }} />
-                    <EducationCard edu={ssc} index={2} onViewDetails={() => { }} />
+                    {!isMobile && (
+                        <>
+                            <EducationCard edu={hsc} index={1} onViewDetails={() => { }} />
+                            <EducationCard edu={ssc} index={2} onViewDetails={() => { }} />
+                        </>
+                    )}
                 </div>
 
-                {/* Timeline */}
-                <EducationTimeline />
+                {isMobile && (
+                    <AnimatePresence>
+                        {isExpanded && (
+                            <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="flex flex-col gap-6 mt-6 overflow-hidden"
+                            >
+                                <EducationCard edu={hsc} index={1} onViewDetails={() => { }} />
+                                <EducationCard edu={ssc} index={2} onViewDetails={() => { }} />
+                                <EducationTimeline />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                )}
+
+                {!isMobile && (
+                    <EducationTimeline />
+                )}
+
+                {isMobile && (
+                    <div className="flex justify-center mt-6">
+                        <ShowMoreButton
+                            isExpanded={isExpanded}
+                            onClick={() => setIsExpanded(v => !v)}
+                            color="#ff4d5a"
+                        />
+                    </div>
+                )}
             </div>
 
         </section>

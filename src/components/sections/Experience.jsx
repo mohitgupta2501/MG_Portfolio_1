@@ -4,6 +4,7 @@ import { Calendar, MapPin, Building2, Briefcase, Rocket, ArrowRight, Heart, Grad
 import { experienceData } from '@/data/experience';
 import ExperienceModal from '@/components/ui/ExperienceModal';
 import ShowMoreButton from '@/components/ui/ShowMoreButton';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 // Helper to get RGB from Hex for CSS custom properties
 const hexToRgb = (hex) => {
@@ -542,16 +543,7 @@ const Experience = React.memo(function Experience() {
     const [activeCategory, setActiveCategory] = useState("All");
     const [selectedExperience, setSelectedExperience] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
+    const isMobile = useIsMobile();
 
     const categories = useMemo(() => {
         const cats = new Set(experienceData.map(item => item.category));
@@ -679,7 +671,7 @@ const Experience = React.memo(function Experience() {
                 </motion.div>
 
                 {/* STATS ROW — 4 cards: 2x2 tablet/mobile, single row desktop */}
-                <div className={`${isMobile && !isExpanded ? 'hidden' : 'block'}`}>
+                <div className="w-full">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
@@ -730,25 +722,59 @@ const Experience = React.memo(function Experience() {
 
                     {/* EXPERIENCE CARDS GRID — 1 col mobile, 2 cols tablet+ */}
                     <div className={`relative z-10 w-full grid gap-[20px] items-stretch min-[1025px]:px-6 ${
-                        displayData.length === 1
+                        filteredData.length === 1
                             ? 'grid-cols-1 max-w-[560px] mx-auto'
                             : 'grid-cols-1 min-[481px]:grid-cols-2'
                         }`}>
-                        <AnimatePresence mode="popLayout">
-                            {displayData.map((exp, idx) => (
+                        
+                        {filteredData.length > 0 && (
+                            <ExperienceCard
+                                key={filteredData[0].role + filteredData[0].company}
+                                item={filteredData[0]}
+                                index={0}
+                                layoutIndex={0}
+                                onClick={setSelectedExperience}
+                                totalCards={filteredData.length}
+                            />
+                        )}
+
+                        {isMobile ? (
+                            <AnimatePresence>
+                                {isExpanded && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 16 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: 16 }}
+                                        className="flex flex-col gap-[20px]"
+                                    >
+                                        {filteredData.slice(1).map((exp, idx) => (
+                                            <ExperienceCard
+                                                key={exp.role + exp.company}
+                                                item={exp}
+                                                index={idx + 1}
+                                                layoutIndex={idx + 1}
+                                                onClick={setSelectedExperience}
+                                                totalCards={filteredData.length}
+                                            />
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        ) : (
+                            filteredData.slice(1).map((exp, idx) => (
                                 <ExperienceCard
                                     key={exp.role + exp.company}
                                     item={exp}
-                                    index={idx}
-                                    layoutIndex={idx}
+                                    index={idx + 1}
+                                    layoutIndex={idx + 1}
                                     onClick={setSelectedExperience}
-                                    totalCards={displayData.length}
+                                    totalCards={filteredData.length}
                                 />
-                            ))}
-                        </AnimatePresence>
+                            ))
+                        )}
                     </div>
 
-                    {filteredData.length > 1 && (
+                    {isMobile && filteredData.length > 1 && (
                         <ShowMoreButton
                             isExpanded={isExpanded}
                             onClick={() => setIsExpanded(!isExpanded)}

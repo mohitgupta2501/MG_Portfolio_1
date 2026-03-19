@@ -2,8 +2,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Download, Send } from 'lucide-react';
 import mohitImage from '@/assets/images/Mohit.jpg';
+import { AnimatePresence } from 'framer-motion';
+import ShowMoreButton from '@/components/ui/ShowMoreButton';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const About = React.memo(function About() {
+    const [isExpanded, setIsExpanded] = React.useState(false);
+    const isMobile = useIsMobile();
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -138,14 +144,19 @@ const About = React.memo(function About() {
                     </motion.div>
 
                     {/* Right Column: Content Area */}
+                    <AnimatePresence mode="wait">
+                        {(!isMobile || isExpanded) && (
                     <motion.div
-                        variants={rightColumnVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.3 }}
-                        className="flex flex-col items-start text-left order-2 lg:order-2"
+                        key="about-right"
+                        variants={isMobile ? undefined : rightColumnVariants}
+                        initial={isMobile ? { opacity: 0, height: 0, y: -20 } : "hidden"}
+                        animate={isMobile ? { opacity: 1, height: 'auto', y: 0 } : "visible"}
+                        exit={isMobile ? { opacity: 0, height: 0, y: -20 } : undefined}
+                        whileInView={isMobile ? undefined : "visible"}
+                        viewport={isMobile ? undefined : { once: true, amount: 0.3 }}
+                        className="flex flex-col items-start text-left order-2 lg:order-2 overflow-hidden"
                     >
-                        <motion.div variants={containerVariants} className="flex flex-col items-start w-full">
+                        <motion.div variants={isMobile ? undefined : containerVariants} className="flex flex-col items-start w-full">
                             <motion.p variants={itemVariants} className="max-w-[580px] w-full text-[#9ca3af] text-base min-[481px]:text-lg leading-[1.8] mb-4 min-w-0 break-words">
                                 Crafting Intelligence, <span className="text-white">Building </span>
                                 <span className="text-[#ef4444]">Impact.</span>
@@ -175,8 +186,20 @@ const About = React.memo(function About() {
                             </motion.div>
                         </motion.div>
                     </motion.div>
+                        )}
+                    </AnimatePresence>
 
                 </div>
+
+                {isMobile && (
+                    <div className="flex justify-center mt-6">
+                        <ShowMoreButton
+                            isExpanded={isExpanded}
+                            onClick={() => setIsExpanded(v => !v)}
+                            color="#ff4d5a"
+                        />
+                    </div>
+                )}
             </div>
         </section>
     );
