@@ -420,9 +420,9 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
                             >
                                 {item.category}
                             </span>
-                            {item.badge && (
+                            {/* {item.badge && (
                                 <span
-                                    className="skill-pill inline-flex items-center gap-[6px] px-[10px] py-[3px] rounded-full text-[10px] font-[700] tracking-[2px] uppercase border cursor-default"
+                                    className="inline-flex items-center gap-[6px] px-[10px] py-[3px] rounded-full text-[10px] font-[700] tracking-[2px] uppercase border cursor-default"
                                     style={{
                                         '--cat-rgb': item.badge.includes('FOUNDER') ? '245, 158, 11' : '255, 77, 90',
                                         '--cat-color': item.badge.includes('FOUNDER') ? '#f59e0b' : '#ff4d5a'
@@ -430,7 +430,7 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
                                 >
                                     {item.badge === 'Current Role' ? '★ CURRENT ROLE' : item.badge === 'Founder' ? 'FOUNDER' : item.badge}
                                 </span>
-                            )}
+                            )} */}
                         </div>
                         <div
                             className="inline-flex items-center gap-[6px] rounded-[50px] px-[12px] py-[4px] shrink-0"
