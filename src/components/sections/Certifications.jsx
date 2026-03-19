@@ -506,7 +506,12 @@ const CertCardCompact = memo(({ data, issuerLabel, color, rgb, onViewDetails }) 
                 {/* ROW 1: Badge + Card number */}
                 <div className="flex justify-between items-center mb-[10px] relative z-10">
                     <span
-                        className="skill-pill px-[10px] py-[3px] rounded-full text-[9px] font-[700] tracking-[2px] uppercase border cursor-default"
+                        className="inline-flex items-center px-[12px] py-[4px] rounded-[50px] text-[10px] uppercase tracking-[2.5px] font-[700] border"
+                        style={{
+                            backgroundColor: `${color}15`,
+                            color: color,
+                            border: `1px solid ${color}30`
+                        }}
                     >
                         {badgeLabel}
                     </span>

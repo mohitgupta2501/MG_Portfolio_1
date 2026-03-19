@@ -411,7 +411,12 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
                     <div className="flex flex-row justify-between items-center gap-2 pr-[80px] h-[28px] shrink-0">
                         <div className="flex flex-wrap items-center gap-[6px]">
                             <span
-                                className="skill-pill inline-flex items-center px-[10px] py-[3px] rounded-full text-[10px] uppercase tracking-[2.5px] font-[700] border cursor-default"
+                                className="inline-flex items-center px-[12px] py-[4px] rounded-[50px] text-[10px] uppercase tracking-[2.5px] font-[700] border"
+                                style={{
+                                    backgroundColor: `${item.color}15`,
+                                    color: item.color,
+                                    border: `1px solid ${item.color}30`
+                                }}
                             >
                                 {item.category}
                             </span>
