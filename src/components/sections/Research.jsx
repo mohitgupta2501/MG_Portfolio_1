@@ -4,6 +4,7 @@ import { BookOpen, Target, Brain, Cpu, FileText, Award } from 'lucide-react';
 import { researchData } from '@/data/research';
 import ResearchCard from '@/components/ui/ResearchCard';
 import ResearchModal from '@/components/ui/ResearchModal';
+import ShowMoreButton from '@/components/ui/ShowMoreButton';
 
 // Helper to get RGB from Hex for CSS custom properties
 const hexToRgb = (hex) => {
@@ -131,6 +132,21 @@ StatCard.displayName = 'StatCard';
 const Research = () => {
     const [activeFilter, setActiveFilter] = useState('All');
     const [selectedResearch, setSelectedResearch] = useState(null);
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mql = window.matchMedia('(max-width: 768px)');
+        const sync = () => {
+            const mobile = mql.matches;
+            setIsMobile(mobile);
+            setIsExpanded(!mobile);
+        };
+        sync();
+        const onChange = () => sync();
+        mql.addEventListener?.('change', onChange);
+        return () => mql.removeEventListener?.('change', onChange);
+    }, []);
 
     const categories = useMemo(() => {
         const cats = new Set(researchData.map(item => item.category));
@@ -149,6 +165,11 @@ const Research = () => {
         if (activeFilter === 'All') return researchData;
         return researchData.filter(item => item.category === activeFilter);
     }, [activeFilter]);
+
+    const displayResearch = useMemo(() => {
+        if (isMobile && !isExpanded) return filteredResearch.slice(0, 1);
+        return filteredResearch;
+    }, [filteredResearch, isMobile, isExpanded]);
 
     const stats = [
         { color: "#a855f7", icon: FileText, value: "3", label: "PUBLICATIONS", },
@@ -238,21 +259,23 @@ const Research = () => {
                     ))}
                 </motion.div>
 
-                {/* Filter Tabs */}
-                <FilterTabs 
-                    categories={categories} 
-                    activeCategory={activeFilter} 
-                    setActiveCategory={setActiveFilter} 
-                    categoryCounts={categoryCounts} 
-                />
+                <div className={`${isMobile && !isExpanded ? 'hidden' : 'block'}`}>
+                    {/* Filter Tabs */}
+                    <FilterTabs 
+                        categories={categories} 
+                        activeCategory={activeFilter} 
+                        setActiveCategory={setActiveFilter} 
+                        categoryCounts={categoryCounts} 
+                    />
 
-                {/* HORIZONTAL DIVIDER */}
-                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-7" />
+                    {/* HORIZONTAL DIVIDER */}
+                    <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-7" />
+                </div>
 
                 {/* Research Cards — 1 col mobile, 2 tablet, 3 desktop */}
                 <div className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 gap-[20px] mb-8">
                     <AnimatePresence mode="popLayout">
-                        {filteredResearch.map((research, index) => (
+                        {displayResearch.map((research, index) => (
                             <motion.div
                                 key={research.id}
                                 layout
@@ -271,6 +294,13 @@ const Research = () => {
                     </AnimatePresence>
                 </div>
 
+                {filteredResearch.length > 1 && (
+                    <ShowMoreButton
+                        isExpanded={isExpanded}
+                        onClick={() => setIsExpanded((v) => !v)}
+                        color="#ff4d5a"
+                    />
+                )}
 
 
             </div>

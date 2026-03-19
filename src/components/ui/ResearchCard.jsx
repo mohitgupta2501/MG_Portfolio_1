@@ -21,6 +21,7 @@ const ResearchCard = ({ research, index, onClick }) => {
         if (!containerRef.current) return;
 
         const calculateVisible = () => {
+            if (!containerRef.current) return;
             const containerWidth = containerRef.current.offsetWidth;
             const gap = 6;
             const moreButtonWidth = 70;

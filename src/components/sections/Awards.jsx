@@ -6,6 +6,7 @@ import {
     Binary, Globe, School, Type,
     Flag, Landmark, Shield, Building2
 } from 'lucide-react';
+import ShowMoreButton from '@/components/ui/ShowMoreButton';
 
 // Stats Data by Tab
 const tabData = {
@@ -165,6 +166,26 @@ StatCard.displayName = 'StatCard';
 const Awards = memo(() => {
     const [activeTab, setActiveTab] = useState('athletics');
     const { color, rgb, stats, items } = tabData[activeTab];
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mql = window.matchMedia('(max-width: 768px)');
+        const sync = () => {
+            const mobile = mql.matches;
+            setIsMobile(mobile);
+            setIsExpanded(!mobile);
+        };
+        sync();
+        const onChange = () => sync();
+        mql.addEventListener?.('change', onChange);
+        return () => mql.removeEventListener?.('change', onChange);
+    }, []);
+
+    const displayItems = useMemo(() => {
+        if (isMobile && !isExpanded) return items.slice(0, 1);
+        return items;
+    }, [items, isMobile, isExpanded]);
 
     return (
         <section id="awards" className="relative pt-[80px] pb-[80px] bg-[#080808] overflow-hidden min-h-screen" style={{ '--tab-color': color, '--tab-rgb': rgb }}>
@@ -222,52 +243,54 @@ const Awards = memo(() => {
                     </motion.div>
                 </div>
 
-                {/* Stats Grid — 4→2x2, 3→2+1 centered, 6→3x2 tablet / 2x3 mobile */}
-                <div className={`grid gap-[16px] max-w-[1100px] mx-auto mb-7 items-stretch
-                    grid-cols-2
-                    ${stats.length === 3 ? 'min-[1025px]:grid-cols-3' : stats.length === 4 ? 'min-[1025px]:grid-cols-4' : 'min-[481px]:grid-cols-3 min-[1025px]:grid-cols-6'}
-                `}>
-                    {stats.map((stat, i) => (
-                        <div key={`${activeTab}-${i}`} className={`h-full min-w-0 ${stats.length === 3 && i === 2 ? 'col-span-2 min-[1025px]:col-span-1 flex justify-center min-[1025px]:block' : ''}`}>
-                            <div className={stats.length === 3 && i === 2 ? 'w-full max-w-[280px] min-[1025px]:max-w-none min-[1025px]:w-full h-full' : 'h-full w-full'}>
-                                <StatCard
-                                    icon={stat.icon}
-                                    num={stat.value}
-                                    label={stat.label}
-                                    color={stat.color}
-                                />
+                <div className={`${isMobile && !isExpanded ? 'hidden' : 'block'}`}>
+                    {/* Stats Grid — 4→2x2, 3→2+1 centered, 6→3x2 tablet / 2x3 mobile */}
+                    <div className={`grid gap-[16px] max-w-[1100px] mx-auto mb-7 items-stretch
+                        grid-cols-2
+                        ${stats.length === 3 ? 'min-[1025px]:grid-cols-3' : stats.length === 4 ? 'min-[1025px]:grid-cols-4' : 'min-[481px]:grid-cols-3 min-[1025px]:grid-cols-6'}
+                    `}>
+                        {stats.map((stat, i) => (
+                            <div key={`${activeTab}-${i}`} className={`h-full min-w-0 ${stats.length === 3 && i === 2 ? 'col-span-2 min-[1025px]:col-span-1 flex justify-center min-[1025px]:block' : ''}`}>
+                                <div className={stats.length === 3 && i === 2 ? 'w-full max-w-[280px] min-[1025px]:max-w-none min-[1025px]:w-full h-full' : 'h-full w-full'}>
+                                    <StatCard
+                                        icon={stat.icon}
+                                        num={stat.value}
+                                        label={stat.label}
+                                        color={stat.color}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
 
-                {/* Pill Style Tabs */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 max-[480px]:px-2">
-                    {Object.entries(tabData).map(([key, data]) => {
-                        const isActive = activeTab === key;
-                        return (
-                            <button
-                                key={key}
-                                onClick={() => setActiveTab(key)}
-                                className={`group relative flex items-center px-[18px] py-[8px] rounded-[9999px] text-[13px] transition-all ease-in-out duration-300 ${isActive
-                                    ? 'text-white font-[700] shadow-[0_8px_24px_rgba(var(--tab-rgb),0.45),0_4px_12px_rgba(var(--tab-rgb),0.3)] border border-transparent'
-                                    : 'bg-[rgba(255,255,255,0.04)] border transition-all duration-300 text-[#666] font-[500] hover:shadow-[0_4px_16px_rgba(var(--tab-rgb),0.1)]'
-                                    }`}
-                                style={isActive ? {
-                                    backgroundColor: data.color
-                                } : {
-                                    borderColor: `rgba(${data.rgb}, 0.3)`,
-                                }}
-                            >
-                                <data.icon className={`w-4 h-4 mr-2 transition-colors ${isActive ? 'text-white' : 'text-[#555] group-hover:text-[var(--tab-color)]'}`} />
-                                {data.title}
-                            </button>
-                        );
-                    })}
-                </div>
+                    {/* Pill Style Tabs */}
+                    <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 max-[480px]:px-2">
+                        {Object.entries(tabData).map(([key, data]) => {
+                            const isActive = activeTab === key;
+                            return (
+                                <button
+                                    key={key}
+                                    onClick={() => setActiveTab(key)}
+                                    className={`group relative flex items-center px-[18px] py-[8px] rounded-[9999px] text-[13px] transition-all ease-in-out duration-300 ${isActive
+                                        ? 'text-white font-[700] shadow-[0_8px_24px_rgba(var(--tab-rgb),0.45),0_4px_12px_rgba(var(--tab-rgb),0.3)] border border-transparent'
+                                        : 'bg-[rgba(255,255,255,0.04)] border transition-all duration-300 text-[#666] font-[500] hover:shadow-[0_4px_16px_rgba(var(--tab-rgb),0.1)]'
+                                        }`}
+                                    style={isActive ? {
+                                        backgroundColor: data.color
+                                    } : {
+                                        borderColor: `rgba(${data.rgb}, 0.3)`,
+                                    }}
+                                >
+                                    <data.icon className={`w-4 h-4 mr-2 transition-colors ${isActive ? 'text-white' : 'text-[#555] group-hover:text-[var(--tab-color)]'}`} />
+                                    {data.title}
+                                </button>
+                            );
+                        })}
+                    </div>
 
-                {/* HORIZONTAL DIVIDER */}
-                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(var(--tab-rgb),0.4),transparent)] mb-7" />
+                    {/* HORIZONTAL DIVIDER */}
+                    <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(var(--tab-rgb),0.4),transparent)] mb-7" />
+                </div>
 
                 {/* TAB CONTENT PANEL */}
                 <div className="w-full">
@@ -280,7 +303,7 @@ const Awards = memo(() => {
                             transition={{ duration: 0.4 }}
                             className="grid grid-cols-1 min-[481px]:grid-cols-2 gap-6"
                         >
-                            {items.map((item, i) => (
+                            {displayItems.map((item, i) => (
                                 <motion.div
                                     key={i}
                                     initial={{ opacity: 0, y: 10 }}
@@ -301,6 +324,14 @@ const Awards = memo(() => {
                         </motion.div>
                     </AnimatePresence>
                 </div>
+
+                {items.length > 1 && (
+                    <ShowMoreButton
+                        isExpanded={isExpanded}
+                        onClick={() => setIsExpanded((v) => !v)}
+                        color="#ff4d5a"
+                    />
+                )}
             </div>
 
             <style dangerouslySetInnerHTML={{

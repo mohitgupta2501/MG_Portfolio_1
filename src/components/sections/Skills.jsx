@@ -1,10 +1,11 @@
 
-import { useState, memo } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { motion } from 'framer-motion';
 import {
     Brain, Cpu, Globe, Code2, Database, BarChart2,
     Wrench, Heart, Eye, Users, LayoutGrid, Layers
 } from 'lucide-react';
+import ShowMoreButton from '@/components/ui/ShowMoreButton';
 
 export const skillStats = [
   {
@@ -92,6 +93,23 @@ const BentoBox = ({ children, className, rgb, color, category, activeFilter, del
 
 const SkillsSection = () => {
     const [activeFilter, setActiveFilter] = useState('All');
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mql = window.matchMedia('(max-width: 768px)');
+        const sync = () => {
+            const mobile = mql.matches;
+            setIsMobile(mobile);
+            setIsExpanded(!mobile);
+        };
+        sync();
+        const onChange = () => sync();
+        mql.addEventListener?.('change', onChange);
+        return () => mql.removeEventListener?.('change', onChange);
+    }, []);
+
+    const isCollapsedMobile = isMobile && !isExpanded;
 
     return (
         <section id="skills" className="relative pt-[80px] pb-[80px] bg-[#080808] overflow-hidden">
@@ -247,35 +265,59 @@ const SkillsSection = () => {
                     </p>
                 </motion.div>
 
-                {/* Stats Row — 4 cards: 2x2 tablet/mobile, single row desktop */}
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                    className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7"
-                >
-                    {stats.map((stat, i) => {
-                        const Icon = stat.icon;
-                        return (
-                            <div
-                                key={i}
-                                className="stat-card p-5 flex flex-col items-center justify-center text-center group cursor-default"
-                                style={{ '--cat-color': stat.color, '--cat-rgb': stat.rgb }}
-                            >
-                                <Icon className="stat-icon w-6 h-6 mb-3 transition-all duration-300" style={{ color: stat.color }} />
-                                <span className="stat-value font-bold text-[clamp(24px,3vw,32px)] leading-none mb-1.5 transition-all duration-300" style={{ color: stat.color }}>{stat.value}</span>
-                                <span className="text-[#555] text-[10px] uppercase tracking-[1.5px] font-bold">{stat.label}</span>
+                {/* Collapsed mobile preview: first bento box only */}
+                {isCollapsedMobile ? (
+                    <div className="max-w-[720px] mx-auto">
+                        <BentoBox color="#ff4d5a" rgb="255,77,90">
+                            <div className="flex items-center gap-3 mb-5 relative z-10">
+                                <div className="p-2.5 rounded-xl bg-[rgba(255,77,90,0.12)] border border-[rgba(255,77,90,0.25)] group-hover:bg-[rgba(255,77,90,0.2)] transition-colors duration-300">
+                                    <Brain className="w-5 h-5 text-[#ff4d5a]" />
+                                </div>
+                                <h3 className="text-[18px] font-bold text-white group-hover:text-[#ff4d5a] transition-colors">AI & Machine Learning</h3>
                             </div>
-                        );
-                    })}
-                </motion.div>
+                            <div className="flex flex-wrap gap-2 relative z-10">
+                                {[
+                                    'Supervised Learning', 'Unsupervised Learning', 'Feature Engineering',
+                                    'Ensemble Methods', 'XGBoost', 'LightGBM', 'CatBoost',
+                                    'Random Forest', 'Predictive Analytics', 'Data Preprocessing',
+                                    'CRISP-DM', 'Model Evaluation',
+                                ].map((name, i) => (
+                                    <SkillPill key={i} name={name} categoryRGB="255,77,90" />
+                                ))}
+                            </div>
+                        </BentoBox>
+                    </div>
+                ) : (
+                    <>
+                        {/* Stats Row — 4 cards: 2x2 tablet/mobile, single row desktop */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7"
+                        >
+                            {stats.map((stat, i) => {
+                                const Icon = stat.icon;
+                                return (
+                                    <div
+                                        key={i}
+                                        className="stat-card p-5 flex flex-col items-center justify-center text-center group cursor-default"
+                                        style={{ '--cat-color': stat.color, '--cat-rgb': stat.rgb }}
+                                    >
+                                        <Icon className="stat-icon w-6 h-6 mb-3 transition-all duration-300" style={{ color: stat.color }} />
+                                        <span className="stat-value font-bold text-[clamp(24px,3vw,32px)] leading-none mb-1.5 transition-all duration-300" style={{ color: stat.color }}>{stat.value}</span>
+                                        <span className="text-[#555] text-[10px] uppercase tracking-[1.5px] font-bold">{stat.label}</span>
+                                    </div>
+                                );
+                            })}
+                        </motion.div>
 
-                {/* BENTO GRID */}
-                <div className="bento-grid">
+                        {/* BENTO GRID */}
+                        <div className="bento-grid">
 
-                    {/* LEFT COLUMN */}
-                    <div className="bento-col">
+                            {/* LEFT COLUMN */}
+                            <div className="bento-col">
                         {/* BOX 1 — CORE EXPERTISE */}
                         <BentoBox
                             color="#ff4d5a"
@@ -516,7 +558,15 @@ const SkillsSection = () => {
                         </BentoBox>
                     </div>
 
-                </div>
+                        </div>
+                    </>
+                )}
+
+                <ShowMoreButton
+                    isExpanded={isExpanded}
+                    onClick={() => setIsExpanded((v) => !v)}
+                    color="#ff4d5a"
+                />
             </div>
 
         </section>

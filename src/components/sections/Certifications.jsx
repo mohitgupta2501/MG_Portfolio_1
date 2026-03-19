@@ -2,6 +2,7 @@ import { useState, memo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Award, Building2, Star, Calendar, ArrowRight, ExternalLink } from 'lucide-react';
 import { createPortal } from 'react-dom';
+import ShowMoreButton from '@/components/ui/ShowMoreButton';
 
 const INJECTED_STYLES = `
 /* STAT CARDS */
@@ -443,6 +444,7 @@ const CertCardCompact = memo(({ data, issuerLabel, color, rgb, onViewDetails }) 
         if (!containerRef.current) return;
 
         const calculateVisible = () => {
+            if (!containerRef.current) return;
             const containerWidth = containerRef.current.offsetWidth;
             const gap = 6;
             const moreButtonWidth = 70;
@@ -743,10 +745,27 @@ const CertificationModal = ({ cert, onClose }) => {
 const Certifications = memo(() => {
     const [activeFilter, setActiveFilter] = useState('All');
     const [selectedCert, setSelectedCert] = useState(null);
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mql = window.matchMedia('(max-width: 768px)');
+        const sync = () => {
+            const mobile = mql.matches;
+            setIsMobile(mobile);
+            setIsExpanded(!mobile);
+        };
+        sync();
+        const onChange = () => sync();
+        mql.addEventListener?.('change', onChange);
+        return () => mql.removeEventListener?.('change', onChange);
+    }, []);
 
     const visibleGroups = activeFilter === 'All'
         ? ISSUER_GROUPS
         : ISSUER_GROUPS.filter((g) => g.filterName === activeFilter);
+
+    const displayGroups = (isMobile && !isExpanded) ? visibleGroups.slice(0, 1) : visibleGroups;
 
     return (
         <section id="certifications" className="relative pt-[80px] pb-[80px] bg-[#080808] overflow-hidden">
@@ -793,45 +812,47 @@ const Certifications = memo(() => {
                 </div>
 
                 {/* Stats Row — 4 cards: 2x2 tablet/mobile, single row desktop */}
-                <div className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch">
-                    {stats.map((stat, i) => (
-                        <div key={i} className="h-full">
-                            <StatCard icon={stat.icon} value={stat.value} label={stat.label} color={stat.color} />
-                        </div>
-                    ))}
+                <div className={`${isMobile && !isExpanded ? 'hidden' : 'block'}`}>
+                    <div className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch">
+                        {stats.map((stat, i) => (
+                            <div key={i} className="h-full">
+                                <StatCard icon={stat.icon} value={stat.value} label={stat.label} color={stat.color} />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Filter Tabs */}
+                    <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 max-[480px]:px-2">
+                        {FILTERS.map((filter) => {
+                            const { name, count } = filter;
+                            const isActive = activeFilter === name;
+
+                            return (
+                                <button
+                                    key={name}
+                                    onClick={() => setActiveFilter(name)}
+                                    className={`group relative flex items-center px-[18px] py-[8px] rounded-[50px] text-[13px] transition-all ease-in-out duration-300 ${isActive
+                                        ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] border border-transparent'
+                                        : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
+                                        }`}
+                                >
+                                    {name}
+                                    <span className={`inline-flex items-center justify-center rounded-[50px] px-[7px] py-[1px] ml-[6px] text-[10px] transition-colors duration-300 ${isActive ? 'bg-[rgba(255,255,255,0.25)] text-white font-[700]' : 'bg-[rgba(255,255,255,0.07)] text-[#555] group-hover:bg-[rgba(255,77,90,0.15)] group-hover:text-[#ff9090]'
+                                        }`}>
+                                        {count}
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-7" />
                 </div>
-
-                {/* Filter Tabs */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 max-[480px]:px-2">
-                    {FILTERS.map((filter) => {
-                        const { name, count } = filter;
-                        const isActive = activeFilter === name;
-
-                        return (
-                            <button
-                                key={name}
-                                onClick={() => setActiveFilter(name)}
-                                className={`group relative flex items-center px-[18px] py-[8px] rounded-[50px] text-[13px] transition-all ease-in-out duration-300 ${isActive
-                                    ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] border border-transparent'
-                                    : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
-                                    }`}
-                            >
-                                {name}
-                                <span className={`inline-flex items-center justify-center rounded-[50px] px-[7px] py-[1px] ml-[6px] text-[10px] transition-colors duration-300 ${isActive ? 'bg-[rgba(255,255,255,0.25)] text-white font-[700]' : 'bg-[rgba(255,255,255,0.07)] text-[#555] group-hover:bg-[rgba(255,77,90,0.15)] group-hover:text-[#ff9090]'
-                                    }`}>
-                                    {count}
-                                </span>
-                            </button>
-                        );
-                    })}
-                </div>
-
-                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-7" />
 
                 {/* Certifications Grid */}
                 <div className="w-full flex flex-col gap-6 sm:gap-8">
                     <AnimatePresence mode="popLayout">
-                        {visibleGroups.map((group) => (
+                        {displayGroups.map((group) => (
                             <motion.div
                                 key={group.filterName}
                                 initial={{ opacity: 0, y: 20 }}
@@ -885,7 +906,7 @@ const Certifications = memo(() => {
                                 </div>
 
                                 <div className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 min-[1280px]:grid-cols-4 gap-4 sm:gap-6 items-stretch w-full">
-                                    {group.cards.map((card) => (
+                                    {(isMobile && !isExpanded ? group.cards.slice(0, 1) : group.cards).map((card) => (
                                         <motion.div
                                             key={card.num}
                                             initial={{ opacity: 0, y: 30 }}
@@ -908,6 +929,14 @@ const Certifications = memo(() => {
                         ))}
                     </AnimatePresence>
                 </div>
+
+                {(visibleGroups[0]?.cards?.length || 0) > 1 && (
+                    <ShowMoreButton
+                        isExpanded={isExpanded}
+                        onClick={() => setIsExpanded((v) => !v)}
+                        color="#ff4d5a"
+                    />
+                )}
             </div>
 
             <CertificationModal

@@ -4,6 +4,7 @@ import { FolderGit2, Factory, FlaskConical, AppWindow } from 'lucide-react';
 import { projects } from '@/data/projects';
 import ProjectCard from '@/components/ui/ProjectCard';
 import ProjectModal from '@/components/ui/ProjectModal';
+import ShowMoreButton from '@/components/ui/ShowMoreButton';
 
 // Filter Categories
 const FILTERS = [
@@ -123,12 +124,30 @@ StatCard.displayName = 'StatCard';
 const Projects = memo(() => {
     const [activeFilter, setActiveFilter] = useState('All');
     const [selectedProject, setSelectedProject] = useState(null);
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     // Filter projects
     const filteredProjects = useMemo(() => {
         if (activeFilter === 'All') return projects;
         return projects.filter(p => p.category === activeFilter);
     }, [activeFilter]);
+
+    const displayProjects = useMemo(() => {
+        if (isMobile && !isExpanded) {
+            return filteredProjects.slice(0, 1);
+        }
+        return filteredProjects;
+    }, [filteredProjects, isMobile, isExpanded]);
 
     // No distinction between Hero and Standard required; all cards same size and layout
     const isAllView = activeFilter === 'All';
@@ -201,61 +220,63 @@ const Projects = memo(() => {
                 </div>
 
                 {/* Stats Row — 4 cards: 2x2 tablet/mobile, single row desktop */}
-                <div className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch">
-                    {stats.map((stat, i) => (
-                        <div key={i} className="h-full">
-                            <StatCard icon={stat.icon} num={stat.value.toString() + (stat.suffix || '')} label={stat.label} color={stat.color} />
-                        </div>
-                    ))}
+                <div className={`${isMobile && !isExpanded ? 'hidden' : 'block'}`}>
+                    <div className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch">
+                        {stats.map((stat, i) => (
+                            <div key={i} className="h-full">
+                                <StatCard icon={stat.icon} num={stat.value.toString() + (stat.suffix || '')} label={stat.label} color={stat.color} />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Filter Tabs */}
+                    <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 max-[480px]:px-2">
+                        {FILTERS.map(filter => {
+                            const isActive = activeFilter === filter;
+                            const count = filter === 'All' ? projects.length : projects.filter(p => p.category === filter).length;
+
+                            return (
+                                <button
+                                    key={filter}
+                                    onClick={() => setActiveFilter(filter)}
+                                    className={`group relative flex items-center px-[18px] py-[8px] rounded-[50px] text-[13px] transition-all ease-in-out duration-300 ${isActive
+                                        ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] border border-transparent'
+                                        : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
+                                        }`}
+                                >
+                                    {filter}
+                                    <span className={`inline-flex items-center justify-center rounded-[50px] px-[7px] py-[1px] ml-[6px] text-[10px] transition-colors duration-300 ${isActive ? 'bg-[rgba(255,255,255,0.25)] text-white font-[700]' : 'bg-[rgba(255,255,255,0.07)] text-[#555] group-hover:bg-[rgba(255,77,90,0.15)] group-hover:text-[#ff9090]'
+                                        }`}>
+                                        {count}
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* HORIZONTAL DIVIDER - NEW */}
+                    <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-7" />
                 </div>
-
-                {/* Filter Tabs */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 max-[480px]:px-2">
-                    {FILTERS.map(filter => {
-                        const isActive = activeFilter === filter;
-                        const count = filter === 'All' ? projects.length : projects.filter(p => p.category === filter).length;
-
-                        return (
-                            <button
-                                key={filter}
-                                onClick={() => setActiveFilter(filter)}
-                                className={`group relative flex items-center px-[18px] py-[8px] rounded-[50px] text-[13px] transition-all ease-in-out duration-300 ${isActive
-                                    ? 'bg-[#ff4d5a] text-white font-[700] shadow-[0_8px_24px_rgba(255,77,90,0.45),0_4px_12px_rgba(255,77,90,0.3)] border border-transparent'
-                                    : 'bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] text-[#666] font-[500] hover:bg-[rgba(255,77,90,0.07)] hover:border-[rgba(255,77,90,0.3)] hover:text-[#ff4d5a] hover:shadow-[0_4px_16px_rgba(255,77,90,0.1)]'
-                                    }`}
-                            >
-                                {filter}
-                                <span className={`inline-flex items-center justify-center rounded-[50px] px-[7px] py-[1px] ml-[6px] text-[10px] transition-colors duration-300 ${isActive ? 'bg-[rgba(255,255,255,0.25)] text-white font-[700]' : 'bg-[rgba(255,255,255,0.07)] text-[#555] group-hover:bg-[rgba(255,77,90,0.15)] group-hover:text-[#ff9090]'
-                                    }`}>
-                                    {count}
-                                </span>
-                            </button>
-                        );
-                    })}
-                </div>
-
-                {/* HORIZONTAL DIVIDER - NEW */}
-                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-7" />
 
                 {/* Projects Grid Container */}
                 <div className="w-full flex flex-col gap-6 sm:gap-8">
                     <AnimatePresence mode="popLayout">
                         {filteredProjects.length > 0 && (
                             <motion.div
-                                key={`grid-${activeFilter}`}
-                                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                                layout
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
                                 transition={{ duration: 0.4 }}
                                 className={`grid gap-6 sm:gap-8 items-stretch w-full ${
-                                    filteredProjects.length === 1
+                                    displayProjects.length === 1
                                         ? 'grid-cols-1 max-w-[400px] mx-auto'
-                                        : filteredProjects.length === 2
+                                        : displayProjects.length === 2
                                             ? 'grid-cols-1 min-[481px]:grid-cols-2 max-w-[860px] mx-auto'
                                             : 'grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3'
                                     }`}
                             >
-                                {filteredProjects.map((project, idx) => (
+                                {displayProjects.map((project, idx) => (
                                     <ProjectCard
                                         key={project.title}
                                         project={project}
@@ -266,6 +287,14 @@ const Projects = memo(() => {
                             </motion.div>
                         )}
                     </AnimatePresence>
+
+                    {filteredProjects.length > 1 && (
+                        <ShowMoreButton
+                            isExpanded={isExpanded}
+                            onClick={() => setIsExpanded(!isExpanded)}
+                            color="#ff4d5a"
+                        />
+                    )}
 
                     {filteredProjects.length === 0 && (
                         <motion.div

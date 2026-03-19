@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Calendar, MapPin, Building2, Briefcase, Rocket, ArrowRight, Heart, GraduationCap } from 'lucide-react';
 import { experienceData } from '@/data/experience';
 import ExperienceModal from '@/components/ui/ExperienceModal';
+import ShowMoreButton from '@/components/ui/ShowMoreButton';
 
 // Helper to get RGB from Hex for CSS custom properties
 const hexToRgb = (hex) => {
@@ -141,6 +142,7 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
         if (!containerRef.current) return;
 
         const calculateVisible = () => {
+            if (!containerRef.current) return;
             const containerWidth = containerRef.current.offsetWidth;
             const gap = 6;
             const moreButtonWidth = 70;
@@ -539,6 +541,17 @@ const Experience = React.memo(function Experience() {
     const sectionRef = useRef(null);
     const [activeCategory, setActiveCategory] = useState("All");
     const [selectedExperience, setSelectedExperience] = useState(null);
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const categories = useMemo(() => {
         const cats = new Set(experienceData.map(item => item.category));
@@ -557,6 +570,13 @@ const Experience = React.memo(function Experience() {
         if (activeCategory === "All") return experienceData;
         return experienceData.filter(item => item.category === activeCategory);
     }, [activeCategory]);
+
+    const displayData = useMemo(() => {
+        if (isMobile && !isExpanded) {
+            return filteredData.slice(0, 1);
+        }
+        return filteredData;
+    }, [filteredData, isMobile, isExpanded]);
 
     // Scroll Progress logic for indicator
     const { scrollYProgress } = useScroll({
@@ -659,41 +679,43 @@ const Experience = React.memo(function Experience() {
                 </motion.div>
 
                 {/* STATS ROW — 4 cards: 2x2 tablet/mobile, single row desktop */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={{
-                        visible: { transition: { staggerChildren: 0.1 } }
-                    }}
-                    className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch"
-                >
-                    <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
-                        <StatCard icon={Briefcase} num="2" label="INDUSTRY INTERNSHIPS" color="#ff4d5a" />
+                <div className={`${isMobile && !isExpanded ? 'hidden' : 'block'}`}>
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={{
+                            visible: { transition: { staggerChildren: 0.1 } }
+                        }}
+                        className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch"
+                    >
+                        <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                            <StatCard icon={Briefcase} num="2" label="INDUSTRY INTERNSHIPS" color="#ff4d5a" />
+                        </motion.div>
+                        <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                            <StatCard icon={Rocket} num="1" label="STARTUP FOUNDED" color="#3b82f6" />
+                        </motion.div>
+                        <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                            <StatCard icon={Building2} num="5" label="ORGANIZATIONS" color="#f59e0b" />
+                        </motion.div>
+                        <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
+                            <StatCard icon={Heart} num="2" label="SOCIAL IMPACT" color="#22c55e" />
+                        </motion.div>
                     </motion.div>
-                    <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
-                        <StatCard icon={Rocket} num="1" label="STARTUP FOUNDED" color="#3b82f6" />
-                    </motion.div>
-                    <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
-                        <StatCard icon={Building2} num="5" label="ORGANIZATIONS" color="#f59e0b" />
-                    </motion.div>
-                    <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
-                        <StatCard icon={Heart} num="2" label="SOCIAL IMPACT" color="#22c55e" />
-                    </motion.div>
-                </motion.div>
 
-                {/* FILTER TABS */}
-                <div className="mb-5">
-                    <FilterTabs
-                        categories={categories}
-                        activeCategory={activeCategory}
-                        setActiveCategory={setActiveCategory}
-                        categoryCounts={categoryCounts}
-                    />
+                    {/* FILTER TABS */}
+                    <div className="mb-5">
+                        <FilterTabs
+                            categories={categories}
+                            activeCategory={activeCategory}
+                            setActiveCategory={setActiveCategory}
+                            categoryCounts={categoryCounts}
+                        />
+                    </div>
+
+                    {/* HORIZONTAL DIVIDER - NEW */}
+                    <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-7" />
                 </div>
-
-                {/* HORIZONTAL DIVIDER - NEW */}
-                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-7" />
 
                 {/* VERTICAL TIMELINE AND CARDS ROW */}
                 <div className="relative w-full">
@@ -708,23 +730,31 @@ const Experience = React.memo(function Experience() {
 
                     {/* EXPERIENCE CARDS GRID — 1 col mobile, 2 cols tablet+ */}
                     <div className={`relative z-10 w-full grid gap-[20px] items-stretch min-[1025px]:px-6 ${
-                        filteredData.length === 1
+                        displayData.length === 1
                             ? 'grid-cols-1 max-w-[560px] mx-auto'
                             : 'grid-cols-1 min-[481px]:grid-cols-2'
                         }`}>
                         <AnimatePresence mode="popLayout">
-                            {filteredData.map((exp, idx) => (
+                            {displayData.map((exp, idx) => (
                                 <ExperienceCard
                                     key={exp.role + exp.company}
                                     item={exp}
                                     index={idx}
                                     layoutIndex={idx}
                                     onClick={setSelectedExperience}
-                                    totalCards={filteredData.length}
+                                    totalCards={displayData.length}
                                 />
                             ))}
                         </AnimatePresence>
                     </div>
+
+                    {filteredData.length > 1 && (
+                        <ShowMoreButton
+                            isExpanded={isExpanded}
+                            onClick={() => setIsExpanded(!isExpanded)}
+                            color="#ff4d5a"
+                        />
+                    )}
 
                 </div>
             </div>

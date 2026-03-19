@@ -359,14 +359,34 @@ const Carousel = ({
     const [paused, setPaused] = useState(false);
     const timerRef = useRef(null);
     const trackRef = useRef(null);
+    const [containerWidth, setContainerWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
 
-    const CARD_WIDTH = typeof window !== 'undefined' && window.innerWidth < 640
-        ? Math.floor(window.innerWidth * 0.82)
-        : typeof window !== 'undefined' && window.innerWidth < 1024
-            ? 280
-            : 320;
-    const CARD_GAP = 16;
+    useEffect(() => {
+        const mql = window.matchMedia('(max-width: 768px)');
+        const sync = () => setIsMobile(mql.matches);
+        sync();
+        mql.addEventListener?.('change', sync);
+        return () => mql.removeEventListener?.('change', sync);
+    }, []);
+
+    useEffect(() => {
+        if (!trackRef.current) return;
+        const el = trackRef.current;
+        const ro = new ResizeObserver(() => {
+            setContainerWidth(el.offsetWidth || 0);
+        });
+        ro.observe(el);
+        setContainerWidth(el.offsetWidth || 0);
+        return () => ro.disconnect();
+    }, []);
+
+    const CARD_WIDTH = isMobile ? containerWidth : (
+        typeof window !== 'undefined' && window.innerWidth < 1024 ? 280 : 320
+    );
+    const CARD_GAP = isMobile ? 0 : 16;
     const CARD_STRIDE = CARD_WIDTH + CARD_GAP;
+    const effectiveCardHeight = isMobile ? 280 : cardHeight;
 
     // auto-scroll 
     useEffect(() => {
@@ -387,7 +407,7 @@ const Carousel = ({
     const offsetX = index * CARD_STRIDE;
 
     return (
-        <div className="mb-20">
+        <div className="mb-20 w-full max-w-full overflow-hidden px-0">
             {/* heading */}
             <div className="flex flex-col items-center mb-8">
                 <span
@@ -406,63 +426,65 @@ const Carousel = ({
 
             {/* track wrapper */}
             <div
-                className="relative"
+                className="relative w-full max-w-full overflow-hidden px-0"
                 onMouseEnter={() => setPaused(true)}
                 onMouseLeave={() => setPaused(false)}
             >
-                {/* prev arrow */}
-                <button
-                    onClick={() => go(index - 1)}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center rounded-full transition-all duration-200"
-                    style={{
-                        width: 40, height: 40,
-                        background: 'rgba(255,255,255,0.08)',
-                        border: '1px solid rgba(255,255,255,0.15)',
-                        backdropFilter: 'blur(8px)',
-                    }}
-                    onMouseEnter={e => {
-                        e.currentTarget.style.background = accentColor;
-                        e.currentTarget.style.borderColor = accentColor;
-                        e.currentTarget.style.boxShadow = `0 0 16px rgba(${accentRgb},0.5)`;
-                    }}
-                    onMouseLeave={e => {
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-                        e.currentTarget.style.boxShadow = 'none';
-                    }}
-                >
-                    <ChevronLeft className="w-5 h-5 text-white" />
-                </button>
-
-                {/* next arrow */}
-                <button
-                    onClick={() => go(index + 1)}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center rounded-full transition-all duration-200"
-                    style={{
-                        width: 40, height: 40,
-                        background: 'rgba(255,255,255,0.08)',
-                        border: '1px solid rgba(255,255,255,0.15)',
-                        backdropFilter: 'blur(8px)',
-                    }}
-                    onMouseEnter={e => {
-                        e.currentTarget.style.background = accentColor;
-                        e.currentTarget.style.borderColor = accentColor;
-                        e.currentTarget.style.boxShadow = `0 0 16px rgba(${accentRgb},0.5)`;
-                    }}
-                    onMouseLeave={e => {
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-                        e.currentTarget.style.boxShadow = 'none';
-                    }}
-                >
-                    <ChevronRight className="w-5 h-5 text-white" />
-                </button>
-
                 {/* scrollable track */}
                 <div
-                    className="overflow-hidden mx-[52px]"
+                    className="relative overflow-hidden w-full max-w-full px-0"
                     ref={trackRef}
                 >
+                    {/* prev arrow (inside bounds) */}
+                    <button
+                        onClick={() => go(index - 1)}
+                        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center rounded-full transition-all duration-200"
+                        style={{
+                            width: 40, height: 40,
+                            background: 'rgba(255,255,255,0.08)',
+                            border: '1px solid rgba(255,255,255,0.15)',
+                            backdropFilter: 'blur(8px)',
+                        }}
+                        onMouseEnter={e => {
+                            e.currentTarget.style.background = accentColor;
+                            e.currentTarget.style.borderColor = accentColor;
+                            e.currentTarget.style.boxShadow = `0 0 16px rgba(${accentRgb},0.5)`;
+                        }}
+                        onMouseLeave={e => {
+                            e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+                            e.currentTarget.style.boxShadow = 'none';
+                        }}
+                        aria-label="Previous"
+                    >
+                        <ChevronLeft className="w-5 h-5 text-white" />
+                    </button>
+
+                    {/* next arrow (inside bounds) */}
+                    <button
+                        onClick={() => go(index + 1)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center rounded-full transition-all duration-200"
+                        style={{
+                            width: 40, height: 40,
+                            background: 'rgba(255,255,255,0.08)',
+                            border: '1px solid rgba(255,255,255,0.15)',
+                            backdropFilter: 'blur(8px)',
+                        }}
+                        onMouseEnter={e => {
+                            e.currentTarget.style.background = accentColor;
+                            e.currentTarget.style.borderColor = accentColor;
+                            e.currentTarget.style.boxShadow = `0 0 16px rgba(${accentRgb},0.5)`;
+                        }}
+                        onMouseLeave={e => {
+                            e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
+                            e.currentTarget.style.boxShadow = 'none';
+                        }}
+                        aria-label="Next"
+                    >
+                        <ChevronRight className="w-5 h-5 text-white" />
+                    </button>
+
                     <motion.div
                         className="flex"
                         style={{ gap: CARD_GAP }}
@@ -480,7 +502,7 @@ const Carousel = ({
                                     className="gallery-card-item flex-shrink-0 rounded-2xl overflow-hidden relative cursor-pointer"
                                     style={{
                                         width: CARD_WIDTH,
-                                        height: cardHeight,
+                                        height: effectiveCardHeight,
                                         border: isActive
                                             ? `1.5px solid ${accentColor}`
                                             : '1px solid rgba(255,255,255,0.08)',
@@ -490,6 +512,7 @@ const Carousel = ({
                                         opacity: isActive ? 1 : 0.6,
                                         transition: 'all 0.35s ease',
                                         background: img.type === 'document' ? '#0d0d0d' : '#111',
+                                        maxWidth: '100%',
                                     }}
                                     onMouseEnter={e => {
                                         if (!isActive) {
@@ -516,8 +539,11 @@ const Carousel = ({
                                     <img
                                         src={img.src}
                                         alt={img.title}
-                                        className={`gallery-zoom-img w-full h-full ${img.type === 'document' ? 'gallery-doc-img' : ''}`}
+                                        className={`gallery-zoom-img ${img.type === 'document' ? 'gallery-doc-img' : ''}`}
                                         style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            display: 'block',
                                             objectFit: img.type === 'document' ? 'contain' : 'cover',
                                             objectPosition: 'center',
                                             transition: 'transform 0.4s ease',
@@ -610,6 +636,27 @@ const Gallery = () => {
                  .gallery-card-item:hover .gallery-doc-img { 
                      transform: scale(1) !important; 
                  } 
+
+                 .gallery-card-item { overflow: hidden; width: 100%; max-width: 100%; }
+                 .gallery-zoom-img { max-width: 100%; }
+                 .gallery-track-wrap { overflow: hidden; width: 100%; max-width: 100%; padding: 0; }
+
+                 @media (max-width: 768px) {
+                    /* Keep image strictly inside card bounds on mobile */
+                    .gallery-card-item {
+                        aspect-ratio: 4 / 3;
+                        height: auto !important;
+                    }
+                    .gallery-zoom-img {
+                        width: 100% !important;
+                        height: 100% !important;
+                        object-fit: cover !important;
+                        display: block !important;
+                    }
+                    .gallery-doc-img {
+                        object-fit: contain !important;
+                    }
+                 }
              `}</style>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

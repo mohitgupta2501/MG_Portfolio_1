@@ -1,6 +1,7 @@
-import { useState, memo, useEffect, useRef } from 'react';
+import { useState, memo, useEffect, useRef, useMemo } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Calendar, Briefcase, Trophy, Users, ClipboardCheck, Building2, GraduationCap, Crown, Dumbbell, Presentation, Code2, Zap, CalendarDays, Star, Rocket } from 'lucide-react';
+import ShowMoreButton from '@/components/ui/ShowMoreButton';
 
 function useCountUp(end, duration = 2000, inView) {
     const [count, setCount] = useState(0);
@@ -244,6 +245,27 @@ const Leadership = memo(() => {
     const currentTab = tabData[activeYear];
     const themeColor = '#ff4d5a';
     const themeRgb = '255, 77, 90';
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mql = window.matchMedia('(max-width: 768px)');
+        const sync = () => {
+            const mobile = mql.matches;
+            setIsMobile(mobile);
+            setIsExpanded(!mobile);
+        };
+        sync();
+        const onChange = () => sync();
+        mql.addEventListener?.('change', onChange);
+        return () => mql.removeEventListener?.('change', onChange);
+    }, []);
+
+    const displayItems = useMemo(() => {
+        const list = currentTab.items.filter((x) => x.type !== 'header');
+        if (isMobile && !isExpanded) return list.slice(0, 1);
+        return list;
+    }, [currentTab.items, isMobile, isExpanded]);
 
     return (
         <section
@@ -275,41 +297,43 @@ const Leadership = memo(() => {
                 </div>
 
                 {/* STATS ROW — 4 cards: 2x2 tablet/mobile, single row desktop */}
-                <div className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7">
-                    {statsData.map((stat, i) => (
-                        <StatCard key={i} stat={stat} i={i} />
-                    ))}
-                </div>
+                <div className={`${isMobile && !isExpanded ? 'hidden' : 'block'}`}>
+                    <div className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7">
+                        {statsData.map((stat, i) => (
+                            <StatCard key={i} stat={stat} i={i} />
+                        ))}
+                    </div>
 
-                {/* TAB SWITCHER */}
-                <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 max-[480px]:px-2">
-                    {tabKeys.map((key) => {
-                        const tab = tabData[key];
-                        const isActive = activeYear === key;
-                        const Icon = tab.icon;
-                        return (
-                            <button
-                                key={key}
-                                onClick={() => setActiveYear(key)}
-                                className={`group relative flex items-center px-[18px] py-[8px] rounded-[9999px] text-[13px] transition-all ease-in-out duration-300 ${isActive
-                                    ? 'text-white font-[700] shadow-[0_8px_24px_rgba(var(--tab-rgb),0.45),0_4px_12px_rgba(var(--tab-rgb),0.3)] border border-transparent'
-                                    : 'bg-[rgba(255,255,255,0.04)] border transition-all duration-300 text-[#666] font-[500] hover:shadow-[0_4px_16px_rgba(var(--tab-rgb),0.1)]'
-                                    }`}
-                                style={isActive ? {
-                                    backgroundColor: 'var(--tab-color)'
-                                } : {
-                                    borderColor: `rgba(var(--tab-rgb), 0.3)`,
-                                }}
-                            >
-                                <Icon className={`w-4 h-4 mr-2 transition-colors ${isActive ? 'text-white' : 'text-[#555] group-hover:text-[var(--tab-color)]'}`} />
-                                {tab.title}
-                            </button>
-                        );
-                    })}
-                </div>
+                    {/* TAB SWITCHER */}
+                    <div className="w-full flex flex-wrap justify-center gap-[10px] mb-5 px-4 min-w-0 max-[480px]:px-2">
+                        {tabKeys.map((key) => {
+                            const tab = tabData[key];
+                            const isActive = activeYear === key;
+                            const Icon = tab.icon;
+                            return (
+                                <button
+                                    key={key}
+                                    onClick={() => setActiveYear(key)}
+                                    className={`group relative flex items-center px-[18px] py-[8px] rounded-[9999px] text-[13px] transition-all ease-in-out duration-300 ${isActive
+                                        ? 'text-white font-[700] shadow-[0_8px_24px_rgba(var(--tab-rgb),0.45),0_4px_12px_rgba(var(--tab-rgb),0.3)] border border-transparent'
+                                        : 'bg-[rgba(255,255,255,0.04)] border transition-all duration-300 text-[#666] font-[500] hover:shadow-[0_4px_16px_rgba(var(--tab-rgb),0.1)]'
+                                        }`}
+                                    style={isActive ? {
+                                        backgroundColor: 'var(--tab-color)'
+                                    } : {
+                                        borderColor: `rgba(var(--tab-rgb), 0.3)`,
+                                    }}
+                                >
+                                    <Icon className={`w-4 h-4 mr-2 transition-colors ${isActive ? 'text-white' : 'text-[#555] group-hover:text-[var(--tab-color)]'}`} />
+                                    {tab.title}
+                                </button>
+                            );
+                        })}
+                    </div>
 
-                {/* HORIZONTAL DIVIDER */}
-                <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(var(--tab-rgb),0.4),transparent)] mb-7" />
+                    {/* HORIZONTAL DIVIDER */}
+                    <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(var(--tab-rgb),0.4),transparent)] mb-7" />
+                </div>
 
                 {/* ROLE GRID */}
                 <div className="w-full">
@@ -322,7 +346,7 @@ const Leadership = memo(() => {
                             transition={{ duration: 0.4 }}
                             className="grid grid-cols-1 min-[481px]:grid-cols-2 gap-6"
                         >
-                            {currentTab.items.filter((x) => x.type !== 'header').map((item, i) => (
+                            {displayItems.map((item, i) => (
                                 <motion.div
                                     key={`${activeYear}-${i}`}
                                     initial={{ opacity: 0, y: 10 }}
@@ -345,6 +369,14 @@ const Leadership = memo(() => {
                         </motion.div>
                     </AnimatePresence>
                 </div>
+
+                {currentTab.items.filter((x) => x.type !== 'header').length > 1 && (
+                    <ShowMoreButton
+                        isExpanded={isExpanded}
+                        onClick={() => setIsExpanded((v) => !v)}
+                        color="#ff4d5a"
+                    />
+                )}
 
                 {/* BOTTOM STRIP */}
                 {/* <div className="lead-bottom-strip">
