@@ -873,7 +873,7 @@ const Certifications = memo(() => {
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 min-[1280px]:grid-cols-4 gap-4 sm:gap-6 items-stretch w-full">
                                         {group.cards.length > 0 && (
                                             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.5 }} className="h-full">

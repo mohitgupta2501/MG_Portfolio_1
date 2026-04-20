@@ -202,12 +202,12 @@ const Research = () => {
                     <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight mb-2 font-display break-words">
                         Research & Publications
                     </h2>
-                    <div style={{ 
-                        width: '60px', 
-                        height: '3px', 
-                        background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
-                        borderRadius: '999px', 
-                        margin: '8px auto 24px auto' 
+                    <div style={{
+                        width: '60px',
+                        height: '3px',
+                        background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)',
+                        borderRadius: '999px',
+                        margin: '8px auto 24px auto'
                     }} />
 
                     <p className="text-[#888] text-[16px] max-[480px]:text-[14px] italic max-w-[600px] w-full mx-auto leading-[1.6] min-w-0 break-words px-2">
@@ -249,60 +249,28 @@ const Research = () => {
 
                 <div className="w-full">
                     {/* Filter Tabs */}
-                    <FilterTabs 
-                        categories={categories} 
-                        activeCategory={activeFilter} 
-                        setActiveCategory={setActiveFilter} 
-                        categoryCounts={categoryCounts} 
+                    <FilterTabs
+                        categories={categories}
+                        activeCategory={activeFilter}
+                        setActiveCategory={setActiveFilter}
+                        categoryCounts={categoryCounts}
                     />
 
                     {/* HORIZONTAL DIVIDER */}
                     <div className="w-full h-[1px] bg-[linear-gradient(90deg,transparent,rgba(255,77,90,0.4),transparent)] mb-7" />
                 </div>
 
-            {/* Research Cards — 1 col mobile, 2 tablet, 3 desktop */}
-            <div className="grid grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3 gap-[20px] mb-8">
-                <AnimatePresence mode="popLayout">
-                    {filteredResearch.length > 0 && (
-                        <motion.div
-                            key={filteredResearch[0].id}
-                            layout
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            transition={{ duration: 0.4 }}
-                        >
-                            <ResearchCard
-                                research={filteredResearch[0]}
-                                index={0}
-                                onClick={setSelectedResearch}
-                            />
-                        </motion.div>
-                    )}
-                    {isMobile ? (
-                        isExpanded && (
+                {/* Research Cards */}
+                <div className={`grid gap-[20px] mb-8 w-full ${filteredResearch.length === 1
+                        ? 'grid-cols-1 max-w-[400px] mx-auto'
+                        : filteredResearch.length === 2
+                            ? 'grid-cols-1 min-[481px]:grid-cols-2 max-w-[860px] mx-auto'
+                            : 'grid-cols-1 min-[481px]:grid-cols-2 min-[1025px]:grid-cols-3'
+                    }`}>
+                    <AnimatePresence mode="popLayout">
+                        {filteredResearch.length > 0 && (
                             <motion.div
-                                key="mobile-wrapper"
-                                layout
-                                initial={{ opacity: 0, y: 16 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 16 }}
-                                className="flex flex-col gap-[20px]"
-                            >
-                                {filteredResearch.slice(1).map((research, index) => (
-                                    <ResearchCard
-                                        key={research.id}
-                                        research={research}
-                                        index={index + 1}
-                                        onClick={setSelectedResearch}
-                                    />
-                                ))}
-                            </motion.div>
-                        )
-                    ) : (
-                        filteredResearch.slice(1).map((research, index) => (
-                            <motion.div
-                                key={research.id}
+                                key={filteredResearch[0].id}
                                 layout
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -310,15 +278,52 @@ const Research = () => {
                                 transition={{ duration: 0.4 }}
                             >
                                 <ResearchCard
-                                    research={research}
-                                    index={index + 1}
+                                    research={filteredResearch[0]}
+                                    index={0}
                                     onClick={setSelectedResearch}
                                 />
                             </motion.div>
-                        ))
-                    )}
-                </AnimatePresence>
-            </div>
+                        )}
+                        {isMobile ? (
+                            isExpanded && (
+                                <motion.div
+                                    key="mobile-wrapper"
+                                    layout
+                                    initial={{ opacity: 0, y: 16 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 16 }}
+                                    className="flex flex-col gap-[20px]"
+                                >
+                                    {filteredResearch.slice(1).map((research, index) => (
+                                        <ResearchCard
+                                            key={research.id}
+                                            research={research}
+                                            index={index + 1}
+                                            onClick={setSelectedResearch}
+                                        />
+                                    ))}
+                                </motion.div>
+                            )
+                        ) : (
+                            filteredResearch.slice(1).map((research, index) => (
+                                <motion.div
+                                    key={research.id}
+                                    layout
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    transition={{ duration: 0.4 }}
+                                >
+                                    <ResearchCard
+                                        research={research}
+                                        index={index + 1}
+                                        onClick={setSelectedResearch}
+                                    />
+                                </motion.div>
+                            ))
+                        )}
+                    </AnimatePresence>
+                </div>
 
                 {isMobile && filteredResearch.length > 1 && (
                     <ShowMoreButton

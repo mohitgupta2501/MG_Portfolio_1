@@ -271,12 +271,12 @@ const Leadership = memo(() => {
                             </span>
                         </div>
                         <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] mb-2 leading-tight break-words">Leadership & Activities</h2>
-                        <div style={{ 
-                            width: '60px', 
-                            height: '3px', 
-                            background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
-                            borderRadius: '999px', 
-                            margin: '8px auto 24px auto' 
+                        <div style={{
+                            width: '60px',
+                            height: '3px',
+                            background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)',
+                            borderRadius: '999px',
+                            margin: '8px auto 24px auto'
                         }} />
                         <p className="lead-subtitle">From organizing events to guiding teams - leadership in action</p>
                     </motion.div>

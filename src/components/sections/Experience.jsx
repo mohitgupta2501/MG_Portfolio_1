@@ -505,18 +505,18 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
                             {skills.length > 0 && (
                                 <div className="flex flex-wrap gap-[6px]">
                                     {skills.slice(0, visibleCount).map((skill, idx) => (
-                                         <span
-                                             key={idx}
-                                             className="skill-pill px-[10px] py-[3px] border rounded-full text-[11px] sm:text-[12px] transition-all duration-300 cursor-default"
-                                         >
-                                             {skill}
-                                         </span>
-                                     ))}
-                                     {skills.length > visibleCount && (
-                                         <span className="skill-pill px-[10px] py-[3px] border rounded-full text-[11px] sm:text-[12px] transition-all duration-300 cursor-default">
-                                             + {skills.length - visibleCount} more
-                                         </span>
-                                     )}
+                                        <span
+                                            key={idx}
+                                            className="skill-pill px-[10px] py-[3px] border rounded-full text-[11px] sm:text-[12px] transition-all duration-300 cursor-default"
+                                        >
+                                            {skill}
+                                        </span>
+                                    ))}
+                                    {skills.length > visibleCount && (
+                                        <span className="skill-pill px-[10px] py-[3px] border rounded-full text-[11px] sm:text-[12px] transition-all duration-300 cursor-default">
+                                            + {skills.length - visibleCount} more
+                                        </span>
+                                    )}
                                 </div>
                             )}
                         </div>
@@ -658,12 +658,12 @@ const Experience = React.memo(function Experience() {
                     <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-tight mb-2 font-display break-words">
                         Work Experience
                     </h2>
-                    <div style={{ 
-                        width: '60px', 
-                        height: '3px', 
-                        background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
-                        borderRadius: '999px', 
-                        margin: '8px auto 24px auto' 
+                    <div style={{
+                        width: '60px',
+                        height: '3px',
+                        background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)',
+                        borderRadius: '999px',
+                        margin: '8px auto 24px auto'
                     }} />
                     <p className="max-w-[580px] w-full text-[#888888] text-[16px] max-[480px]:text-[14px] italic min-w-0 break-words px-2">
                         Where industry experience, entrepreneurship, and social impact come together to build meaningful technology.
@@ -721,12 +721,11 @@ const Experience = React.memo(function Experience() {
                     <div className="absolute left-0 bottom-20 text-[rgba(255,255,255,0.05)] text-[10px] font-bold tracking-widest -rotate-90 origin-left pointer-events-none hidden lg:block">2024</div>
 
                     {/* EXPERIENCE CARDS GRID — 1 col mobile, 2 cols tablet+ */}
-                    <div className={`relative z-10 w-full grid gap-[20px] items-stretch min-[1025px]:px-6 ${
-                        filteredData.length === 1
+                    <div className={`relative z-10 w-full grid gap-[20px] items-stretch min-[1025px]:px-6 ${filteredData.length === 1
                             ? 'grid-cols-1 max-w-[560px] mx-auto'
                             : 'grid-cols-1 min-[481px]:grid-cols-2'
                         }`}>
-                        
+
                         {filteredData.length > 0 && (
                             <ExperienceCard
                                 key={filteredData[0].role + filteredData[0].company}

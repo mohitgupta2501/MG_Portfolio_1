@@ -236,7 +236,7 @@ const Contact = React.memo(function Contact() {
                             </div>
                         </div>
 
-                        <div className="flex flex-col overflow-hidden">
+                        <div className="flex flex-col">
                         {/* Contact Info Cards */}
                         <div className="flex flex-col gap-4 mb-8">
                             {[
@@ -246,7 +246,7 @@ const Contact = React.memo(function Contact() {
                             ].map((info, idx) => (
                                 <div
                                     key={idx}
-                                    className="group bg-[#111] border border-[rgba(255,77,90,0.18)] border-l-[3px] border-l-[#ff4d5a] rounded-xl p-5 flex items-start gap-5 transition-all duration-300 ease-[ease] hover:-translate-y-[2px] hover:bg-[rgba(255,77,90,0.06)] hover:border-[rgba(255,77,90,0.45)] hover:shadow-[0_8px_25px_rgba(255,77,90,0.15),0_4px_12px_rgba(0,0,0,0.4)]"
+                                    className="group bg-[#111] border border-[rgba(255,255,255,0.07)] border-l-[3px] border-l-[#ff4d5a] rounded-xl p-5 flex items-start gap-5 transition-all duration-300 ease-[ease] hover:-translate-y-[2px] hover:bg-[rgba(255,77,90,0.06)] hover:border-[#ef4444] hover:border-l-[#ff4d5a] hover:shadow-[0_8px_25px_rgba(0,0,0,0.3)]"
                                 >
                                     <div className="w-[40px] h-[40px] rounded-[10px] bg-[rgba(255,77,90,0.12)] text-[#ff4d5a] flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[rgba(255,77,90,0.2)] group-hover:shadow-[0_0_12px_rgba(255,77,90,0.5)]">
                                         <info.icon size={18} />

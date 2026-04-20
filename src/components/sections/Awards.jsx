@@ -227,14 +227,14 @@ const Awards = memo(() => {
                 </div>
 
                 <div className="w-full">
-                    {/* Stats Grid — 4→2x2, 3→2+1 centered, 6→3x2 tablet / 2x3 mobile */}
-                    <div className={`grid gap-[16px] max-w-[1100px] mx-auto mb-7 items-stretch
-                        grid-cols-2
-                        ${stats.length === 3 ? 'min-[1025px]:grid-cols-3' : stats.length === 4 ? 'min-[1025px]:grid-cols-4' : 'min-[481px]:grid-cols-3 min-[1025px]:grid-cols-6'}
-                    `}>
+                    {/* Stats Grid */}
+                    <div className="flex flex-wrap justify-center gap-[16px] w-full max-w-[1100px] mx-auto mb-7 items-stretch">
                         {stats.map((stat, i) => (
-                            <div key={`${activeTab}-${i}`} className={`h-full min-w-0 ${stats.length === 3 && i === 2 ? 'col-span-2 min-[1025px]:col-span-1 flex justify-center min-[1025px]:block' : ''}`}>
-                                <div className={stats.length === 3 && i === 2 ? 'w-full max-w-[280px] min-[1025px]:max-w-none min-[1025px]:w-full h-full' : 'h-full w-full'}>
+                            <div 
+                                key={`${activeTab}-${i}`} 
+                                className="w-[calc(50%-8px)] min-[481px]:w-[calc(33.333%-11px)] min-[1025px]:w-[calc(16.6666%-13.333px)] h-full min-w-0"
+                            >
+                                <div className="h-full w-full">
                                     <StatCard
                                         icon={stat.icon}
                                         num={stat.value}

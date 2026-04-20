@@ -213,12 +213,12 @@ export default function Education() {
                         <h2 className="section-heading text-[#ffffff] font-[800] text-[clamp(28px,5.5vw,66px)] max-[480px]:text-[clamp(24px,5vw,32px)] leading-[1.1] tracking-tight break-words mb-2">
                             Academic Journey
                         </h2>
-                        <div style={{ 
-                            width: '60px', 
-                            height: '3px', 
-                            background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)', 
-                            borderRadius: '999px', 
-                            margin: '8px auto 24px auto' 
+                        <div style={{
+                            width: '60px',
+                            height: '3px',
+                            background: 'linear-gradient(90deg, #ff4d5a, #ff6b6b)',
+                            borderRadius: '999px',
+                            margin: '8px auto 24px auto'
                         }} />
 
                         <p className="text-[#888] text-[16px] max-[480px]:text-[14px] italic max-w-[580px] w-full leading-relaxed mx-auto mt-3 min-w-0 break-words px-2">
