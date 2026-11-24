@@ -165,18 +165,20 @@ const About = React.memo(function About() {
                             {/* Paragraph */}
                             <motion.div variants={itemVariants} className="group mb-4 min-w-0 w-full">
                                 <p className="text-[#9ca3af] text-base min-[481px]:text-lg leading-[1.8] max-w-xl group-hover:text-[#e2e8f0] transition-colors duration-300 break-words">
-                                    Data Science & AI Engineering student with a 9.6/10 CGPA, passionate about
-                                    transforming complex problems into intelligent, real-world solutions. From
-                                    AI-driven healthcare research to building an AutoML platform at Hitachi India —
-                                    I build things that matter.
+                                    As a kid, I was a national abacus champion, solving sums faster than most
+                                    people could blink. Today, I teach machines to read brain waves, explain
+                                    their own decisions, and run on factory floors. The speed changed. The
+                                    obsession did not: take something impossibly complex and make it work.
+                                    From detecting seizures to building production systems at Hitachi, I build
+                                    AI that has to work when it matters.
                                 </p>
                                 <p className="text-[#9ca3af] text-base min-[481px]:text-lg leading-[1.8] max-w-xl group-hover:text-[#e2e8f0] transition-colors duration-300 mt-[14px] break-words">
-                                    Founder & CEO of Eagle Wears, four-time Gold Medalist in Shot Put & Discus
-                                    Throw, and Nagpur University state-level representative — I bring the same
-                                    discipline and competitive spirit from athletics into engineering.
+                                    In between, I threw shot put and discus to four straight university golds,
+                                    founded Eagle Wears, and ranked first in all four years of my B.Tech with a
+                                    9.59 CGPA. Athletics taught me that champions are built in repetition. So
+                                    are great models. Same rule everywhere: show up, repeat, win.
                                 </p>
                             </motion.div>
-
                             {/* Animated Quote */}
                             <motion.div
                                 variants={itemVariants}

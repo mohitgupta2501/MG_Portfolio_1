@@ -30,7 +30,7 @@ const EducationCard = memo(({ edu, onViewDetails, index }) => {
     const getHighlights = () => {
         if (isBTech) {
             return [
-    "CGPA 9.60/10 with perfect 10.0 SGPA in 2nd and 4th semesters showing strong academic excellence",
+    "CGPA 9.59/10 with perfect 10.0 SGPA in 2nd and 4th semesters showing strong academic excellence",
     "Rank 1 class topper in all four years with consistent top performance",
     "Won 28 sports medals including 23 gold demonstrating excellence beyond academics"
 ];

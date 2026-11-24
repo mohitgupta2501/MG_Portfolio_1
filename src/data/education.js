@@ -11,7 +11,7 @@ export const educationData = [
         status: "Pursuing",
         badge: "🎓 Currently Pursuing",
         cgpa: {
-            value: "9.60",
+            value: "9.59",
             outOf: "10.00",
             description: "Student of The Year Batch (2022-26)",
             semesters: [

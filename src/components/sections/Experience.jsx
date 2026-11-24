@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { Calendar, MapPin, Building2, Briefcase, Rocket, ArrowRight, Heart, GraduationCap } from 'lucide-react';
-import { experienceData } from '@/data/experience';
+import { Calendar, MapPin, Building2, Briefcase, Rocket, ArrowRight, GraduationCap, FlaskConical } from 'lucide-react';
+import { experienceData, fullTimeAccent } from '@/data/experience';
 import ExperienceModal from '@/components/ui/ExperienceModal';
 import ShowMoreButton from '@/components/ui/ShowMoreButton';
+import StatCard from '@/components/ui/StatCard';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
 // Helper to get RGB from Hex for CSS custom properties
@@ -38,100 +39,7 @@ const FilterTabs = ({ categories, activeCategory, setActiveCategory, categoryCou
     );
 };
 
-function useCountUp(end, duration = 2000) {
-    const [count, setCount] = useState(0);
-    const [hasStarted, setHasStarted] = useState(false);
-    const ref = useRef(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && !hasStarted) {
-                    setHasStarted(true);
-                }
-            },
-            { threshold: 0.1 }
-        );
-        if (ref.current) observer.observe(ref.current);
-        return () => observer.disconnect();
-    }, [hasStarted]);
-
-    useEffect(() => {
-        if (!hasStarted) return;
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            // easeOutQuart
-            const ease = 1 - Math.pow(1 - progress, 4);
-            setCount(Math.floor(ease * end));
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            } else {
-                setCount(end);
-            }
-        };
-        window.requestAnimationFrame(step);
-    }, [hasStarted, end, duration]);
-
-    return { count, ref };
-}
-
-// Stat Card Component
-const StatCard = React.memo(({ icon: Icon, num, label, sub, color }) => {
-    const numericValue = parseInt(num.replace(/\+/g, '').replace(/%/g, ''));
-    const isPlus = num.includes('+');
-    const isPercent = num.includes('%');
-    const { count, ref } = useCountUp(numericValue, 1500);
-    const colorRgb = hexToRgb(color) || '255,255,255';
-
-    return (
-        <div
-            ref={ref}
-            className="proj-stat-card bg-[#111] border border-[#1a1a1a] rounded-2xl p-5 flex flex-col items-center justify-center text-center group cursor-default h-full w-full min-h-[140px]"
-            style={{
-                '--cat-color': color,
-                '--cat-rgb': colorRgb
-            }}
-        >
-            <style dangerouslySetInnerHTML={{
-                __html: `
-                .proj-stat-card {
-                    transition: all 0.3s ease;
-                }
-                .proj-stat-card:hover {
-                    transform: translateY(-6px);
-                    background-color: rgba(var(--cat-rgb), 0.08);
-                    border-color: rgba(var(--cat-rgb), 0.3);
-                    box-shadow: 0 8px 24px rgba(var(--cat-rgb), 0.2);
-                }
-                .proj-stat-card:hover .stat-icon {
-                    filter: drop-shadow(0 0 8px var(--cat-color));
-                }
-                .proj-stat-card:hover .stat-value {
-                    text-shadow: 0 0 12px var(--cat-color);
-                }
-                `
-            }} />
-            <Icon className="stat-icon w-6 h-6 mb-3 transition-all duration-300" style={{ color: color }} />
-            <span
-                className="stat-value font-bold text-[clamp(24px,3vw,32px)] leading-none mb-1.5 transition-all duration-300"
-                style={{ color: color }}
-            >
-                {count}{isPlus && '+'}{isPercent && '%'}
-            </span>
-            <span className="text-[#555] text-[10px] uppercase tracking-[1.5px] font-bold">
-                {label}
-            </span>
-            <span className="text-[#333] text-[11px] mt-[3px]">
-                {sub}
-            </span>
-        </div>
-    );
-});
-StatCard.displayName = 'StatCard';
-
-const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCards }) => {
+const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCards, className = '' }) => {
     const cardColorRgb = hexToRgb(item.color);
     const isHitachi = item.company.includes("Hitachi");
     const skills = item.techStack || item.skills || [];
@@ -183,11 +91,11 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
     // Hardcoded brief summaries map based on requested specs
     const getBriefSummary = (company, role) => {
         if (company.includes("Hitachi")) return "Built industrial AI systems including AutoML platform, Unified Gateway, and analytics dashboards.";
-        if (company.includes("Netfotech")) return "Developed SmartGoodsMatch web app using Flask, SQLite, and RESTful APIs.";
+        if (company.includes("SS Infotech")) return "Building end-to-end machine learning workflows and analytics solutions, from data preparation to model evaluation and reporting.";
+        if (company.includes("BIntelligenD") && role.includes("Research")) return "Explainable lightweight CNNs for leukaemia detection, reaching 95.48% accuracy with Grad-CAM visual explanations.";
+        if (company.includes("EZY")) return "Multi-metric, domain-aware benchmarking framework for evaluating text-to-image diffusion models.";
+        if (company.includes("BIntelligenD")) return "Applied Python data science and ML fundamentals on real-world datasets, from EDA to visualization.";
         if (company.includes("Eagle Wears")) return "Founded premium apparel brand, secured ₹1L+ order, managed full operations.";
-        if (company.includes("Aashraya") && role.includes("Representative")) return "Campus representative organizing social awareness programs and outreach.";
-        if (company.includes("Aashraya") && role.includes("Volunteer")) return "Permanent volunteer supporting community welfare across Maharashtra.";
-        if (company.includes("Sahyadri")) return "Contributed to social development and community outreach initiatives.";
         return "";
     };
 
@@ -198,7 +106,7 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
-            className="relative w-full h-full"
+            className={`relative w-full h-full ${className}`}
         >
             {/* The Card */}
             <div
@@ -472,7 +380,21 @@ const ExperienceCard = React.memo(({ item, index, layoutIndex, onClick, totalCar
                                 <span className="company-name text-[13px] font-[500] text-[#bbb] transition-colors duration-300 truncate leading-none">{item.company}</span>
                             </div>
                             <span className="text-[#444] text-[12px] shrink-0">•</span>
-                            <span className="bg-[rgba(255,255,255,0.05)] px-2 py-[2px] rounded text-[#777] text-[10px] sm:text-[11px] font-medium shrink-0 leading-none">{item.type}</span>
+                            {item.employmentType === "full-time" ? (
+                                <span
+                                    className="inline-flex items-center gap-[4px] px-2 py-[2px] rounded text-[10px] sm:text-[11px] font-[700] shrink-0 leading-none"
+                                    style={{
+                                        backgroundColor: `rgba(${fullTimeAccent.rgb}, 0.12)`,
+                                        border: `1px solid rgba(${fullTimeAccent.rgb}, 0.25)`,
+                                        color: fullTimeAccent.color
+                                    }}
+                                >
+                                    <Briefcase className="w-[11px] h-[11px] shrink-0" />
+                                    {item.type}
+                                </span>
+                            ) : (
+                                <span className="bg-[rgba(255,255,255,0.05)] px-2 py-[2px] rounded text-[#777] text-[10px] sm:text-[11px] font-medium shrink-0 leading-none">{item.type}</span>
+                            )}
                         </div>
                         {/* Location Row */}
                         <div className="flex items-center gap-[4px] text-[#777] mt-[2px] shrink-0 h-[16px] overflow-hidden">
@@ -558,6 +480,19 @@ const Experience = React.memo(function Experience() {
         return counts;
     }, []);
 
+    // Hero stat values derived from the experience data (via explicit employmentType)
+    const statValues = useMemo(() => {
+        const byType = (type) => experienceData.filter(item => item.employmentType === type);
+        const internships = byType("internship");
+        return {
+            fullTime: byType("full-time").length,
+            industryInternships: internships.filter(item => item.category !== "Research").length,
+            researchInternships: internships.filter(item => item.category === "Research").length,
+            startupFounded: byType("founder").length,
+            organizations: new Set(experienceData.map(item => item.company)).size
+        };
+    }, []);
+
     const filteredData = useMemo(() => {
         if (activeCategory === "All") return experienceData;
         return experienceData.filter(item => item.category === activeCategory);
@@ -577,6 +512,16 @@ const Experience = React.memo(function Experience() {
     });
 
     const indicatorHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+    // Column placement for the 2-col (4-track) grid used from 481px up.
+    // Every card spans 2 tracks; when the number of visible cards is odd the last
+    // one starts at track 2 (grid-column: 2 / span 2) so it is centred beneath the
+    // row above at the same width — never full-width, never left-aligned.
+    const cardColumnClass = (index) => {
+        if (isMobile) return '';
+        const isLastOdd = filteredData.length % 2 === 1 && index === filteredData.length - 1;
+        return `col-span-2${isLastOdd ? ' col-start-2' : ''}`;
+    };
 
     return (
         <section ref={sectionRef} id="experience" className="relative pt-[80px] pb-[80px] bg-[#080808] overflow-hidden" style={{ contain: 'layout style' }}>
@@ -666,11 +611,12 @@ const Experience = React.memo(function Experience() {
                         margin: '8px auto 24px auto'
                     }} />
                     <p className="max-w-[580px] w-full text-[#888888] text-[16px] max-[480px]:text-[14px] italic min-w-0 break-words px-2">
-                        Where industry experience, entrepreneurship, and social impact come together to build meaningful technology.
+                        Where industry experience, research, and entrepreneurship come together to build meaningful technology.
                     </p>
                 </motion.div>
 
-                {/* STATS ROW — 4 cards: 2x2 tablet/mobile, single row desktop */}
+                {/* STATS ROW — 5 cards at the fixed Projects card width, wrap-centred:
+                    5 per row (desktop), 3 + 2 (tablet), 2 + 2 + 1 (mobile) */}
                 <div className="w-full">
                     <motion.div
                         initial="hidden"
@@ -679,20 +625,23 @@ const Experience = React.memo(function Experience() {
                         variants={{
                             visible: { transition: { staggerChildren: 0.1 } }
                         }}
-                        className="grid grid-cols-2 min-[1025px]:grid-cols-4 gap-[16px] max-w-[680px] mx-auto mb-7 items-stretch"
+                        className="exp-stats-row flex flex-wrap justify-center items-stretch gap-[16px] w-full mx-auto mb-7"
                     >
-                        <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
-                            <StatCard icon={Briefcase} num="2" label="INDUSTRY INTERNSHIPS" color="#ff4d5a" />
-                        </motion.div>
-                        <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
-                            <StatCard icon={Rocket} num="1" label="STARTUP FOUNDED" color="#3b82f6" />
-                        </motion.div>
-                        <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
-                            <StatCard icon={Building2} num="5" label="ORGANIZATIONS" color="#f59e0b" />
-                        </motion.div>
-                        <motion.div className="h-full" variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}>
-                            <StatCard icon={Heart} num="2" label="SOCIAL IMPACT" color="#22c55e" />
-                        </motion.div>
+                        {[
+                            { icon: Briefcase, num: statValues.fullTime, label: "FULL-TIME ROLE", color: fullTimeAccent.color },
+                            { icon: GraduationCap, num: statValues.industryInternships, label: "INDUSTRY INTERNSHIPS", color: "#ff4d5a" },
+                            { icon: FlaskConical, num: statValues.researchInternships, label: "RESEARCH INTERNSHIPS", color: "#3b82f6" },
+                            { icon: Rocket, num: statValues.startupFounded, label: "STARTUP FOUNDED", color: "#f59e0b" },
+                            { icon: Building2, num: statValues.organizations, label: "ORGANIZATIONS", color: "#22c55e" }
+                        ].map((card) => (
+                            <motion.div
+                                key={card.label}
+                                variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}
+                                className="exp-stat-item flex shrink-0 grow-0 basis-auto"
+                            >
+                                <StatCard icon={card.icon} num={card.num.toString()} label={card.label} color={card.color} alignLabels />
+                            </motion.div>
+                        ))}
                     </motion.div>
 
                     {/* FILTER TABS */}
@@ -720,10 +669,12 @@ const Experience = React.memo(function Experience() {
                     <div className="absolute left-0 top-1/2 text-[rgba(255,255,255,0.05)] text-[10px] font-bold tracking-widest -rotate-90 origin-left pointer-events-none hidden lg:block">2025</div>
                     <div className="absolute left-0 bottom-20 text-[rgba(255,255,255,0.05)] text-[10px] font-bold tracking-widest -rotate-90 origin-left pointer-events-none hidden lg:block">2024</div>
 
-                    {/* EXPERIENCE CARDS GRID — 1 col mobile, 2 cols tablet+ */}
-                    <div className={`relative z-10 w-full grid gap-[20px] items-stretch min-[1025px]:px-6 ${filteredData.length === 1
-                            ? 'grid-cols-1 max-w-[560px] mx-auto'
-                            : 'grid-cols-1 min-[481px]:grid-cols-2'
+                    {/* EXPERIENCE CARDS GRID — 1 col on mobile; 2-col (4-track) grid otherwise.
+                        Every card spans 2 tracks so an odd last card can be centred between
+                        the two columns (grid-column: 2 / span 2) instead of sitting left-aligned. */}
+                    <div className={`relative z-10 w-full grid gap-[20px] items-stretch min-[1025px]:px-6 ${isMobile
+                            ? 'grid-cols-1'
+                            : 'grid-cols-4'
                         }`}>
 
                         {filteredData.length > 0 && (
@@ -734,6 +685,7 @@ const Experience = React.memo(function Experience() {
                                 layoutIndex={0}
                                 onClick={setSelectedExperience}
                                 totalCards={filteredData.length}
+                                className={cardColumnClass(0)}
                             />
                         )}
 
@@ -754,6 +706,7 @@ const Experience = React.memo(function Experience() {
                                                 layoutIndex={idx + 1}
                                                 onClick={setSelectedExperience}
                                                 totalCards={filteredData.length}
+                                                className={cardColumnClass(idx + 1)}
                                             />
                                         ))}
                                     </motion.div>
@@ -768,6 +721,7 @@ const Experience = React.memo(function Experience() {
                                     layoutIndex={idx + 1}
                                     onClick={setSelectedExperience}
                                     totalCards={filteredData.length}
+                                    className={cardColumnClass(idx + 1)}
                                 />
                             ))
                         )}
@@ -790,8 +744,24 @@ const Experience = React.memo(function Experience() {
                 onClose={() => setSelectedExperience(null)}
             />
 
+            {/* Experience stat-card sizing — fixed width identical to the Projects stat card
+                (Projects: (680px − 3×16px) ÷ 4 = 158px). The row stays centred and wraps:
+                5 per row (desktop) → 3 + 2 (tablet) → 2 + 2 + 1 (mobile). */}
             <style dangerouslySetInnerHTML={{
                 __html: `
+                .exp-stat-item {
+                    width: calc((100% - 16px) / 2);
+                }
+                .exp-stats-row {
+                    max-width: 100%;
+                }
+                @media (min-width: 481px) {
+                    .exp-stat-item { width: 158px; }
+                    .exp-stats-row { max-width: calc((158px * 3) + 32px); }
+                }
+                @media (min-width: 1025px) {
+                    .exp-stats-row { max-width: calc((158px * 5) + 64px); }
+                }
         `}} />
 
         </section>

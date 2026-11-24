@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, FolderOpen, FlaskConical, GraduationCap, Code2, Award, Trophy, Medal, Users, Images } from 'lucide-react';
+import { Menu, X, ChevronDown, FolderOpen, FlaskConical, GraduationCap, Code2, Award, Trophy, Medal, Users, Images, Briefcase, HeartHandshake } from 'lucide-react';
 import { navLinks } from '@/data/navLinks';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { personalInfo } from '@/data/personalInfo';
@@ -14,7 +14,9 @@ const iconMap = {
     Trophy: Trophy,
     Medal: Medal,
     Users: Users,
-    Images: Images
+    Images: Images,
+    Briefcase: Briefcase,
+    HeartHandshake: HeartHandshake
 };
 
 export default function Navbar() {
@@ -24,7 +26,7 @@ export default function Navbar() {
 
     // Track all possible section IDs
     const activeSectionId = useActiveSection([
-        'home', 'about', 'experience', 'profile', 'projects', 'research', 'education',
+        'home', 'about', 'experience', 'volunteering', 'profile', 'projects', 'research', 'education',
         'skills', 'certifications', 'achievements', 'awards', 'leadership', 'gallery', 'contact'
     ]);
 
@@ -57,8 +59,8 @@ export default function Navbar() {
                 </a>
 
                 {/* Desktop Nav + Right CTA (Right aligned) */}
-                <div className="hidden lg:flex items-center gap-8 ml-auto">
-                    <nav className="flex items-center gap-8">
+                <div className="hidden lg:flex items-center gap-6 xl:gap-8 ml-auto">
+                    <nav className="flex items-center gap-6 xl:gap-8">
                         {navLinks.map((item) => {
                             const isDropdownActive = item.dropdown && item.dropdown.some(dropItem => activeSectionId === dropItem.href.slice(1));
                             const isActive = activeSectionId === item.name.toLowerCase() || (activeSectionId === '' && item.href === '#home') || isDropdownActive;
@@ -201,7 +203,7 @@ export default function Navbar() {
                                                             <a
                                                                 key={dropItem.name}
                                                                 href={dropItem.href}
-                                                                className="flex items-center justify-center gap-3 w-full py-3 text-[16px] text-[#aaa] hover:text-[var(--accent)] transition-colors"
+                                                                className="flex items-center justify-center gap-3 w-full py-3 min-h-[44px] text-[16px] text-[#aaa] hover:text-[var(--accent)] transition-colors"
                                                                 onClick={() => setMobileMenuOpen(false)}
                                                             >
                                                                 {IconComponent && <IconComponent className="w-4 h-4" />}

@@ -8,6 +8,7 @@ import BackToTop from '@/components/layout/BackToTop';
 import Home from '@/components/sections/Home';
 const About = React.lazy(() => import('@/components/sections/About'));
 const Experience = React.lazy(() => import('@/components/sections/Experience'));
+const Volunteering = React.lazy(() => import('@/components/sections/Volunteering'));
 const Projects = React.lazy(() => import('@/components/sections/Projects'));
 const Research = React.lazy(() => import('@/components/sections/Research'));
 const Education = React.lazy(() => import('@/components/sections/Education'));
@@ -35,6 +36,7 @@ function App() {
       home: 'Mohit',
       about: 'About | Mohit',
       experience: 'Experience | Mohit',
+      volunteering: 'Volunteering | Mohit',
       projects: 'Projects | Mohit',
       research: 'Research & Publications | Mohit',
       education: 'Education | Mohit',
@@ -115,6 +117,8 @@ function App() {
             <About />
             <SectionDivider />
             <Experience />
+            <SectionDivider />
+            <Volunteering />
             <SectionDivider />
             <Projects />
             <SectionDivider />

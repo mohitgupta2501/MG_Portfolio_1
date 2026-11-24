@@ -116,7 +116,7 @@ StatCard.displayName = 'StatCard';
 
 const EducationStats = memo(() => {
     const stats = [
-        { label: "CGPA", val: "9.60", icon: Star, color: "#ff4d5a", rgb: "255, 77, 90", suffix: "60" },
+        { label: "CGPA", val: "9.59", icon: Star, color: "#ff4d5a", rgb: "255, 77, 90", suffix: "60" },
         { label: "1ST/2ND/3RD/4TH YEAR RANK", val: "1st", icon: Trophy, color: "#f59e0b", rgb: "245, 158, 11" },
         { label: "TOTAL AWARDS/MEDALS", val: "78+", icon: Award, color: "#22c55e", rgb: "34, 197, 94" },
         { label: "RESEARCH PAPERS", val: "3", icon: FileText, color: "#a855f7", rgb: "168, 85, 247" }
@@ -163,7 +163,7 @@ const EducationTimeline = memo(() => {
     const nodes = [
         { year: "2009", label: "SSC", marker: "89.40%", color: "#22c55e", rgb: "34, 197, 94" },
         { year: "2020", label: "HSC", marker: "87.67%", color: "#f59e0b", rgb: "245, 158, 11" },
-        { year: "2022", label: "B.Tech", marker: "9.60 CGPA", color: "#ff4d5a", rgb: "255, 77, 90" },
+        { year: "2022", label: "B.Tech", marker: "9.59 CGPA", color: "#ff4d5a", rgb: "255, 77, 90" },
         { year: "2026", label: "(Current)", marker: "Pursuing", color: "#ff4d5a", rgb: "255, 77, 90", pulse: true }
     ];
 });

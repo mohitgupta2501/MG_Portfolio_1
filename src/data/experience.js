@@ -1,11 +1,48 @@
+// Accent colours (hex + rgb tint), defined once as the single source of truth.
+// Same `color` / `rgb` shape used by the volunteering data entries.
+export const fullTimeAccent = { color: '#06b6d4', rgb: '6, 182, 212' }; // cyan
+
 export const experienceData = [
+    {
+        role: "Junior Data Scientist",
+        company: "SS Infotech",
+        companyLink: "", // TODO: add official company URL
+        companyUrl: "https://ssinfotech.co.in/",
+        location: "Nagpur, Maharashtra, India",
+        duration: "Aug 2026 – Present",
+        type: "Full-time · On-site",
+        employmentType: "full-time",
+        category: "Data Scientist",
+        color: "#ff4d5a", // coral-red
+        keySystemsLabel: "Key Focus",
+        keySystems: [
+            "ML Workflows",
+            "Data Analysis",
+            "Dashboards & Reporting"
+        ],
+        contributions: [
+            "Transform raw, multi-source datasets into analysis-ready data using Python and SQL, performing data cleaning, preprocessing, exploratory data analysis, and statistical analysis to uncover underlying patterns and business-relevant insights.",
+            "Design and implement end-to-end machine learning workflows, covering feature engineering, algorithm selection, model training, and performance evaluation across regression, classification, and clustering problems.",
+            "Experiment with different modeling approaches, validation strategies, and hyperparameter optimization techniques to assess model reliability, improve predictive performance, and ensure generalization on unseen data.",
+            "Develop data-driven analytical solutions by translating business requirements into measurable objectives, interpreting model outputs, and identifying actionable insights from complex datasets.",
+            "Present analytical findings and model performance through clear visualizations, dashboards, and technical reports, while maintaining organized documentation of experiments, methodologies, and results for reproducibility."
+        ],
+        techStack: [
+            "Python", "SQL", "Data Cleaning", "Data Preprocessing",
+            "Exploratory Data Analysis (EDA)", "Statistical Analysis", "Feature Engineering",
+            "Regression", "Classification", "Clustering",
+            "Hyperparameter Optimization", "Model Evaluation",
+            "Data Visualization", "Dashboards", "Technical Reporting"
+        ]
+    },
     {
         role: "Software Engineer & Data Scientist Intern",
         company: "Hitachi Automation India Pvt. Ltd.",
         companyLink: "https://www.hitachi.com/en-in/",
         location: "Nagpur, Maharashtra, India",
-        duration: "Jul 2025 – Present",
+        duration: "Jul 2025 – Jul 2026",
         type: "Internship · On-site",
+        employmentType: "internship",
         category: "Data Scientist",
         color: "#ff4d5a", // coral-red
         // badge: "★ Current Role",
@@ -17,15 +54,12 @@ export const experienceData = [
             "Energy Monitoring System (EMS)"
         ],
         contributions: [
-            "Developed an End-to-End AutoML platform automating the entire ML lifecycle including data ingestion, preprocessing, feature engineering, model training, evaluation, and automated benchmarking across multiple machine learning and deep learning algorithms",
-            "Engineered an Industrial Unified Gateway System enabling real-time communication between PLCs, sensors, and enterprise applications using industrial protocols such as Modbus, TCP/IP, OPC UA, OPC DA, PROFINET, and DBLink",
-            "Built secure data pipelines and REST APIs enabling seamless integration between frontend applications, backend services, and industrial data sources",
-            "Developed a Full-Stack Energy Monitoring System using React, Django, and SQL with interactive dashboards for real-time energy consumption tracking, KPI visualization, and industrial analytics",
-            "Designed and implemented the Roll Analytics System (RAS) to analyze roll lifecycle, operational performance, cost intelligence, and KPI monitoring through advanced analytics dashboards",
-            "Developed a Coil Sampling & Tracking Management System to digitize the steel manufacturing sampling lifecycle with real-time production monitoring, KPI dashboards, and structured reporting",
-            "Configured industrial protocol parameters and validated end-to-end data flow from device layer to databases ensuring data integrity and real-time transmission",
-            "Implemented secure backend architecture including JWT authentication, Role-Based Access Control (RBAC), structured logging, and monitoring mechanisms for enterprise-grade applications",
-            "Collaborated with cross-functional engineering teams to translate industrial automation requirements into scalable AI-driven software solutions"
+           "Designed and developed an end-to-end Automated Machine Learning (AutoML) platform automating data ingestion, preprocessing, feature engineering, model selection, training, evaluation, and hyperparameter optimization; implemented and benchmarked diverse machine learning and deep learning architectures for scalable, production-oriented experimentation.",
+"Developed a production-oriented Energy Monitoring System (EMS) using React.js, Django, and SQL for real-time industrial energy analytics; engineered KPI-driven dashboards, consumption trend analysis, and billing simulations with optimized data models, SQL aggregation pipelines, and RESTful APIs for high-volume data processing.",
+"Engineered a secure Coil Sampling & Tracking Management System using Angular, ASP.NET Core, and MS SQL Server to digitize end-to-end coil lifecycle tracking across production stations; implemented KPI analytics, PDI/PDO management, SQL reporting, alarm management, industrial logging, JWT authentication, RBAC, OTP verification, and secure API authorization.",
+"Architected and validated a centralized Unified Gateway System (UGS) for real-time industrial data integration across heterogeneous protocols including Modbus, OPC UA/DA, TCP/IP, PROFINET, and DBLINK; developed dynamic flow management, monitoring, telegram logging, alarm management, and secure REST APIs using React.js and Django.",
+"Architected and developed a scalable Roll Analytics System (RAS) using Angular, Django, and SQL for real-time roll lifecycle monitoring and industrial performance intelligence; implemented roll wear and diameter-consumption analytics, cost/km and cost/ton analysis, campaign and lifecycle metrics, supplier benchmarking, alarm management, advanced filtering, and automated Excel/CSV reporting.",
+"Collaborated with cross-functional engineering teams to translate complex industrial requirements into scalable technical solutions, applying machine learning, data analytics, database engineering, data processing, RESTful API development, industrial communication protocols, system testing, and secure enterprise architecture across production-oriented applications."
         ],
         techStack: [
             "Python", "Django", "React.js", "Angular",
@@ -44,31 +78,79 @@ export const experienceData = [
         ]
     },
     {
-        role: "Software Engineer Trainee",
-        company: "Netfotech Solutions",
-        companyLink: "https://www.netfotech.in/",
+        role: "Research Intern",
+        company: "BIntelligenD.com",
+        companyLink: "", // TODO: add official company URL
         location: "Nagpur, Maharashtra, India",
-        duration: "Jun 2025 – Jul 2025",
-        type: "Internship · Remote",
-        category: "Software Engineer",
+        duration: "Jan 2025 – Jun 2025",
+        type: "Internship · Hybrid",
+        employmentType: "internship",
+        category: "Research",
         color: "#3b82f6", // blue
-        keyProject: "SmartGoodsMatch – AI Logistics Platform",
+        keySystemsLabel: "Key Research",
+        keySystems: [
+            "Visual Explainability in Lightweight CNNs for Acute Lymphoblastic Leukaemia Detection in Peripheral Blood Smears"
+        ],
         contributions: [
-            "Worked as a Software Engineer Trainee on the Smartsgood web application, focusing on responsive UI development and usability optimization",
-            "Developed responsive frontend components using HTML, CSS, and JavaScript to create an intuitive and cross-device compatible user interface",
-            "Built backend services using Flask and SQLite to handle application logic, data persistence, and database operations",
-            "Designed and implemented RESTful APIs enabling seamless communication between frontend interfaces and backend services",
-            "Applied software engineering best practices including modular architecture, clean code structure, and maintainable design patterns",
-            "Performed basic testing and debugging to ensure application reliability and smooth functionality",
-            "Gained hands-on experience in full-stack development, backend integration, and API design while contributing to a real-world production-oriented project"
+            "Independently conducted research on \"Visual Explainability in Lightweight CNNs for Acute Lymphoblastic Leukaemia Detection in Peripheral Blood Smears,\" developing an explainable deep learning framework for multi-class medical image classification.",
+            "Developed and comparatively evaluated MobileNetV3, EfficientNet-B0, and ResNet-50 using transfer learning, progressive fine-tuning, patient-wise data splitting, data augmentation, Focal Loss, and multi-seed evaluation on 3,242 peripheral blood smear images.",
+            "Achieved 95.48% mean accuracy and 99.74% AUC with MobileNetV3, demonstrating an effective balance of predictive performance and computational efficiency across four diagnostic classes.",
+            "Implemented Grad-CAM-based Explainable AI to visualize diagnostically relevant cellular regions, particularly cell nuclei and morphological features, enhancing model interpretability and transparency for healthcare applications."
         ],
         techStack: [
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "Flask",
-            "Microsoft SQL Server",
-            "REST API Development"
+            "Deep Learning", "Computer Vision", "Medical Imaging",
+            "MobileNetV3", "EfficientNet-B0", "ResNet-50",
+            "Transfer Learning", "Fine-Tuning", "Data Augmentation",
+            "Focal Loss", "Grad-CAM", "Explainable AI (XAI)"
+        ]
+    },
+    {
+        role: "Research Intern",
+        company: "EZY Multiservices Pvt. Ltd.",
+        companyLink: "", // TODO: add official company URL
+        location: "Nagpur, Maharashtra, India",
+        duration: "Jul 2024 – Dec 2024",
+        type: "Internship · Hybrid",
+        employmentType: "internship",
+        category: "Research",
+        color: "#3b82f6", // blue
+        keySystemsLabel: "Key Research",
+        keySystems: [
+            "A Multi-Metric Domain-Aware Benchmarking Framework for Evaluating Text-to-Image Diffusion Models"
+        ],
+        contributions: [
+            "Independently conducted research on \"A Multi-Metric Domain-Aware Benchmarking Framework for Evaluating Text-to-Image Diffusion Models,\" focusing on domain-aware evaluation of generative AI models across human-centric and non-human semantic domains.",
+            "Designed and implemented a reproducible benchmarking pipeline to evaluate four Stable Diffusion-based models using standardized PartiPrompts, GPU-accelerated inference, PyTorch, and Hugging Face Diffusers.",
+            "Integrated CLIPScore, SSIM, LPIPS, and Aesthetic Score into a weighted composite evaluation framework, enabling quantitative comparison of semantic alignment, structural fidelity, perceptual similarity, and visual quality.",
+            "Analyzed experimental results to identify domain-specific model strengths and support informed model selection, contributing to a systematic and transparent evaluation framework for text-to-image generation."
+        ],
+        techStack: [
+            "Generative AI", "Stable Diffusion", "PyTorch",
+            "Hugging Face Diffusers", "PartiPrompts", "CLIPScore",
+            "SSIM", "LPIPS", "Aesthetic Score",
+            "Benchmarking", "GPU Inference"
+        ]
+    },
+    {
+        role: "Data Science Intern",
+        company: "BIntelligenD.com",
+        companyLink: "", // TODO: add official company URL
+        location: "Nagpur, Maharashtra, India",
+        duration: "Jan 2024 – Jun 2024",
+        type: "Internship · Hybrid",
+        employmentType: "internship",
+        category: "Data Scientist",
+        color: "#ff4d5a", // coral-red
+        contributions: [
+            "Applied Python-based data science techniques to real-world datasets, performing data collection, preprocessing, exploratory data analysis (EDA), data cleaning, and visualization to derive meaningful insights from structured data.",
+            "Implemented fundamental machine learning algorithms and supported feature engineering, model evaluation, and performance analysis, gaining hands-on experience across the end-to-end data science workflow.",
+            "Developed analytical visualizations and reports to identify patterns, trends, and relationships within datasets, while contributing to data interpretation and technical documentation.",
+            "Strengthened practical proficiency in Python and data science libraries through hands-on assignments, applying systematic problem-solving, analytical thinking, and standard development practices to data-driven tasks."
+        ],
+        techStack: [
+            "Python", "Data Collection", "Data Preprocessing",
+            "Data Cleaning", "EDA", "Machine Learning",
+            "Feature Engineering", "Model Evaluation", "Data Visualization"
         ]
     },
     {
@@ -78,6 +160,7 @@ export const experienceData = [
         location: "Nagpur, Maharashtra, India",
         duration: "Dec 2024 – Present",
         type: "Entrepreneurship",
+        employmentType: "founder",
         category: "Startup Founded",
         color: "#f59e0b", // amber/gold
         badge: "Founder",
@@ -98,92 +181,6 @@ export const experienceData = [
         skills: [
             "Entrepreneurship", "Business Strategy", "Brand Development",
             "Operations Management", "Leadership"
-        ]
-    },
-    {
-        role: "Joint Campus Representative",
-        company: "Prashraya Welfare Foundation (Team Aashraya)",
-        companyLink: "https://prashraya.org/",
-        location: "Nagpur, Maharashtra, India",
-        duration: "Jan 2026 – Present",
-        type: "Part-time · Hybrid",
-        category: "Social Impact",
-        color: "#22c55e", // green
-        contributions: [
-            "Appointed as Joint Campus Representative of St. Vincent Pallotti College of Engineering & Technology representing Prashraya Welfare Foundation (Team Aashraya) at the institutional level",
-            "Planned, coordinated, and executed campus-based awareness campaigns, outreach programs, and social initiatives aligned with the foundation’s mission",
-            "Actively supported initiatives under the Shiksha (Education) and Shakti (Women Empowerment) domains through student-led programs and awareness drives",
-            "Served as a liaison between foundation leadership and the student community to facilitate communication, collaboration, and participation in social initiatives",
-            "Promoted student involvement in volunteer activities and internship opportunities associated with the foundation",
-            "Collaborated with foundation leadership, coordinators, and volunteer teams to support community development and public welfare initiatives",
-            "Contributed to the strategic planning and execution of institutional-level social impact programs aimed at creating sustainable and measurable positive change"
-        ],
-        skills: [
-            "Program Coordination",
-            "Community Development",
-            "Community Outreach",
-            "Stakeholder Communication",
-            "Leadership",
-            "Public Speaking",
-            "Event Planning",
-            "Social Impact",
-            "Volunteer Management"
-        ]
-    },
-    {
-        role: "Permanent Volunteer Member",
-        company: "Prashraya Welfare Foundation (Team Aashraya)",
-        companyLink: "https://prashraya.org/",
-        location: "Nagpur, Maharashtra, India",
-        duration: "Jan 2026 – Present",
-        type: "Part-time · Hybrid",
-        category: "Social Impact",
-        color: "#22c55e", // green
-        contributions: [
-            "Accepted as a permanent volunteer member of Prashraya Welfare Foundation (Team Aashraya), contributing to community welfare and social service initiatives across Maharashtra",
-            "Actively supported the foundation’s mission of creating sustainable and positive social impact through community-focused initiatives",
-            "Participated in grassroots outreach programs, public awareness campaigns, and social service drives promoting community development",
-            "Supported initiatives related to education, menstrual health awareness, and community empowerment through collaborative volunteer efforts",
-            "Collaborated with fellow volunteers and foundation leadership to plan and execute social impact activities",
-            "Demonstrated strong commitment, dedication, and leadership potential while actively contributing as a core member alongside academic and institutional responsibilities"
-        ],
-        skills: [
-            "Program Coordination",
-            "Community Development",
-            "Community Outreach",
-            "Stakeholder Communication",
-            "Leadership",
-            "Public Speaking",
-            "Social Impact",
-            "Volunteer Management"
-        ]
-    },
-    {
-        role: "Permanent Volunteer Member",
-        company: "Sahyadri Foundation",
-        companyLink: "https://sahyadrifoundation.co/",
-        location: "Nagpur, Maharashtra, India",
-        duration: "Jan 2026 – Present",
-        type: "Part-time · Hybrid",
-        category: "Social Impact",
-        color: "#22c55e", // green
-        contributions: [
-            "Served as a Volunteer Member of Sahyadri Foundation contributing to community welfare and social development initiatives across Maharashtra",
-            "Participated in social impact programs focused on community development, public welfare, and sustainable grassroots change",
-            "Supported outreach activities and awareness campaigns addressing local societal needs and promoting community participation",
-            "Assisted in planning, coordinating, and executing foundation-led initiatives in collaboration with coordinators and organizing teams",
-            "Contributed to organizing educational, environmental, and social impact programs aimed at improving community well-being",
-            "Collaborated with volunteers and organizers to ensure effective and timely implementation of community service activities aligned with the foundation’s objectives",
-            "Demonstrated strong commitment to social responsibility, civic engagement, ethical service, and collaborative teamwork through active participation"
-        ],
-        skills: [
-            "Program Coordination",
-            "Community Development",
-            "Community Outreach",
-            "Stakeholder Communication",
-            "Leadership",
-            "Public Speaking",
-            "Social Impact"
         ]
     }
 ];

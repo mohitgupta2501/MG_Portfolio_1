@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Calendar, MapPin, Building2, Rocket, ExternalLink } from 'lucide-react';
+import { X, Calendar, MapPin, Building2, Rocket, Briefcase, ExternalLink } from 'lucide-react';
+import { fullTimeAccent } from '@/data/experience';
 
 // Helper to get RGB from Hex for CSS custom properties
 const hexToRgb = (hex) => {
@@ -36,6 +37,7 @@ export default function ExperienceModal({ exp, onClose }) {
     if (!exp) return null;
 
     const cardColorRgb = hexToRgb(exp.color);
+    const companyHref = exp.companyLink || exp.companyUrl;
 
     const getSystemIcon = (sys) => {
         if (sys.includes("AutoML")) return "🤖";
@@ -169,22 +171,36 @@ export default function ExperienceModal({ exp, onClose }) {
                         </h3>
 
                         <div className="flex flex-wrap items-center gap-4 text-[13px] text-[#666666] mb-8 border-b border-[#1e1e1e] pb-6">
-                            <span className="flex items-center gap-1.5 border border-[#2a2a2a] px-3 py-1 rounded-md bg-[#111111]">
-                                {exp.type}
-                            </span>
+                            {exp.employmentType === "full-time" ? (
+                                <span
+                                    className="flex items-center gap-1.5 px-3 py-1 rounded-md border font-[600]"
+                                    style={{
+                                        backgroundColor: `rgba(${fullTimeAccent.rgb}, 0.12)`,
+                                        borderColor: `rgba(${fullTimeAccent.rgb}, 0.35)`,
+                                        color: fullTimeAccent.color
+                                    }}
+                                >
+                                    <Briefcase className="w-3.5 h-3.5" />
+                                    {exp.type}
+                                </span>
+                            ) : (
+                                <span className="flex items-center gap-1.5 border border-[#2a2a2a] px-3 py-1 rounded-md bg-[#111111]">
+                                    {exp.type}
+                                </span>
+                            )}
                             <div className="flex items-center gap-1.5">
                                 <MapPin className="w-4 h-4" />
                                 {exp.location}
                             </div>
                         </div>
 
-                        {/* Key Systems (Hitachi) */}
+                        {/* Key Systems / Key Research / Key Focus */}
                         {exp.keySystems && (
                             <div className="mb-8">
                                 <div className="flex items-center gap-[8px] mb-[10px]">
                                     <span className="w-[20px] h-[1px] inline-block" style={{ backgroundColor: `rgba(${cardColorRgb}, 0.5)` }} />
                                     <span className="text-[#555] text-[10px] uppercase tracking-[2.5px] font-[600]">
-                                        Key Systems
+                                        {exp.keySystemsLabel || "Key Systems"}
                                     </span>
                                 </div>
                                 <div className="flex flex-wrap gap-[8px]">
@@ -193,24 +209,6 @@ export default function ExperienceModal({ exp, onClose }) {
                                             {sys}
                                         </span>
                                     ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Key Project (Netfotech) */}
-                        {exp.keyProject && (
-                            <div className="mb-8">
-                                <div className="flex items-center gap-[8px] mb-[10px]">
-                                    <span className="w-[20px] h-[1px] inline-block" style={{ backgroundColor: `rgba(${cardColorRgb}, 0.5)` }} />
-                                    <span className="text-[#555] text-[10px] uppercase tracking-[2.5px] font-[600]">
-                                        Key Project
-                                    </span>
-                                </div>
-                                <div className="flex flex-wrap gap-[8px]">
-                                    <span className="key-tag">
-
-                                        {exp.keyProject}
-                                    </span>
                                 </div>
                             </div>
                         )}
@@ -267,37 +265,39 @@ export default function ExperienceModal({ exp, onClose }) {
 
                         {/* Modal Bottom CTA */}
                         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <div className="flex gap-4 w-full sm:w-auto">
-                                <a
-                                    href={exp.companyLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-5 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-[14px] font-medium transition-all duration-300 group w-full sm:w-auto"
-                                    style={{
-                                        borderColor: `${exp.color}50`,
-                                        color: exp.color,
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.backgroundColor = exp.color;
-                                        e.currentTarget.style.color = '#fff';
-                                        e.currentTarget.style.borderColor = exp.color;
-                                        e.currentTarget.style.boxShadow = `0 4px 14px rgba(${cardColorRgb}, 0.4)`;
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.backgroundColor = 'transparent';
-                                        e.currentTarget.style.color = exp.color;
-                                        e.currentTarget.style.borderColor = `${exp.color}50`;
-                                        e.currentTarget.style.boxShadow = 'none';
-                                    }}
-                                >
-                                    View Company
-                                    <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-                                </a>
-                            </div>
+                            {companyHref && (
+                                <div className="flex gap-4 w-full sm:w-auto">
+                                    <a
+                                        href={companyHref}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-5 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-[14px] font-medium transition-all duration-300 group w-full sm:w-auto"
+                                        style={{
+                                            borderColor: `${exp.color}50`,
+                                            color: exp.color,
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.backgroundColor = exp.color;
+                                            e.currentTarget.style.color = '#fff';
+                                            e.currentTarget.style.borderColor = exp.color;
+                                            e.currentTarget.style.boxShadow = `0 4px 14px rgba(${cardColorRgb}, 0.4)`;
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.backgroundColor = 'transparent';
+                                            e.currentTarget.style.color = exp.color;
+                                            e.currentTarget.style.borderColor = `${exp.color}50`;
+                                            e.currentTarget.style.boxShadow = 'none';
+                                        }}
+                                    >
+                                        View Company
+                                        <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                                    </a>
+                                </div>
+                            )}
 
                             <button
                                 onClick={onClose}
-                                className="px-5 py-2.5 rounded-xl border border-[#2a2a2a] text-[#888] bg-transparent text-[14px] font-medium flex items-center justify-center transition-all duration-300 hover:border-[#ff4d5a] hover:bg-[#ff4d5a] hover:text-white hover:shadow-[0_4px_14px_rgba(255,77,90,0.4)] w-full sm:w-auto mt-4 sm:mt-0"
+                                className="px-5 py-2.5 rounded-xl border border-[#2a2a2a] text-[#888] bg-transparent text-[14px] font-medium flex items-center justify-center transition-all duration-300 hover:border-[#ff4d5a] hover:bg-[#ff4d5a] hover:text-white hover:shadow-[0_4px_14px_rgba(255,77,90,0.4)] w-full sm:w-auto mt-4 sm:mt-0 sm:ml-auto"
                             >
                                 Close
                             </button>

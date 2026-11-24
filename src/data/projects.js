@@ -340,50 +340,6 @@ export const projects = [
         ]
     },
     {
-        title: "SmartGoodsMatch",
-        subtitle: "Intelligent Logistics Load Matching Platform",
-        company: "Netfotech Solutions",
-        duration: "Jun 2025 – Jul 2025",
-        category: "Logistics",
-        color: "#22c55e",
-        badge: "Industry Project",
-        status: "Completed",
-        description: "Logistics optimization platform designed to reduce empty truck returns by intelligently matching available vehicles with return loads based on location, route, and timing constraints.",
-        doc: "public/Projects/SmartGoodsMatch.pdf",
-
-        keyFeatures: [
-            "Load-Vehicle Matching",
-            "Route-Based Matching",
-            "Truck & Load Management",
-            "Booking System",
-            "REST API Integration",
-            "Responsive Web Interface",
-            "Logistics Data Management"
-        ],
-
-        keyHighlights: [
-            "Developed logistics optimization platform addressing empty vehicle return problem in goods transportation",
-            "Implemented intelligent load-matching algorithm connecting available trucks with return shipments based on location, route, and timing constraints",
-            "Designed backend architecture using Flask and SQLite with structured database models for trucks, loads, bookings, and users",
-            "Built RESTful APIs enabling seamless communication between frontend interface and backend services",
-            "Developed responsive frontend using HTML, CSS, and JavaScript for efficient booking and vehicle management workflows",
-            "Designed modular system architecture supporting future integration of machine learning models for demand prediction and route optimization",
-            "Applied clean code architecture and modular backend services for scalable logistics system development"
-        ],
-
-        tech: [
-            "Python",
-            "Flask",
-            "SQLite",
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "REST APIs",
-            "Full-Stack Development",
-            "Logistics Optimization"
-        ]
-    },
-    {
         title: "Text-to-Image Diffusion Model Benchmarking",
         subtitle: "Domain-Aware Generative AI Evaluation Framework",
         company: "St. Vincent Pallotti College of Engineering & Technology",

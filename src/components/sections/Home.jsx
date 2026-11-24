@@ -244,7 +244,7 @@ const Home = React.memo(function Home() {
                     transition={{ duration: 0.7, delay: 0.9, ease: "easeOut" }}
                     className="grid grid-cols-2 min-[481px]:grid-cols-3 min-[1025px]:grid-cols-5 min-[1025px]:divide-x min-[1025px]:divide-[rgba(255,255,255,0.1)] gap-3 min-[1025px]:gap-0 w-full max-w-[640px] mx-auto px-2 py-4 max-[480px]:px-2 min-[481px]:px-4 sm:py-6 bg-[rgba(255,255,255,0.03)] backdrop-blur-[12px] border border-[rgba(255,255,255,0.07)] rounded-[16px] overflow-hidden"
                 >
-                    <StatItem end={9} suffix=".60" label="CGPA" />
+                    <StatItem end={9} suffix=".59" label="CGPA" />
                     <StatItem end={9} suffix="" label="PROJECTS" />
                     <StatItem end={3} suffix="" label="PUBLICATIONS" />
                     <StatItem end={21} suffix="" label="CERTIFICATIONS" />

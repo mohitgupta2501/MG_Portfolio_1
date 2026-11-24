@@ -1,7 +1,14 @@
 export const navLinks = [
     { name: 'Home', href: '#home', active: true },
     { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
+    {
+        name: 'Experience',
+        href: '#experience',
+        dropdown: [
+            { name: 'Work Experience', href: '#experience', icon: 'Briefcase' },
+            { name: 'Volunteering & Social Service', href: '#volunteering', icon: 'HeartHandshake' },
+        ]
+    },
     {
         name: 'Profile',
         href: '#profile',

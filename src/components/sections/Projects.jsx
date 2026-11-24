@@ -1,10 +1,11 @@
-import { useState, useMemo, memo, useEffect, useRef } from 'react';
+import { useState, useMemo, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FolderGit2, Factory, FlaskConical, AppWindow } from 'lucide-react';
 import { projects } from '@/data/projects';
 import ProjectCard from '@/components/ui/ProjectCard';
 import ProjectModal from '@/components/ui/ProjectModal';
 import ShowMoreButton from '@/components/ui/ShowMoreButton';
+import StatCard from '@/components/ui/StatCard';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
 // Filter Categories
@@ -13,114 +14,16 @@ const FILTERS = [
     'Industrial',
     'Machine Learning',
     'Healthcare',
-    'Generative AI',
-    'Logistics'
+    'Generative AI'
 ];
 
 // Stats Data
 const stats = [
-    { label: 'Total Projects', value: 9, icon: FolderGit2, color: '#ff4d5a' },
-    { label: 'Industry Projects', value: 6, icon: Factory, color: '#3b82f6' },
+    { label: 'Total Projects', value: 8, icon: FolderGit2, color: '#ff4d5a' },
+    { label: 'Industry Projects', value: 5, icon: Factory, color: '#3b82f6' },
     { label: 'Research Projects', value: 3, icon: FlaskConical, color: '#ec4899' },
-    { label: 'Tech Domains', value: 5, icon: AppWindow, color: '#a855f7' }
+    { label: 'Tech Domains', value: 4, icon: AppWindow, color: '#a855f7' }
 ];
-
-// Stat Counter Hook (simple version)
-function useCountUp(end, duration = 2000) {
-    const [count, setCount] = useState(0);
-    const [hasStarted, setHasStarted] = useState(false);
-    const ref = useRef(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && !hasStarted) {
-                    setHasStarted(true);
-                }
-            },
-            { threshold: 0.1 }
-        );
-        if (ref.current) observer.observe(ref.current);
-        return () => observer.disconnect();
-    }, [hasStarted]);
-
-    useEffect(() => {
-        if (!hasStarted) return;
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            // easeOutQuart
-            const ease = 1 - Math.pow(1 - progress, 4);
-            setCount(Math.floor(ease * end));
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            } else {
-                setCount(end);
-            }
-        };
-        window.requestAnimationFrame(step);
-    }, [hasStarted, end, duration]);
-
-    return { count, ref };
-}
-
-// Helper to get RGB from Hex for CSS custom properties
-const hexToRgb = (hex) => {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : null;
-};
-
-// Stat Card Component
-const StatCard = memo(({ icon: Icon, num, label, color }) => {
-    const numericValue = parseInt(num.replace(/\+/g, ''));
-    const isPlus = num.includes('+');
-    const { count, ref } = useCountUp(numericValue, 1500);
-    const colorRgb = hexToRgb(color) || '255,255,255';
-
-    return (
-        <div
-            ref={ref}
-            className="proj-stat-card bg-[#111] border border-[#1a1a1a] rounded-2xl p-5 flex flex-col items-center justify-center text-center group cursor-default h-full w-full min-h-[140px]"
-            style={{
-                '--cat-color': color,
-                '--cat-rgb': colorRgb
-            }}
-        >
-            <style dangerouslySetInnerHTML={{
-                __html: `
-                .proj-stat-card {
-                    transition: all 0.3s ease;
-                }
-                .proj-stat-card:hover {
-                    transform: translateY(-6px);
-                    background-color: rgba(var(--cat-rgb), 0.08);
-                    border-color: rgba(var(--cat-rgb), 0.3);
-                    box-shadow: 0 8px 24px rgba(var(--cat-rgb), 0.2);
-                }
-                .proj-stat-card:hover .stat-icon {
-                    filter: drop-shadow(0 0 8px var(--cat-color));
-                }
-                .proj-stat-card:hover .stat-value {
-                    text-shadow: 0 0 12px var(--cat-color);
-                }
-                `
-            }} />
-            <Icon className="stat-icon w-6 h-6 mb-3 transition-all duration-300" style={{ color: color }} />
-            <span
-                className="stat-value font-bold text-[clamp(24px,3vw,32px)] leading-none mb-1.5 transition-all duration-300"
-                style={{ color: color }}
-            >
-                {count}{isPlus && '+'}
-            </span>
-            <span className="text-[#555] text-[10px] uppercase tracking-[1.5px] font-bold">
-                {label}
-            </span>
-        </div>
-    );
-});
-
-StatCard.displayName = 'StatCard';
 
 const Projects = memo(() => {
     const [activeFilter, setActiveFilter] = useState('All');
